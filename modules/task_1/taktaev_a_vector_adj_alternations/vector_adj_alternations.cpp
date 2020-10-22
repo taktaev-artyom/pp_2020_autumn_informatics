@@ -1,7 +1,7 @@
 // Copyright 2020 Taktaev Artem
 #include <mpi.h>
 #include <random>
-#include <algorithm>
+#include <vector>
 #include "../../../modules/task_1/taktaev_a_vector_adj_alternations/vector_adj_alternations.h"
 
 std::vector<int> createRandomVector(int vec_size) {

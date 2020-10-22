@@ -41,7 +41,6 @@ TEST(Parallel_Adj_Alternations_MPI, Test_Wrong_Inc) {
 
     if (rank == 0) full_vec = createRandomVector(vec_size);
     ASSERT_ANY_THROW(calculateAdjAlternationsSequential(full_vec, -inc, 1));
-    }
 }
 
 TEST(Parallel_Adj_Alternations_MPI, Test_Wrong_Start_Index) {
@@ -55,7 +54,6 @@ TEST(Parallel_Adj_Alternations_MPI, Test_Wrong_Start_Index) {
 
     if (rank == 0) full_vec = createRandomVector(vec_size);
     ASSERT_ANY_THROW(calculateAdjAlternationsSequential(full_vec, 1, start_index));
-    }
 }
 
 TEST(Parallel_Adj_Alternations_MPI, Test_Size_2) {
