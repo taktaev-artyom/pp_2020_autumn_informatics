@@ -1,5 +1,6 @@
 // Copyright 2020 Taktaev Artem
 #include <mpi.h>
+#include <vector>
 #include <gtest-mpi-listener.hpp>
 #include <gtest/gtest.h>
 #include <iostream>
@@ -10,9 +11,9 @@ TEST(Parallel_Symbol_Count_MPI, Test_10_Same_Symbols_String) {
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
     const int count_size_string = 10;
     std::vector<int> global_string(count_size_string);
-    
+
     if (rank == 0) global_string = createRandomVector(count_size_string);
-    for(int i = 0; i < count_size_string; i++)
+    for (int i = 0; i < count_size_string; i++)
         std::cout << global_string[i] << std::endl;
 
     int global_sum = calculateAdjAlternationsParallel(global_string, count_size_string);

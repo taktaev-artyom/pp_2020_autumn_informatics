@@ -6,11 +6,11 @@
 
 std::vector<int> createRandomVector(int vec_size) {
     if (vec_size <= 0) throw "Wrong size";
-    std::random_device rand;
-    std::mt19937 gen(rand());
+    std::random_device rand_d;
+    std::mt19937 gen(rand_d());
     std::vector<int> res_vec(vec_size);
     for (int  i = 0; i < vec_size; i++)
-	    res_vec[i] = static_cast<int>(gen() % 201) - 100;
+        res_vec[i] = static_cast<int>(gen() % 201) - 100;
     return res_vec;
 }
 
