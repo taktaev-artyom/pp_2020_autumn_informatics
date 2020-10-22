@@ -18,7 +18,8 @@ int calculateAdjAlternationsSequential(const std::vector<int> &vec, int inc, int
     if (start_index < 1) throw "Wrong start index";
     if (inc < 1) throw "Wrong increment";
     int count = 0;
-    for (int i = start_index; i < vec.size(); i = i + inc)
+    int size = vec.size();
+    for (int i = start_index; i < size; i = i + inc)
         if (vec[i] * vec[i - 1] < 0) count++;
     return count;
 }
