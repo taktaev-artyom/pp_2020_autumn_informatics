@@ -33,7 +33,7 @@ int calculateAdjAlternationsParallel(const std::vector<int> &vec, int vec_size) 
     int tail = vec_size - part_vec_size * procNum;
     if (procRank == 0) {
         for (int i = 1; i < procNum; i++)
-            MPI_Send(&vec[0] + part_vec_size * i + tail, part_vec_size, MPI_INT, procNum, 0, MPI_COMM_WORLD);
+            MPI_Send(&vec[0] + part_vec_size * i + tail, part_vec_size, MPI_INT, i, 0, MPI_COMM_WORLD);
     }
     std::vector<int> part_vec(procRank == 0 ? vec_size + tail : vec_size);
     int full_count = 0;
