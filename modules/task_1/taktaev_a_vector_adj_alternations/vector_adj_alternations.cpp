@@ -10,7 +10,7 @@ std::vector<int> createRandomVector(int vec_size) {
     std::mt19937 gen(rand_d());
     std::vector<int> res_vec(vec_size);
     for (int  i = 0; i < vec_size; i++)
-        res_vec[i] = static_cast<int>(gen() % 201) - 100;
+        res_vec[i] = static_cast<int>(gen() % 200) - 100;
     return res_vec;
 }
 
