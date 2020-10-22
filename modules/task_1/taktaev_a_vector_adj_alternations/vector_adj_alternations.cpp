@@ -15,10 +15,10 @@ std::vector<int> createRandomVector(int vec_size) {
 }
 
 int calculateAdjAlternationsSequential(const std::vector<int> &vec, int inc, int start_index) {
-    if (start_index < 1) throw "Wrong start index";
     if (inc < 1) throw "Wrong increment";
     int count = 0;
     int size = vec.size();
+    if ((start_index < 1) || (start_index >= size)) throw "Wrong start index";
     for (int i = start_index; i < size; i = i + inc)
         if (vec[i] * vec[i - 1] < 0) count++;
     return count;
