@@ -14,7 +14,7 @@ TEST(Parallel_Adj_Alternations_MPI, Test_Size_10) {
     std::vector<int> full_vec(vec_size);
 
     if (rank == 0) full_vec = createRandomVector(vec_size);
-    for (int i = 0; i < vec_size; i++) std::cout << full_vec[i] << std::endl;
+    if (rank == 0) for (int i = 0; i < vec_size; i++) std::cout << full_vec[i] << std::endl;
     int count_parallel = calculateAdjAlternationsParallel(full_vec, vec_size);
     if (rank == 0) {
         int count_sequential = calculateAdjAlternationsSequential(full_vec, 1, 1);
@@ -22,39 +22,19 @@ TEST(Parallel_Adj_Alternations_MPI, Test_Size_10) {
     }
 }
 
-TEST(Parallel_Adj_Alternations_MPI, Test_Wrong_Size_Rand) {
+TEST(Parallel_Adj_Alternations_MPI, Test_Size_6) {
     int rank;
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
-
-    const int vec_size = 0;
-
-    ASSERT_ANY_THROW(createRandomVector(vec_size));
-}
-
-TEST(Parallel_Adj_Alternations_MPI, Test_Wrong_Inc) {
-    int rank;
-    MPI_Comm_rank(MPI_COMM_WORLD, &rank);
-
-    const int vec_size = 10;
+    const int vec_size = 6;
     std::vector<int> full_vec(vec_size);
 
-    int inc = -1;
-
     if (rank == 0) full_vec = createRandomVector(vec_size);
-    ASSERT_ANY_THROW(calculateAdjAlternationsSequential(full_vec, inc, 1));
-}
-
-TEST(Parallel_Adj_Alternations_MPI, Test_Wrong_Start_Index) {
-    int rank;
-    MPI_Comm_rank(MPI_COMM_WORLD, &rank);
-
-    const int vec_size = 10;
-    std::vector<int> full_vec(vec_size);
-
-    int start_index = -1;
-
-    if (rank == 0) full_vec = createRandomVector(vec_size);
-    ASSERT_ANY_THROW(calculateAdjAlternationsSequential(full_vec, 1, start_index));
+    if (rank == 0) for (int i = 0; i < vec_size; i++) std::cout << full_vec[i] << std::endl;
+    int count_parallel = calculateAdjAlternationsParallel(full_vec, vec_size);
+    if (rank == 0) {
+        int count_sequential = calculateAdjAlternationsSequential(full_vec, 1, 1);
+        ASSERT_EQ(count_parallel, count_sequential);
+    }
 }
 
 TEST(Parallel_Adj_Alternations_MPI, Test_Size_5) {
@@ -64,6 +44,7 @@ TEST(Parallel_Adj_Alternations_MPI, Test_Size_5) {
     std::vector<int> full_vec(vec_size);
 
     if (rank == 0) full_vec = createRandomVector(vec_size);
+    if (rank == 0) for (int i = 0; i < vec_size; i++) std::cout << full_vec[i] << std::endl;
     int count_parallel = calculateAdjAlternationsParallel(full_vec, vec_size);
     if (rank == 0) {
         int count_sequential = calculateAdjAlternationsSequential(full_vec, 1, 1);
@@ -71,14 +52,29 @@ TEST(Parallel_Adj_Alternations_MPI, Test_Size_5) {
     }
 }
 
-TEST(Parallel_Adj_Alternations_MPI, Test_Wrong_Size_Par) {
+TEST(Parallel_Adj_Alternations_MPI, Test_Size_15) {
+    int rank;
+    MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+    const int vec_size = 15;
+    std::vector<int> full_vec(vec_size);
+
+    if (rank == 0) full_vec = createRandomVector(vec_size);
+    if (rank == 0) for (int i = 0; i < vec_size; i++) std::cout << full_vec[i] << std::endl;
+    int count_parallel = calculateAdjAlternationsParallel(full_vec, vec_size);
+    if (rank == 0) {
+        int count_sequential = calculateAdjAlternationsSequential(full_vec, 1, 1);
+        ASSERT_EQ(count_parallel, count_sequential);
+    }
+}
+
+TEST(Parallel_Adj_Alternations_MPI, Test_0_Size_Par) {
     int rank;
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
 
     const int vec_size = 0;
     std::vector<int> full_vec(vec_size);
 
-    ASSERT_ANY_THROW(calculateAdjAlternationsParallel(full_vec, vec_size));
+    ASSERT_EQ(calculateAdjAlternationsParallel(full_vec, vec_size), 0);
 }
 
 int main(int argc, char* argv[]) {
