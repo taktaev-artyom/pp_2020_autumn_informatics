@@ -10,14 +10,14 @@ std::vector<int> createRandomVector(int vec_size) {
     std::mt19937 gen(rand_d());
     std::vector<int> res_vec(vec_size);
     for (int  i = 0; i < vec_size; i++)
-        res_vec[i] = static_cast<int>(gen() % 200) - 100;
+        res_vec[i] = static_cast<int>((gen() % 200) - 100);
     return res_vec;
 }
 
 int calculateAdjAlternationsSequential(const std::vector<int> &vec, int inc, int start_index) {
     if (inc < 1) throw "Wrong increment";
     int count = 0;
-    int size = vec.size();
+    int size = static_cast<int>(vec.size());
     if ((start_index < 1) || (start_index >= size)) throw "Wrong start index";
     for (int i = start_index; i < size; i = i + inc)
         if (vec[i] * vec[i - 1] < 0) count++;
@@ -31,15 +31,16 @@ int calculateAdjAlternationsParallel(const std::vector<int> &vec, int vec_size) 
     MPI_Comm_rank(MPI_COMM_WORLD, &procRank);
     int part_vec_size = vec_size / procNum;
     int tail = vec_size - part_vec_size * procNum;
+    
     if (procRank == 0) {
         for (int i = 1; i < procNum; i++)
             MPI_Send(&vec[0] + part_vec_size * i + tail, part_vec_size, MPI_INT, i, 0, MPI_COMM_WORLD);
     }
-    std::vector<int> part_vec(procRank == 0 ? vec_size + tail : vec_size);
+    std::vector<int> part_vec(procRank == 0 ? part_vec_size + tail : part_vec_size);
     int full_count = 0;
     if (procRank == 0) {
         part_vec = std::vector<int>(vec.begin(), vec.begin() + vec_size + tail);
-    full_count += calculateAdjAlternationsSequential(vec, part_vec_size, tail + part_vec_size);
+        full_count += calculateAdjAlternationsSequential(vec, part_vec_size, tail + part_vec_size);
     } else {
         MPI_Status status;
         MPI_Recv(&part_vec[0], part_vec_size, MPI_INT, 0, 0, MPI_COMM_WORLD, &status);
