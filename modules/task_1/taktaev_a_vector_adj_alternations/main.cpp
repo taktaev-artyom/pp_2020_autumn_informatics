@@ -14,7 +14,6 @@ TEST(Parallel_Adj_Alternations_MPI, Test_Size_10) {
     std::vector<int> full_vec(vec_size);
 
     if (rank == 0) full_vec = createRandomVector(vec_size);
-    if (rank == 0) for (int i = 0; i < vec_size; i++) std::cout << full_vec[i] << std::endl;
     int count_parallel = calculateAdjAlternationsParallel(full_vec, vec_size);
     if (rank == 0) {
         int count_sequential = calculateAdjAlternationsSequential(full_vec, 1, 1);
@@ -29,7 +28,6 @@ TEST(Parallel_Adj_Alternations_MPI, Test_Size_6) {
     std::vector<int> full_vec(vec_size);
 
     if (rank == 0) full_vec = createRandomVector(vec_size);
-    if (rank == 0) for (int i = 0; i < vec_size; i++) std::cout << full_vec[i] << std::endl;
     int count_parallel = calculateAdjAlternationsParallel(full_vec, vec_size);
     if (rank == 0) {
         int count_sequential = calculateAdjAlternationsSequential(full_vec, 1, 1);
@@ -44,7 +42,6 @@ TEST(Parallel_Adj_Alternations_MPI, Test_Size_5) {
     std::vector<int> full_vec(vec_size);
 
     if (rank == 0) full_vec = createRandomVector(vec_size);
-    if (rank == 0) for (int i = 0; i < vec_size; i++) std::cout << full_vec[i] << std::endl;
     int count_parallel = calculateAdjAlternationsParallel(full_vec, vec_size);
     if (rank == 0) {
         int count_sequential = calculateAdjAlternationsSequential(full_vec, 1, 1);
@@ -59,7 +56,6 @@ TEST(Parallel_Adj_Alternations_MPI, Test_Size_15) {
     std::vector<int> full_vec(vec_size);
 
     if (rank == 0) full_vec = createRandomVector(vec_size);
-    if (rank == 0) for (int i = 0; i < vec_size; i++) std::cout << full_vec[i] << std::endl;
     int count_parallel = calculateAdjAlternationsParallel(full_vec, vec_size);
     if (rank == 0) {
         int count_sequential = calculateAdjAlternationsSequential(full_vec, 1, 1);
