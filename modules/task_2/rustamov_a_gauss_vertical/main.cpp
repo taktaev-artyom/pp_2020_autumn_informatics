@@ -156,8 +156,8 @@ TEST(Gauss_Vertical, 100x100x100) {
     int procRank;
     MPI_Comm_rank(MPI_COMM_WORLD, &procRank);
     int rows = 100, cols = 100, vecSize = 100;
-    Matrix matrix;
     Matrix vec;
+    Matrix matrix;
     Matrix res1, res2;
     if (procRank == 0) {
         matrix = RandomMatrix(rows, cols);
