@@ -1,6 +1,8 @@
 // Copyright 2020 Luckyanchenko Ivan
 #include <mpi.h>
 #include <iostream>
+#include <numeric>
+#include <cmath>
 #include "../../../modules/task_3/luckianchenko_i_integral_simpson/integral_simpson.h"
 
 double func1(double x, double y, double z) {
@@ -20,7 +22,6 @@ double get_Integral(double(*f)(double, double, double),
     int n) {
     double hx = (bx - ax) / n;
     double hy = (by - ay) / n;
-    double hz = (bz - az) / n;
     double ans = 0;
     for (int i = 1 ; i < n ; i ++) {
         for (int j = 1 ; j < n ; j ++) {
@@ -83,7 +84,6 @@ double get_Paral_Integral( double (*f)(double, double, double),
     double X, Y;
     double hx = (bx - ax) / n;
     double hy = (by - ay) / n;
-    double hz = (bz - az) / n;
     if (size > 1) {
         if (rank == 0) {
             for (int i = 0; i < 2; i++) {
