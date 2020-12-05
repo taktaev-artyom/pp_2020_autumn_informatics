@@ -176,7 +176,6 @@ TEST(Gauss_Vertical, 100x100x100) {
         std::cout << "Seq:" << time_end2 - time_start2 << std::endl;
         std::cout << "Par:" << time_end1 - time_start1 << std::endl;
     }
-    
 }
 
 int main(int argc, char* argv[]) {
