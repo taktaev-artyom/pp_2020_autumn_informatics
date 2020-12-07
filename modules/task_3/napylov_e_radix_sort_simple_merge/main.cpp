@@ -12,7 +12,7 @@ TEST(Radix_sort_MPI, Test_one_value) {
     std::vector<int> res = RadixSortParallel(vec);
     if (rank == 0) {
         std::qsort(vec.data(), vec.size(), sizeof(int), compare);
-        for (int i = 0; i < vec.size(); i++) {
+        for (int i = 0; i < static_cast<int>(vec.size()); i++) {
             ASSERT_EQ(res[i], vec[i]);
         }
     }
@@ -25,7 +25,7 @@ TEST(Radix_sort_MPI, Test_identical_values) {
     std::vector<int> res = RadixSortParallel(vec);
     if (rank == 0) {
         std::qsort(vec.data(), vec.size(), sizeof(int), compare);
-        for (int i = 0; i < vec.size(); i++) {
+        for (int i = 0; i < static_cast<int>(vec.size()); i++) {
             ASSERT_EQ(res[i], vec[i]);
         }
     }
@@ -38,7 +38,7 @@ TEST(Radix_sort_MPI, Test_sorted) {
     std::vector<int> res = RadixSortParallel(vec);
     if (rank == 0) {
         std::qsort(vec.data(), vec.size(), sizeof(int), compare);
-        for (int i = 0; i < vec.size(); i++) {
+        for (int i = 0; i < static_cast<int>(vec.size()); i++) {
             ASSERT_EQ(res[i], vec[i]);
         }
     }
@@ -51,7 +51,7 @@ TEST(Radix_sort_MPI, Test_random_100) {
     std::vector<int> res = RadixSortParallel(vec);
     if (rank == 0) {
         std::qsort(vec.data(), vec.size(), sizeof(int), compare);
-        for (int i = 0; i < vec.size(); i++) {
+        for (int i = 0; i < static_cast<int>(vec.size()); i++) {
             ASSERT_EQ(res[i], vec[i]);
         }
     }
@@ -64,7 +64,7 @@ TEST(Radix_sort_MPI, Test_random_1234) {
     std::vector<int> res = RadixSortParallel(vec);
     if (rank == 0) {
         std::qsort(vec.data(), vec.size(), sizeof(int), compare);
-        for (int i = 0; i < vec.size(); i++) {
+        for (int i = 0; i < static_cast<int>(vec.size()); i++) {
             ASSERT_EQ(res[i], vec[i]);
         }
     }
@@ -86,7 +86,7 @@ TEST(Radix_sort_MPI, Test_performance_100000) {
         t1 = MPI_Wtime();
         std::cout << "seq_time: " << t1 - t0 << std::endl;
         std::qsort(vec.data(), vec.size(), sizeof(int), compare);
-        for (int i = 0; i < vec.size(); i++) {
+        for (int i = 0; i < static_cast<int>(vec.size()); i++) {
             ASSERT_EQ(res[i], vec[i]);
         }
         for (int i = 0; i < vec.size(); i++) {

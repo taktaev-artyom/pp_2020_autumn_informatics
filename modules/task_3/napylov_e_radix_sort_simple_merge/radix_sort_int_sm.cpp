@@ -35,10 +35,10 @@ std::vector<int> mergeVectors(std::vector<int> vec1, std::vector<int> vec2) {
     int j = 0;  // index for vec2
 
     for (int r = 0; r < res.size(); r++) {
-        if (i > vec1.size() - 1) {
+        if (i > static_cast<int>(vec1.size()) - 1) {
             res[r] = vec2[j++];
         } else {
-            if (j > vec2.size() - 1) {
+            if (j > static_cast<int>(vec2.size()) - 1) {
                 res[r] = vec1[i++];
             } else {
                 if (vec1[i] < vec2[j]) {
@@ -72,7 +72,7 @@ std::vector<int> RadixSort(std::vector<int> vec) {
 
     for (int i = 0; i < max_digit_count; i++) {
         // раскладываем по очередям
-        for (int j = 0; j < vec.size(); j++) {
+        for (int j = 0; j < static_cast<int>(vec.size()); j++) {
             int digit = abs((vec[j] / static_cast<int>(pow(10, i))) % 10);
             queue_arr[digit].push(vec[j]);
         }
@@ -89,7 +89,7 @@ std::vector<int> RadixSort(std::vector<int> vec) {
     }
     std::stack<int> st;
     // последний проход для отрицательных чисел
-    for (int j = 0; j < vec.size(); j++) {
+    for (int j = 0; j < static_cast<int>(vec.size()); j++) {
         if (vec[j] < 0) {
             st.push(vec[j]);
         } else {
@@ -119,7 +119,7 @@ std::vector<int> RadixSortParallel(std::vector<int> vec) {
 
     int worksize;
 
-    if (size > vec.size()) {
+    if (size > static_cast<int>(vec.size())) {
         worksize = vec.size();
     } else {
         worksize = size;
