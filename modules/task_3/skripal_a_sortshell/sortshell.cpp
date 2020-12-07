@@ -62,7 +62,7 @@ std::vector<int> genvector(int size) {
      gen.seed(static_cast<unsigned int>(time(0)));
      std::vector<int> vec(size);
      for (int i = 0; i < size; i++) {
-          vec[i] = gen() % 1000;
+          vec[i] = gen() % 10000;
      }
      return vec;
 }
