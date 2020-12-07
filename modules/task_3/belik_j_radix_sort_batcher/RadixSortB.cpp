@@ -181,6 +181,6 @@ std::vector<int> Vector(int n) {
     gen.seed(static_cast<unsigned int>(time(0)));
     std::vector<int> vec(n);
     for (int i = 0; i < n; i++)
-        vec[i] = gen() % 10;
+        vec[i] = gen() % 100;
     return vec;
 }
