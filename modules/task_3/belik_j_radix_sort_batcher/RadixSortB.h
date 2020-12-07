@@ -6,8 +6,7 @@
 
 std::vector<int> MergeBatcher(std::vector<int> vec, int n);
 std::vector<int> Shuffle(std::vector<int> vec);
-std::vector<int> EvenMerge(const std::vector<int>& v1, const std::vector<int>& v2);
-std::vector<int> OddMerge(const std::vector<int>& v1, const std::vector<int>& v2);
+std::vector<int> PMerge(const std::vector<int>& v1, const std::vector<int>& v2, const int flag);
 std::vector<int> Merge(std::vector<int> vec, int evencount, int oddcount);
 std::vector<int> Transpos(std::vector<int> vec, int evencount, int oddcount);
 std::vector<int> RadixSort(std::vector<int> vec);
