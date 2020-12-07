@@ -23,7 +23,6 @@ std::vector<int> getRandomVector(int size) {
 
 void qsort(int* vec, int left, int right) {
     int mid;
-    int tmp;
     int l = left;
     int r = right;
     mid = vec[(l + r) / 2];
@@ -67,16 +66,16 @@ void recur_merge(const std::vector<int>& left, const std::vector<int>& right) {
     std::vector<int> left_even;
     std::vector<int> right_odd;
     std::vector<int> right_even;
-
-    for (int i = 0; i < left.size(); i++) {
+    int leftsize = left.size();
+    for (int i = 0; i < leftsize; i++) {
         if (i % 2) {
             left_even.push_back(left[i]);
         } else {
             left_odd.push_back(left[i]);
         }
     }
-
-    for (int i = 0; i < right.size(); i++) {
+    int rightsize = right.size();
+    for (int i = 0; i < rightsize; i++) {
         if (i % 2) {
             right_even.push_back(right[i]);
         } else {
@@ -88,11 +87,10 @@ void recur_merge(const std::vector<int>& left, const std::vector<int>& right) {
     recur_merge(left_even, right_even);
 
     std::vector<int> res;
-
-    for (int i = 0; i < left.size(); i++) {
+    for (int i = 0; i < leftsize; i++) {
         res.push_back(left[i]);
     }
-    for (int i = 0; i < right.size(); i++) {
+    for (int i = 0; i < rightsize; i++) {
         res.push_back(right[i]);
     }
 
@@ -138,7 +136,7 @@ std::vector<int> parallel_sorting(const std::vector<int>& vec) {
         return globalV;
     }
 
-    if (proc_size >= globalV.size() || proc_size == 1) {
+    if (proc_size >= vecsizeG || proc_size == 1) {
         if (proc_rank == 0) {
             globalV = quickSortV(vec);
         }
@@ -179,7 +177,8 @@ std::vector<int> parallel_sorting(const std::vector<int>& vec) {
     batchers_network(proc_size);
     const std::vector<int> v = localV;
     localV = quickSortV(v);
-    for (int i = 0; i < comps.size(); i++) {
+    int comps_size = comps.size();
+    for (int i = 0; i < comps_size; i++) {
         if (proc_rank == comps[i].first) {
             MPI_Send(&localV[0], vecsizeL, MPI_INT, comps[i].second, 0, MPI_COMM_WORLD);
             MPI_Recv(&neighboringV[0], vecsizeL, MPI_INT, comps[i].second, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
