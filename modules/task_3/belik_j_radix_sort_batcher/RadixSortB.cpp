@@ -116,8 +116,11 @@ std::vector<int> Merge(std::vector<int> vec, int evencount, int oddcount) {
     while (i < evencount)
         res[k++] = vec[i++];
     for (size_t h = 1; h < res.size() - 1; h += 2) {
-        if (res[h] > res[h + 1])
-            std::swap(res[h], res[h + 1]);
+        if (res[h] > res[h + 1]) {
+            int tmp = res[h];
+            res[h] = res[h + 1];
+            res[h + 1] = tmp;
+        }
     }
     return res;
 }
@@ -133,15 +136,21 @@ std::vector<int> Transpos(std::vector<int> vec, int evencount, int oddcount) {
         while (i < evencount)
             res[k++] = vec[i++];
         for (size_t h = 1; h < res.size() - 1; h += 2) {
-            if (res[h] > res[h + 1])
-                std::swap(res[h], res[h + 1]);
+            if (res[h] > res[h + 1]) {
+                int tmp = res[h];
+                res[h] = res[h + 1];
+                res[h + 1] = tmp;
+            }
         }
         res = Shuffle(res);
         return res;
     } else {
         for (int i = 0; i < evencount - 1; i++)
-            if (vec[1 + i] < vec[evencount + i])
-                std::swap(vec[1 + i], vec[evencount + i]);
+            if (vec[1 + i] < vec[evencount + i]) {
+                int tmp = vec[i + 1];
+                vec[i + 1] = vec[evencount + i];
+                vec[evencount + i] = tmp;
+            }
         return vec;
     }
 }
