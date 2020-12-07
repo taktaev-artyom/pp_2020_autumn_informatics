@@ -6,11 +6,11 @@
 #include <algorithm>
 #include "./RadixSortB.h"
 
-TEST(Radix_Sort_Merge_Batcher, Test_Vector_5) {
+TEST(Radix_Sort_Merge_Batcher, Test_Vector_10) {
     int rank;
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
     std::vector<int> vec;
-    const int n = 5;
+    const int n = 10;
     if (rank == 0) {
         vec = Vector(n);
     }
