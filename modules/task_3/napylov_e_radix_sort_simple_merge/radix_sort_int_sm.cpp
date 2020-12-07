@@ -34,7 +34,7 @@ std::vector<int> mergeVectors(std::vector<int> vec1, std::vector<int> vec2) {
     int i = 0;  // index for vec1
     int j = 0;  // index for vec2
 
-    for (int r = 0; r < res.size(); r++) {
+    for (int r = 0; r < static_cast<int>(res.size()); r++) {
         if (i > static_cast<int>(vec1.size()) - 1) {
             res[r] = vec2[j++];
         } else {
