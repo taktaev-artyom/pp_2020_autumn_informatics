@@ -89,7 +89,7 @@ TEST(Radix_sort_MPI, Test_performance_100000) {
         for (int i = 0; i < static_cast<int>(vec.size()); i++) {
             ASSERT_EQ(res[i], vec[i]);
         }
-        for (int i = 0; i < vec.size(); i++) {
+        for (int i = 0; i < static_cast<int>(vec.size()); i++) {
             ASSERT_EQ(res_seq[i], vec[i]);
         }
     }
