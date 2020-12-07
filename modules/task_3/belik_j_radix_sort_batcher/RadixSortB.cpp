@@ -85,8 +85,7 @@ std::vector<int> Shuffle(std::vector<int> vec) {
         tmp[i / 2 + (i % 2) * (vec.size() / 2 + vec.size() % 2)] = vec[i];
     return tmp;
 }
-std::vector<int> PMerge(const std::vector<int>& v1, const std::vector<int>& v2, const int flag)
-{
+std::vector<int> PMerge(const std::vector<int>& v1, const std::vector<int>& v2, const int flag) {
     if (v1.empty())
         return v2;
     if (v2.empty())
