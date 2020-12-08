@@ -67,7 +67,7 @@ std::vector<int> getSequentialDijkstras(std::vector<int>graph, int start) {
 }
 
 void printDist(std::vector<int>dist) {
-    for (int i = 0; i < dist.size(); i++) {
+    for (size_t i = 0; i < dist.size(); i++) {
         std::cout << std::setw(2) << dist[i] << " ";
     }
     std::cout << std::endl;
