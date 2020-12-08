@@ -5,11 +5,11 @@
 #include <vector>
 #include<iostream>
 #include "./contrast_enhancement.h"
-TEST(Parallel_Operations_MPI, Test_Matrix_3x3) {
+TEST(Parallel_Operations_MPI, Test_Matrix_7x7) {
     int procRank;
     MPI_Comm_rank(MPI_COMM_WORLD, &procRank);
-    int rows = 3;
-    int cols = 3;
+    int rows = 7;
+    int cols = 7;
     double alpha = 1.5;
     int beta = 1;
     Matrix global_mat(rows, std::vector<int>(cols));
@@ -86,11 +86,11 @@ TEST(Parallel_Operations_MPI, Test_Matrix_5x5) {
         }
     }
 }
-TEST(Parallel_Operations_MPI, Test_Matrix_2x2) {
+TEST(Parallel_Operations_MPI, Test_Matrix_9x9) {
     int procRank;
     MPI_Comm_rank(MPI_COMM_WORLD, &procRank);
-    int rows = 2;
-    int cols = 2;
+    int rows = 9;
+    int cols = 9;
     double alpha = 1.5;
     int beta = 1;
     Matrix global_mat(rows, std::vector<int>(cols));
