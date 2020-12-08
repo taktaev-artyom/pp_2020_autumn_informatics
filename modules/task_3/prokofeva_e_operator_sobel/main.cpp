@@ -3,7 +3,11 @@
 #include <gtest/gtest.h>
 #include <iostream>
 #include <vector>
+#include <math.h>
+#include <cmath>
+#include "random"
 #include "./operator_sobel.h"
+
 
 
 int main(int argc, char** argv) {
