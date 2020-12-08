@@ -7,6 +7,7 @@
 #include <random>
 #include <algorithm>
 #include "../../../modules/task_3/kirillov_dijkststars_algorithm/dijkstrat_algorithm.h"
+int MAX = 2147483647;
 std::vector<int> getRandomGraph(int sizeGraph) {
     std::mt19937 gen;
     gen.seed(static_cast<unsigned int>(time(0)));
@@ -40,13 +41,13 @@ void printGraph(std::vector<int>graph) {
 
 std::vector<int> getSequentialDijkstras(std::vector<int>graph, int start) {
     int sizeGraph = sqrt(graph.size());
-    std::vector<int>dist(sizeGraph, INT_MAX);
+    std::vector<int>dist(sizeGraph, MAX);
     std::vector<bool>visited(sizeGraph, false);
     int index, u;
     dist[start] = 0;
 
     for (int i = 0; i < sizeGraph - 1; i++) {
-        int min = INT_MAX;
+        int min = MAX;
         for (int j = 0; j < sizeGraph; j++) {
             if (!visited[j] && dist[j] <= min) {
                 min = dist[j];
@@ -56,7 +57,7 @@ std::vector<int> getSequentialDijkstras(std::vector<int>graph, int start) {
         u = index;
         visited[u] = true;
         for (int k = 0; k < sizeGraph; k++) {
-            if (!visited[k]&&dist[u] != INT_MAX&&graph[u*sizeGraph + k]
+            if (!visited[k]&&dist[u] != MAX&&graph[u*sizeGraph + k]
                 && dist[u] + graph[u*sizeGraph + k] < dist[k]) {
                 dist[k] = dist[u] + graph[u*sizeGraph + k];
             }
@@ -79,15 +80,13 @@ std::vector<int> getParallelDijkstras(std::vector<int>graph, int start) {
     MPI_Comm_rank(MPI_COMM_WORLD, &procRank);
     int sizeGraph = sqrt(graph.size());
     std::vector<bool>visited(sizeGraph, false);
-    std::vector<int>dist(sizeGraph, INT_MAX);
-    int *global_dist = new int[sizeGraph*procNum];
-    int *global_visited = new int[sizeGraph*procNum];
+    std::vector<int>dist(sizeGraph, MAX);
 
     if (sizeGraph < 2) {
         throw std::runtime_error("Wrong size");
     }
     dist[start] = 0;
-    int min = INT_MAX;
+    int min = MAX;
     std::vector<int>local_graph(sizeGraph * (sizeGraph / procNum));
 
     struct {
