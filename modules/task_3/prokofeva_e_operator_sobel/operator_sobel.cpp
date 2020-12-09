@@ -83,7 +83,9 @@ int calc_kernel(std::vector<int> image, int x, int y, int rows, int cols) {
             }
         }
     }
-    return clamp(sqrt(pow(Gx, 2) + pow(Gy, 2)), 255, 0);
+    G = sqrt(pow(Gx, 2) + pow(Gy, 2));
+    G = clamp(G, 255, 0);
+    return G;
 }
 
 std::vector<int> parallel_sobel(std::vector<int> image, int rows, int cols) {
