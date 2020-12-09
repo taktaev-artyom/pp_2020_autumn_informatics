@@ -84,15 +84,4 @@ int main(int argc, char *argv[]) {
 
     listeners.Append(new GTestMPIListener::MPIMinimalistPrinter);
     return RUN_ALL_TESTS();
-    /*std::vector<int> arr = { 8, 15, 16, 44, 50, 67, 71, 72, 22, 81 };
-    size_t i = 0;
-    for (i = arr.size() - 1; i > 0; i--)
-        if (arr[i - 1] > arr[i])
-            break;
-    while (i > 0 && arr[i - 1] > arr[i]) {
-        std::swap(arr[i - 1], arr[i]);
-        i--;
-    }
-    for (int i : arr)
-        std::cout << i << ' ';*/
 }
