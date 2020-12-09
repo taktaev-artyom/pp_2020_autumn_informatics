@@ -15,19 +15,18 @@ class Matrix {
     std::deque<int> coords;
 
  public:
-    int *buff;
+    double *buff;
     int N;
-    Matrix(int *_buff, int _n, bool _tmp = false);
+    Matrix(double *_buff, int _n, bool _tmp = false);
     Matrix(Matrix old, int x, int y);
     Matrix(const Matrix &old);
     ~Matrix();
     void print();
-    int &getElem(int x, int y);
-    void stretch(int *buff);
+    double &getElem(int x, int y);
+    void stretch(double *buff);
     void Send(MPI_Comm comm, int sender_rank, int reciver_rank, int marker);
 };
-std::vector<int> getRandomMatrix(int size = -1);
-int *Mult(int *M1, int *M2, int n);
+std::vector<double> getRandomMatrix(int size = -1);
 void ShtSeq(Matrix A, Matrix B, Matrix C);
 void SimpleMult(Matrix A, Matrix B, Matrix C);
 void Sum(Matrix A, Matrix B, Matrix C);

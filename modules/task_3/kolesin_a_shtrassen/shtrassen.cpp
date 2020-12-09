@@ -3,7 +3,7 @@
 #include <vector>
 #include "../../../modules/task_3/kolesin_a_shtrassen/shtrassen.h"
 
-Matrix::Matrix(int *_buff, int _n, bool _tmp) {
+Matrix::Matrix(double *_buff, int _n, bool _tmp) {
     buff = _buff;
     n = _n;
     N = _n;
@@ -31,7 +31,7 @@ Matrix::~Matrix() {
         delete[] buff;
     }
 }
-int &Matrix::getElem(int x, int y) {
+double &Matrix::getElem(int x, int y) {
     std::deque<int> tmp = coords;
     int start_x = 0, start_y = 0;
     for (int N = n; !tmp.empty(); N /= 2) {
@@ -56,7 +56,7 @@ void Matrix::print() {
     }
     std::cout << "-------------" << std::endl;
 }
-void Matrix::stretch(int *buff) {
+void Matrix::stretch(double *buff) {
     for (int i = 0; i < N; i++) {
         for (int j = 0; j < N; j++) {
             buff[i + j * N] = getElem(i, j);
@@ -73,13 +73,13 @@ void Matrix::Send(MPI_Comm comm, int sender_rank, int reciver_rank, int marker) 
         return;
     }
     if (rank == sender_rank) {
-        std::vector<int> buff(N * N);
+        std::vector<double> buff(N * N);
         stretch(&buff[0]);
-        MPI_Isend(&buff[0], N * N, MPI_INT, reciver_rank, marker, comm, &sendrequest);
+        MPI_Isend(&buff[0], N * N, MPI_DOUBLE, reciver_rank, marker, comm, &sendrequest);
     }
     if (rank == reciver_rank) {
-        std::vector<int> buff(N * N);
-        MPI_Irecv(&buff[0], N * N, MPI_INT, sender_rank, marker, comm, &recvrequest);
+        std::vector<double> buff(N * N);
+        MPI_Irecv(&buff[0], N * N, MPI_DOUBLE, sender_rank, marker, comm, &recvrequest);
         MPI_Wait(&recvrequest, &status);
         for (int i = 0; i < N; i++) {
             for (int j = 0; j < N; j++) {
@@ -89,17 +89,17 @@ void Matrix::Send(MPI_Comm comm, int sender_rank, int reciver_rank, int marker) 
     }
 }
 
-std::vector<int> getRandomMatrix(int size) {
+std::vector<double> getRandomMatrix(int size) {
     std::mt19937 gen;
     gen.seed(static_cast<unsigned int>(time(0)));
-    std::vector<int> res;
+    std::vector<double> res;
     if (size == -1) {
         size = gen() % 5;
         size = pow(2, size);
     }
     size = size * size;
     for (int i = 0; i < size; i++) {
-        res.push_back(gen() % 10);
+        res.push_back((gen() % 10)/10.);
     }
     return res;
 }
@@ -131,8 +131,8 @@ MPI_Comm getComm(int n, int new_size, MPI_Comm old_comm) {
     return new_comm;
 }
 void calcSubC(int x, int y, Matrix A[2][2], Matrix B[2][2], Matrix C[2][2], MPI_Comm comm, int level) {
-    Matrix tmp1(new int[A[0][0].N * A[0][0].N], A[0][0].N, true);
-    Matrix tmp2(new int[A[0][0].N * A[0][0].N], A[0][0].N, true);
+    Matrix tmp1(new double[A[0][0].N * A[0][0].N], A[0][0].N, true);
+    Matrix tmp2(new double[A[0][0].N * A[0][0].N], A[0][0].N, true);
     Sht(A[x][0], B[0][y], tmp1, comm, level);
     Sht(A[x][1], B[1][y], tmp2, comm, level);
     Sum(tmp1, tmp2, C[x][y]);
@@ -238,8 +238,8 @@ void ShtSeq(Matrix A, Matrix B, Matrix C) {
         C.getElem(0, 0) = A.getElem(0, 0) * B.getElem(0, 0);
     } else {
         int halfNSqr = (C.N / 2) * (C.N / 2);
-        Matrix tmp1(new int[halfNSqr], C.N / 2, true);
-        Matrix tmp2(new int[halfNSqr], C.N / 2, true);
+        Matrix tmp1(new double[halfNSqr], C.N / 2, true);
+        Matrix tmp2(new double[halfNSqr], C.N / 2, true);
         Matrix A11(A, 0, 0);
         Matrix A12(A, 1, 0);
         Matrix A21(A, 0, 1);
