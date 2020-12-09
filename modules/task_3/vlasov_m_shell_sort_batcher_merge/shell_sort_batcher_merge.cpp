@@ -90,13 +90,6 @@ namespace BatcherMerge {
         mergeNetwork(ranks_up, ranks_down);
     }
 
-    void shiftLast(Vector& arr) {
-        auto ins_it = std::upper_bound(arr.begin(), arr.end(), arr.back());
-        for (auto it = arr.end() - 2; it != ins_it; it--) {
-            std::swap(*it, *(it + 1));
-        }
-    }
-
     void check(Vector* arr) {
         size_t i = 0;
         for (i = arr->size() - 1; i > 0; i--)
