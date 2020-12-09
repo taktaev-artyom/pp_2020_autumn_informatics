@@ -13,16 +13,8 @@ int clamp(int v, int max, int min) {
     else if (v < min) return min;
     return v;
 }
-std::vector<int> getRandomMatrix(int rows, int cols) {
-    std::mt19937 gen;
-    gen.seed(static_cast<unsigned int>(time(0)));
-    std::vector<int> matrix(rows * cols);
-    for (int i = 0; i < rows * cols; i++)
-        matrix[i] = gen() % 255;
-    return matrix;
-}
-std::vector<int> calc_sobel(const std::vector<int> image, int rows, int cols)
-{
+
+std::vector<int> calc_sobel(std::vector<int> image, int rows, int cols) {
     std::vector<int> result_image(rows * cols);
     std::vector<int> vectorx = {
          -1, 0, 1,
@@ -39,11 +31,11 @@ std::vector<int> calc_sobel(const std::vector<int> image, int rows, int cols)
             int Gx = 0;
             int Gy = 0;
             int G = 0;
-            if (y == 0 || y == cols)
+            if (y == 0 || y == cols) {
                 G = 0;
-            else if (x == 0 || x == rows)
+            } else if (x == 0 || x == rows) {
                 G = 0;
-            else {
+            } else {
                 for (int i = -1; i <= 1; i++) {
                     for (int j = -1; j <= 1; j++) {
                         int idx = (i + 1) * 3 + j + 1;
@@ -51,10 +43,10 @@ std::vector<int> calc_sobel(const std::vector<int> image, int rows, int cols)
                         int y1 = clamp(y + i, cols - 1, 0);
                         Gx += image[x1 * cols + y1] * vectorx[idx];
                         Gy += image[x1 * cols + y1] * vectory[idx];
-                        G = sqrt(pow(Gx, 2) + pow(Gy, 2));
                     }
                 }
             }
+            G = sqrt(pow(Gx, 2) + pow(Gy, 2));
             G = clamp(G, 255, 0);
             result_image[x * cols + y] = G;
         }
@@ -62,7 +54,7 @@ std::vector<int> calc_sobel(const std::vector<int> image, int rows, int cols)
     return result_image;
 }
 
-int calc_kernel(std::vector<int>& image, int x, int y, int rows, int cols) {
+int calc_kernel(std::vector<int> image, int x, int y, int rows, int cols) {
     std::vector<int> vectorx = {
         -1, 0, 1,
         -2, 0, 2,
@@ -78,11 +70,9 @@ int calc_kernel(std::vector<int>& image, int x, int y, int rows, int cols) {
     int G = 0;
     if (y == 0 || y == cols) {
         G = 0;
-    }
-    else if (x == 0 || x == rows) {
+    } else if (x == 0 || x == rows) {
         G = 0;
-    }
-    else {
+    } else {
         for (int i = -1; i <= 1; ++i) {
             for (int j = -1; j <= 1; ++j) {
                 int idx = (i + 1) * 3 + j + 1;
@@ -100,8 +90,7 @@ std::vector<int> parallel_sobel(std::vector<int> image, int rows, int cols) {
     int size, rank;
     MPI_Comm_size(MPI_COMM_WORLD, &size);
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
-    if (rows < size + 1)
-    {
+    if ((rows < size) || (size == 1)) {
         return calc_sobel(image, rows, cols);
     }
     int delta = rows / size;
@@ -109,7 +98,7 @@ std::vector<int> parallel_sobel(std::vector<int> image, int rows, int cols) {
     int* sendbuf = new int[rows];
     int* sendcounts = new int[size];
     int* displs = new int[size];
-    for (int i = 0; i < rows; i++) {
+    for (int i = 0; i < rows; ++i) {
         sendbuf[i] = i;
     }
     for (int i = 0; i < size; ++i) {
@@ -124,7 +113,7 @@ std::vector<int> parallel_sobel(std::vector<int> image, int rows, int cols) {
         k += sendcounts[i];
     }
     std::vector<int> recvbuf(sendcounts[rank]);
-    MPI_Scatterv(sendbuf, sendcounts, displs, MPI_INT, recvbuf.data(), sendcounts[rank],
+    MPI_Scatterv(&sendbuf[0], sendcounts, displs, MPI_INT, &recvbuf[0], sendcounts[rank],
         MPI_INT, 0, MPI_COMM_WORLD);
     std::vector<int> local_result(cols * recvbuf.size());
     for (int i = 0; i < sendcounts[rank]; ++i) {
