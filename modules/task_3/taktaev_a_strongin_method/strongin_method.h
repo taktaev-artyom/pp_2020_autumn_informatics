@@ -5,7 +5,7 @@
 #include <functional>
 
 class Strongin {
-   public:
+  public:
     std::vector<double> x, z;
     int n;
     double a, b;
