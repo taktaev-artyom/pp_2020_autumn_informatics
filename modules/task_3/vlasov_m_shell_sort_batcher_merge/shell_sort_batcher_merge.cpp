@@ -132,10 +132,10 @@ namespace BatcherMerge {
         MPI_Scatter(arr.data(), part_size, MPI_INT, part.data(), part_size, MPI_INT, 0, MPI_COMM_WORLD);
         part = sort_func(part);
 
-        for (auto& comp : comparators) {
+        for (const auto& comp : comparators) {
             if (rank == comp.first) {
                 MPI_Send(part.data(), part_size, MPI_INT, comp.second, 0, MPI_COMM_WORLD);
-                MPI_Recv(&part_curr[0], part_size, MPI_INT, comp.second, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+                MPI_Recv(part_curr.data(), part_size, MPI_INT, comp.second, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
                 for (size_t i = 0, i_curr = 0, i_temp = 0; i_temp < part_size; i_temp++) {
                     int value = part[i];
                     int value_curr = part_curr[i_curr];
@@ -147,10 +147,10 @@ namespace BatcherMerge {
                         i_curr++;
                     }
                 }
-                part.swap(part_temp);
+                std::swap(part, part_temp);
             } else if (rank == comp.second) {
-                MPI_Recv(&part_curr[0], part_size, MPI_INT, comp.first, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
-                MPI_Send(&part[0], part_size, MPI_INT, comp.first, 0, MPI_COMM_WORLD);
+                MPI_Recv(part_curr.data(), part_size, MPI_INT, comp.first, 0, MPI_COMM_WORLD, MPI_STATUS_IGNORE);
+                MPI_Send(part.data(), part_size, MPI_INT, comp.first, 0, MPI_COMM_WORLD);
                 size_t i_start = part_size - 1;
                 for (size_t i = i_start, i_curr = i_start, i_temp = part_size; i_temp > 0; i_temp--) {
                     int value = part[i];
@@ -163,7 +163,7 @@ namespace BatcherMerge {
                         i_curr--;
                     }
                 }
-                part.swap(part_temp);
+                std::swap(part, part_temp);
             }
         }
         MPI_Gather(part.data(), part_size, MPI_INT, arr.data(), part_size, MPI_INT, 0, MPI_COMM_WORLD);
