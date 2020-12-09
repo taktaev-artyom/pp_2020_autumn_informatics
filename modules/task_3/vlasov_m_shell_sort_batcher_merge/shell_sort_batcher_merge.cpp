@@ -3,10 +3,11 @@
 #include <cmath>
 #include <algorithm>
 #include <functional>
+#include <limits>
 #include <numeric>
 #include <random>
+#include <utility>
 #include <vector>
-#include <iostream>
 #include "../../../modules/task_3/vlasov_m_shell_sort_batcher_merge/shell_sort_batcher_merge.h"
 
 
@@ -79,7 +80,7 @@ namespace BatcherMerge {
         size_t size = ranks.size();
         if (size < 2)
             return;
-        
+
         size_t ranks_up_size = size / 2;
         Vector ranks_up{ ranks.begin(), ranks.begin() + ranks_up_size };
         Vector ranks_down{ ranks.begin() + ranks_up_size, ranks.end() };
@@ -96,13 +97,13 @@ namespace BatcherMerge {
         }
     }
 
-    void check(Vector& arr) {
+    void check(Vector* arr) {
         size_t i = 0;
-        for (i = arr.size() - 1; i > 0; i--)
-            if (arr[i - 1] > arr[i])
+        for (i = arr->size() - 1; i > 0; i--)
+            if (arr->at(i - 1) > arr->at(i))
                 break;
-        while (i > 0 && arr[i - 1] > arr[i]) {
-            std::swap(arr[i - 1], arr[i]);
+        while (i > 0 && arr->at(i - 1) > arr->at(i)) {
+            std::swap(arr->at(i - 1), arr->at(i));
             i--;
         }
     }
@@ -117,8 +118,8 @@ namespace BatcherMerge {
             return arr;
         if (arr_size <= size)
             return sort_func(arr);
-        
-        //int extra_size = arr_size % size;
+
+        // int extra_size = arr_size % size;
         int extra_size = static_cast<int>(std::pow(2, std::ceil(std::log2(arr_size + arr_size % size)))) - arr_size;
         arr_size += extra_size;
         arr.resize(arr_size, std::numeric_limits<int>::max());
@@ -169,9 +170,8 @@ namespace BatcherMerge {
         MPI_Gather(part.data(), part_size, MPI_INT, arr.data(), part_size, MPI_INT, 0, MPI_COMM_WORLD);
         arr_size -= extra_size;
         arr.resize(arr_size);
-        if (rank == 0) {
-            check(arr);
-        }
+        if (rank == 0)
+            check(&arr);
         return arr;
     }
 }  // namespace BatcherMerge
