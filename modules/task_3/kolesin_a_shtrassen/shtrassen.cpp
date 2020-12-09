@@ -183,7 +183,6 @@ void Sht(Matrix A, Matrix B, Matrix C, MPI_Comm comm, int level) {
         // C.print();
         return;
     }
-    int new_size = size / 4;
     MPI_Comm new_comm;
     int color = rank % 4;
     MPI_Comm_split(comm, color, 0, &new_comm);
