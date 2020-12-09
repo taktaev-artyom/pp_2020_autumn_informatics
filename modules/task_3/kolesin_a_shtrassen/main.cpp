@@ -26,7 +26,7 @@ TEST(Count_Words, Test_SeqVsSimple) {
         SimpleMult(M1, M2, Simp);
         // Seq.print();
         // Simp.print();
-        for(int i=0;i<n*n;i++){
+        for (int i=0; i < n * n; i++) {
             EXPECT_DOUBLE_EQ(seq[i], simp[i]);
         }
     }
@@ -57,7 +57,7 @@ TEST(Count_Words, Test_ParallVsSeq_16) {
 // int ms3 = std::chrono::duration_cast<std::chrono::milliseconds>
 // (std::chrono::system_clock::now().time_since_epoch()).count();
 // std::cout<<ms3-ms2<<"   "<<ms2-ms1<<std::endl;
-        for(int i=0;i<n*n;i++){
+        for (int i = 0; i < n * n ; i++) {
             EXPECT_DOUBLE_EQ(p[i], s[i]);
         }
     }
@@ -88,7 +88,7 @@ TEST(Count_Words, Test_ParallVsSeq_8) {
 // int ms3 = std::chrono::duration_cast<std::chrono::milliseconds>
 // (std::chrono::system_clock::now().time_since_epoch()).count();
 // std::cout<<ms3-ms2<<"   "<<ms2-ms1<<std::endl;
-        for(int i=0;i<n*n;i++){
+        for (int i = 0; i < n * n ; i++) {
             EXPECT_DOUBLE_EQ(p[i], s[i]);
         }
     }
@@ -119,7 +119,7 @@ TEST(Count_Words, Test_ParallVsSeq_4) {
 // int ms3 = std::chrono::duration_cast<std::chrono::milliseconds>
 // (std::chrono::system_clock::now().time_since_epoch()).count();
 // std::cout<<ms3-ms2<<"   "<<ms2-ms1<<std::endl;
-        for(int i=0;i<n*n;i++){
+        for (int i = 0; i < n * n ; i++) {
             EXPECT_DOUBLE_EQ(p[i], s[i]);
         }
     }
@@ -150,7 +150,7 @@ TEST(Count_Words, Test_ParallVsSeq_1) {
 // int ms3 = std::chrono::duration_cast<std::chrono::milliseconds>
 // (std::chrono::system_clock::now().time_since_epoch()).count();
 // std::cout<<ms3-ms2<<"   "<<ms2-ms1<<std::endl;
-        for(int i=0;i<n*n;i++){
+        for (int i = 0; i < n * n ; i++) {
             EXPECT_DOUBLE_EQ(p[i], s[i]);
         }
     }
