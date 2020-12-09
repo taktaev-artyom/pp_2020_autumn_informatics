@@ -20,12 +20,12 @@ TEST(Parallel_Shell_Sort_Batcher_Merge_MPI, Size_10) {
     }
 }
 
-TEST(Parallel_Shell_Sort_Batcher_Merge_MPI, Size_13) {
+TEST(Parallel_Shell_Sort_Batcher_Merge_MPI, Size_15) {
     int rank;
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
-    std::vector<int> arr(13);
+    std::vector<int> arr(15);
     if (rank == 0)
-        arr = createRandomVector(13);
+        arr = createRandomVector(15);
     auto check_arr = BatcherMerge::parallelSort(arr, shellSort);
     if (rank == 0) {
         auto exp_arr = shellSort(arr);
