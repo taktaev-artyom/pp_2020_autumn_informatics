@@ -34,6 +34,26 @@ TEST(Strongin_Method_MPI, Test_Correct_Work_Of_par_Strongin_Method) {
     ASSERT_NEAR(Z.parStronginSearch(), -1, 1.0e-10);
 }
 
+TEST(Strongin_Method_MPI, Test_Eff) {
+    Strongin A(-1, 1, 2, -10, [](double x)->double { return std::sin(x); });
+    Strongin B(-1, 1, 2, -10, [](double x)->double { return std::sin(x); });
+    int proc_rank;
+    MPI_Comm_rank(MPI_COMM_WORLD, &proc_rank);
+    double start, end;
+    if (proc_rank == 0) {
+        start = MPI_Wtime();
+        A.seqStronginSearch();
+        end = MPI_Wtime();
+        std::cout << "Time sequential = " << end - start << std::endl;
+    }
+    start = MPI_Wtime();
+    B.parStronginSearch();
+    end = MPI_Wtime();
+    if (proc_rank == 0) {
+        std::cout << "Time parallel = " << end - start << std::endl;
+    }
+}
+
 int main(int argc, char* argv[]) {
     ::testing::InitGoogleTest(&argc, argv);
     MPI_Init(&argc, &argv);

@@ -84,18 +84,26 @@ double Strongin::seqStronginSearch() {
     return xx;
 }
 
+struct Arteboss {
+    double R;
+    int T;
+    
+    Arteboss() {
+        R = 0;
+        T = 0;
+    }
+};
+
 double Strongin::parStronginSearch() {
     int proc_num, proc_rank;
     MPI_Comm_rank(MPI_COMM_WORLD, &proc_rank);
     MPI_Comm_size(MPI_COMM_WORLD, &proc_num);
-    std::vector<double> r_vec;
     int t = 0;
     double delta = b - a;
     double eps = pow(10, prec);
     double m = 0;
     double _m = 0;
     double xx;
-    double r_max;
 
     while (delta > eps) {
         if (n <= proc_num) {
@@ -121,15 +129,38 @@ double Strongin::parStronginSearch() {
         MPI_Reduce(&_m, &m, 1, MPI_DOUBLE, MPI_MAX, 0, MPI_COMM_WORLD);
         m = (m == 0 ? 1 : r * m);
         MPI_Bcast(&m, 1, MPI_DOUBLE, 0, MPI_COMM_WORLD);
-        r_vec = calculateR(m);
-        r_max = r_vec[0];
-        t = 1;
-        for (int i = 2; i < n; i++) {
-            if (r_vec[i - 1] > r_max) {
-                r_max = r_vec[i - 1];
-                t = i;
+        Arteboss r_max;
+        Arteboss r1;
+        if (n <= proc_num) {
+            for (int i = 1; i < n; i++) {
+                if (proc_rank == i - 1) {
+                    r1.R = m * (x[i] - x[i - 1]) + (z[i] - z[i - 1]) * (z[i] - z[i - 1]) / (m * (x[i] - x[i - 1]))
+                         - 2 * (z[i] + z[i - 1]);
+                    r1.T = i;
+                }
+            }
+        } else {
+            for (int i = 1; i < proc_num; i++) {
+                if (proc_rank == i - 1) {
+                    r1.R = m * (x[i] - x[i - 1]) + (z[i] - z[i - 1]) * (z[i] - z[i - 1]) / (m * (x[i] - x[i - 1]))
+                         - 2 * (z[i] + z[i - 1]);
+                    r1.T = i;
+                }
+            }
+            if (proc_rank == proc_num - 1) {
+                for (int i = proc_num; i < n; i++) {
+                    if (m * (x[i] - x[i - 1]) + (z[i] - z[i - 1]) * (z[i] - z[i - 1]) / (m * (x[i] - x[i - 1]))
+                         - 2 * (z[i] + z[i - 1]) > r1.R) {
+                        r1.R = m * (x[i] - x[i - 1]) + (z[i] - z[i - 1]) * (z[i] - z[i - 1]) / (m * (x[i] - x[i - 1]))
+                         - 2 * (z[i] + z[i - 1]);
+                        r1.T = i;
+                    }
+                }
             }
         }
+        MPI_Reduce(&r1, &r_max, 1, MPI_DOUBLE_INT, MPI_MAXLOC, 0, MPI_COMM_WORLD);
+        MPI_Bcast(&r_max, 1, MPI_DOUBLE_INT, 0, MPI_COMM_WORLD);
+        t = r_max.T;
         xx = (x[t - 1] + x[t]) / 2 - (z[t] - z[t - 1]) / (2 * m);
         addNode(xx);
         delta = x[t] - x[t - 1];
