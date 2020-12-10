@@ -69,7 +69,6 @@ TEST(Trapezoid_Integral_Tests, test_integral_2) {
     const double len_x = 2;
     const double len_y = 3;
     const double len_z = 4;
-
     const double dx = len_x / count_delta;
     const double dy = len_y / count_delta;
     const double dz = len_z / count_delta;
