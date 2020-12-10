@@ -1,10 +1,9 @@
 // Copyright 2020 Bakaeva Maria
 #include <gtest-mpi-listener.hpp>
 #include <gtest/gtest.h>
-#include <vector>
-#include <algorithm>
-#include <utility>
 #include <math.h>
+#include <utility>
+#include <vector>
 #include "./integrals_rectangles_method.h"
 
 
@@ -44,7 +43,7 @@
 TEST(IntegralsRectanglesMethod, testCalculate_f1) {
     int rank;
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
-    
+
     vector<pair<double, double>> a_b(2);
     a_b = {{1, 5}, {0, 3}};
 
@@ -59,7 +58,7 @@ TEST(IntegralsRectanglesMethod, testCalculate_f1) {
 TEST(IntegralsRectanglesMethod, testCalculate_f2) {
     int rank;
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
-    
+
     vector<pair<double, double>> a_b(2);
     a_b = {{1, 5}, {0, 3}};
 
@@ -74,7 +73,7 @@ TEST(IntegralsRectanglesMethod, testCalculate_f2) {
 TEST(IntegralsRectanglesMethod, testCalculate_f3) {
     int rank;
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
-    
+
     vector<pair<double, double>> a_b(2);
     a_b = {{1, 5}, {0, 3}};
 
@@ -89,7 +88,7 @@ TEST(IntegralsRectanglesMethod, testCalculate_f3) {
 TEST(IntegralsRectanglesMethod, testCalculate_f4) {
     int rank;
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
-    
+
     vector<pair<double, double>> a_b(3);
     a_b = {{-1, 0}, {0, 2}, {0, 1}};
 
@@ -104,7 +103,7 @@ TEST(IntegralsRectanglesMethod, testCalculate_f4) {
 TEST(IntegralsRectanglesMethod, testCalculate_f5) {
     int rank;
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
-    
+
     vector<pair<double, double>> a_b(3);
     a_b = {{0, 2}, {0, 1}, {0, 3.14}};
 
