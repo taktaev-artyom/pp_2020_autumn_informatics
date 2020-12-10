@@ -87,7 +87,7 @@ double Strongin::seqStronginSearch() {
 struct Arteboss {
     double R;
     int T;
-    
+
     Arteboss() {
         R = 0;
         T = 0;
