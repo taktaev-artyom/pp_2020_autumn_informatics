@@ -4,7 +4,7 @@
 #include <vector>
 #include "./mult_sparse_mat.h"
 
-//TESTS HERE
+
 
 int main(int argc, char** argv) {
   ::testing::InitGoogleTest(&argc, argv);
