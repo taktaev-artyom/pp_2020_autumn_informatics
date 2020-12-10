@@ -1,49 +1,44 @@
 // Copyright 2020 Bakaeva Maria
 #include <gtest-mpi-listener.hpp>
 #include <gtest/gtest.h>
-#include <iostream>
 #include <vector>
 #include <algorithm>
+#include <utility>
 #include <math.h>
 #include "./integrals_rectangles_method.h"
 
 
 
     double f1(vector<double> vec) {
-        //x + y^3
         int x = vec[0];
         int y = vec[1];
         return x + y * y;
     }
-    
+
     double f2(vector<double> vec) {
-        //x * x + x * 3 + 12 / y
         int x = vec[0];
         int y = vec[1];
         return x + y;
     }
-    
+
     double f3(vector<double> vec) {
-        //sin(3x) + cos(y)
         int x = vec[0];
         int y = vec[1];
         return sin(3 * x) + cos(y);
     }
-    
+
     double f4(vector<double> vec) {
-        //sin(3xz) * cos(y) + z^2
         int x = vec[0];
         int y = vec[1];
         int z = vec[2];
-        return 8*y*y*z*exp(2*x*y*z);
+        return 8 * y * y * z * exp(2 * x * y * z);
     }
-    
+
     double f5(vector<double> vec) {
-        //sqrt(y) * 2000 * sin(x) * z
         int x = vec[0];
         int y = vec[1];
         int z = vec[2];
-        return x * x*z*sin(x*y*z);
+        return x * x * z * sin(x * y * z);
     }
 
 TEST(IntegralsRectanglesMethod, testCalculate_f1) {
@@ -51,7 +46,7 @@ TEST(IntegralsRectanglesMethod, testCalculate_f1) {
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
     
     vector<pair<double, double>> a_b(2);
-    a_b = {{1, 5},{0, 3}};
+    a_b = {{1, 5}, {0, 3}};
 
     double resParallel = getParallelIntegrals(100, a_b, f1);
 
@@ -66,7 +61,7 @@ TEST(IntegralsRectanglesMethod, testCalculate_f2) {
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
     
     vector<pair<double, double>> a_b(2);
-    a_b = {{1, 5},{0, 3}};
+    a_b = {{1, 5}, {0, 3}};
 
     double resParallel = getParallelIntegrals(100, a_b, f2);
 
@@ -81,7 +76,7 @@ TEST(IntegralsRectanglesMethod, testCalculate_f3) {
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
     
     vector<pair<double, double>> a_b(2);
-    a_b = {{1, 5},{0, 3}};
+    a_b = {{1, 5}, {0, 3}};
 
     double resParallel = getParallelIntegrals(100, a_b, f3);
 
@@ -96,7 +91,7 @@ TEST(IntegralsRectanglesMethod, testCalculate_f4) {
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
     
     vector<pair<double, double>> a_b(3);
-    a_b = {{-1, 0},{0, 2}, {0, 1}};
+    a_b = {{-1, 0}, {0, 2}, {0, 1}};
 
     double resParallel = getParallelIntegrals(100, a_b, f4);
 
@@ -111,7 +106,7 @@ TEST(IntegralsRectanglesMethod, testCalculate_f5) {
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
     
     vector<pair<double, double>> a_b(3);
-    a_b = {{0, 2},{0, 1}, {0, 3.14}};
+    a_b = {{0, 2}, {0, 1}, {0, 3.14}};
 
     double resParallel = getParallelIntegrals(100, a_b, f5);
 
