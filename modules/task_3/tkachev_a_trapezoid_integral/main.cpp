@@ -21,7 +21,7 @@ TEST(Trapezoid_Integral_Tests, test_integral_1) {
     const double count_delta = 1000;
     const double EPSILON = 0.6;
     const double the_answer = 2;
-    
+
     const double len_x = 1;
     const double len_y = 1;
     const double len_z = 1;
@@ -33,7 +33,7 @@ TEST(Trapezoid_Integral_Tests, test_integral_1) {
     const double count_data_x = dx * count_delta / count_processes;
     const double count_data_y = dy * count_delta / count_processes;
     const double count_data_z = dz * count_delta / count_processes;
-    
+
     double _time1 = MPI_Wtime();
     double parallel_integrate = parallelIntegral3D(integral, count_data_x, count_data_y,
                                                 count_data_z, dx, dy, dz);
@@ -42,12 +42,13 @@ TEST(Trapezoid_Integral_Tests, test_integral_1) {
 
     if (rank == 0) {
         double not_parallel_integrate = 0.0;
-        printf("PARRALEL TIME: %.5f\n", _time2-_time1);
+        printf("PARALLEL TIME: %.8f\n", _time2-_time1);
         _time1 = MPI_Wtime();
-        not_parallel_integrate = integral3D(integral, count_processes, count_data_x, 
-                                        count_data_y, count_data_z, 0, dx, dy, dz);
+        not_parallel_integrate = integral3D(integral, 1, len_x, len_y, len_z, 0, dx, dy, dz);
+        not_parallel_integrate *= 15;
         _time2 = MPI_Wtime();
-        printf("NOT PARRALEL TIME %.5f\n", _time2-_time1);
+        printf("NOT PARALLEL TIME %.8f\n", _time2-_time1);
+        ASSERT_NEAR(not_parallel_integrate, parallel_integrate, EPSILON);
         ASSERT_NEAR(the_answer, parallel_integrate, EPSILON);
     }
 }
@@ -62,9 +63,9 @@ TEST(Trapezoid_Integral_Tests, test_integral_2) {
     int integral = 2;
 
     const double count_delta = 1000;
-    const double EPSILON = 0.4;
+    const double EPSILON = 1;
     const double the_answer = 2 * 3 * 4;
-    
+
     const double len_x = 2;
     const double len_y = 3;
     const double len_z = 4;
@@ -76,7 +77,7 @@ TEST(Trapezoid_Integral_Tests, test_integral_2) {
     const double count_data_x = dx * count_delta / count_processes;
     const double count_data_y = dy * count_delta / count_processes;
     const double count_data_z = dz * count_delta / count_processes;
-    
+
     double _time1 = MPI_Wtime();
     double parallel_integrate = parallelIntegral3D(integral, count_data_x, count_data_y,
                                                 count_data_z, dx, dy, dz);
@@ -84,12 +85,12 @@ TEST(Trapezoid_Integral_Tests, test_integral_2) {
 
     if (rank == 0) {
         double not_parallel_integrate = 0.0;
-        printf("PARRALEL TIME: %.6f\n", _time2-_time1);
+        printf("PARALLEL TIME: %.6f\n", _time2-_time1);
         _time1 = MPI_Wtime();
-        not_parallel_integrate = integral3D(integral, count_processes, count_data_x, 
-                                        count_data_y, count_data_z, 0, dx, dy, dz);
+        not_parallel_integrate = integral3D(integral, 1, len_x, len_y, len_z, 0, dx, dy, dz);
         _time2 = MPI_Wtime();
-        printf("NOT PARRALEL TIME %.6f\n", _time2-_time1);
+        printf("NOT PARALLEL TIME %.6f\n", _time2-_time1);
+        ASSERT_NEAR(not_parallel_integrate, parallel_integrate, EPSILON);
         ASSERT_NEAR(the_answer, parallel_integrate, EPSILON);
     }
 }
@@ -104,9 +105,9 @@ TEST(Trapezoid_Integral_Tests, test_integral_3) {
     int integral = 3;
 
     const double count_delta = 1000;
-    const double EPSILON = 0.01;
+    const double EPSILON = 1;
     const double the_answer = 0.083333;
-    
+
     const double len_x = 1;
     const double len_y = 1;
     const double len_z = 1;
@@ -118,7 +119,7 @@ TEST(Trapezoid_Integral_Tests, test_integral_3) {
     const double count_data_x = dx * count_delta / count_processes;
     const double count_data_y = dy * count_delta / count_processes;
     const double count_data_z = dz * count_delta / count_processes;
-    
+
     double _time1 = MPI_Wtime();
     double parallel_integrate = parallelIntegral3D(integral, count_data_x, count_data_y,
                                                 count_data_z, dx, dy, dz);
@@ -126,13 +127,12 @@ TEST(Trapezoid_Integral_Tests, test_integral_3) {
 
     if (rank == 0) {
         double not_parallel_integrate = 0.0;
-        printf("PARRALEL TIME: %.5f\n", _time2-_time1);
+        printf("PARALLEL TIME: %.8f\n", _time2-_time1);
         _time1 = MPI_Wtime();
-        not_parallel_integrate = integral3D(integral, count_processes, count_data_x, 
-                                        count_data_y, count_data_z, 0, dx, dy, dz);
-
+        not_parallel_integrate = integral3D(integral, 1, len_x, len_y, len_z, 0, dx, dy, dz);
         _time2 = MPI_Wtime();
-        printf("NOT PARRALEL TIME %.5f\n", _time2-_time1);
+        printf("NOT PARALLEL TIME %.8f\n", _time2-_time1);
+        ASSERT_NEAR(not_parallel_integrate, parallel_integrate, EPSILON);
         ASSERT_NEAR(the_answer, parallel_integrate, EPSILON);
     }
 }
@@ -147,9 +147,9 @@ TEST(Trapezoid_Integral_Tests, test_integral_4) {
     int integral = 4;
 
     const double count_delta = 1000;
-    const double EPSILON = 0.25;
+    const double EPSILON = 1;
     const double the_answer = 4;
-    
+
     const double len_x = 1;
     const double len_y = 3;
     const double len_z = 1;
@@ -161,7 +161,7 @@ TEST(Trapezoid_Integral_Tests, test_integral_4) {
     const double count_data_x = dx * count_delta / count_processes;
     const double count_data_y = dy * count_delta / count_processes;
     const double count_data_z = dz * count_delta / count_processes;
-    
+
     double _time1 = MPI_Wtime();
     double parallel_integrate = parallelIntegral3D(integral, count_data_x, count_data_y,
                                                 count_data_z, dx, dy, dz);
@@ -169,12 +169,12 @@ TEST(Trapezoid_Integral_Tests, test_integral_4) {
 
     if (rank == 0) {
         double not_parallel_integrate = 0.0;
-        printf("PARRALEL TIME: %.5f\n", _time2-_time1);
+        printf("PARALLEL TIME: %.8f\n", _time2-_time1);
         _time1 = MPI_Wtime();
-        not_parallel_integrate = integral3D(integral, count_processes, count_data_x, 
-                                        count_data_y, count_data_z, 0, dx, dy, dz);
+        not_parallel_integrate = integral3D(integral, 1, len_x, len_y, len_z, 0, dx, dy, dz);
         _time2 = MPI_Wtime();
-        printf("NOT PARRALEL TIME %.5f\n", _time2-_time1);
+        printf("NOT PARALLEL TIME %.8f\n", _time2-_time1);
+        ASSERT_NEAR(not_parallel_integrate, parallel_integrate, EPSILON);
         ASSERT_NEAR(the_answer, parallel_integrate, EPSILON);
     }
 }
@@ -187,9 +187,9 @@ TEST(Trapezoid_Integral_Tests, test_integral_5) {
     MPI_Comm_size(MPI_COMM_WORLD, &count_processes);
 
     const double count_delta = 1000;
-    const double EPSILON = 0.7;
+    const double EPSILON = 1;
     const double the_answer = 2;
-    
+
     int integral = 5;
 
     const double len_x = 2;
@@ -203,7 +203,7 @@ TEST(Trapezoid_Integral_Tests, test_integral_5) {
     const double count_data_x = dx * count_delta / count_processes;
     const double count_data_y = dy * count_delta / count_processes;
     const double count_data_z = dz * count_delta / count_processes;
-    
+
     double _time1 = MPI_Wtime();
     double parallel_integrate = parallelIntegral3D(integral, count_data_x, count_data_y,
                                                 count_data_z, dx, dy, dz);
@@ -211,12 +211,12 @@ TEST(Trapezoid_Integral_Tests, test_integral_5) {
 
     if (rank == 0) {
         double not_parallel_integrate = 0.0;
-        printf("PARRALEL TIME: %.5f\n", _time2-_time1);
+        printf("PARALLEL TIME: %.8f\n", _time2-_time1);
         _time1 = MPI_Wtime();
-        not_parallel_integrate = integral3D(integral, count_processes, count_data_x, 
-                                        count_data_y, count_data_z, 0, dx, dy, dz);
+        not_parallel_integrate = integral3D(integral, 1, len_x, len_y, len_z, 0, dx, dy, dz);
         _time2 = MPI_Wtime();
-        printf("NOT PARRALEL TIME %.5f\n", _time2-_time1);
+        printf("NOT PARALLEL TIME %.8f\n", _time2-_time1);
+        ASSERT_NEAR(not_parallel_integrate, parallel_integrate, EPSILON);
         ASSERT_NEAR(the_answer, parallel_integrate, EPSILON);
     }
 }
@@ -229,9 +229,9 @@ TEST(Trapezoid_Integral_Tests, test_integral_6) {
     MPI_Comm_size(MPI_COMM_WORLD, &count_processes);
 
     const double count_delta = 1000;
-    const double EPSILON = 1;
+    const double EPSILON = 2;
     const double the_answer = 30;
-    
+
     int integral = 6;
 
     const double len_x = 1;
@@ -245,7 +245,7 @@ TEST(Trapezoid_Integral_Tests, test_integral_6) {
     const double count_data_x = dx * count_delta / count_processes;
     const double count_data_y = dy * count_delta / count_processes;
     const double count_data_z = dz * count_delta / count_processes;
-    
+
     double _time1 = MPI_Wtime();
     double parallel_integrate = parallelIntegral3D(integral, count_data_x, count_data_y,
                                                 count_data_z, dx, dy, dz);
@@ -253,16 +253,12 @@ TEST(Trapezoid_Integral_Tests, test_integral_6) {
 
     if (rank == 0) {
         double not_parallel_integrate = 0.0;
-        printf("PARRALEL TIME: %.5f\n", _time2-_time1);
-
+        printf("PARALLEL TIME: %.8f\n", _time2-_time1);
         _time1 = MPI_Wtime();
-
-        not_parallel_integrate = integral3D(integral, count_processes, count_data_x, 
-                                        count_data_y, count_data_z, 0, dx, dy, dz);
-
+        not_parallel_integrate = integral3D(integral, 1, len_x, len_y, len_z, 0, dx, dy, dz);
         _time2 = MPI_Wtime();
-
-        printf("NOT PARRALEL TIME %.5f\n", _time2-_time1);
+        printf("NOT PARALLEL TIME %.8f\n", _time2-_time1);
+        ASSERT_NEAR(not_parallel_integrate, parallel_integrate, EPSILON);
         ASSERT_NEAR(the_answer, parallel_integrate, EPSILON);
     }
 }
@@ -278,9 +274,9 @@ TEST(Trapezoid_Integral_Tests, test_integral_7) {
     int integral = 7;
 
     const double count_delta = 1000;
-    const double EPSILON = 0.65;
+    const double EPSILON = 1;
     const double the_answer = 2;
-    
+
     const double len_x = 1;
     const double len_y = 1;
     const double len_z = 1;
@@ -292,7 +288,7 @@ TEST(Trapezoid_Integral_Tests, test_integral_7) {
     const double count_data_x = dx * count_delta / count_processes;
     const double count_data_y = dy * count_delta / count_processes;
     const double count_data_z = dz * count_delta / count_processes;
-    
+
     double _time1 = MPI_Wtime();
     double parallel_integrate = parallelIntegral3D(integral, count_data_x, count_data_y,
                                                 count_data_z, dx, dy, dz);
@@ -301,13 +297,13 @@ TEST(Trapezoid_Integral_Tests, test_integral_7) {
 
     if (rank == 0) {
         double not_parallel_integrate = 0.0;
-        printf("PARRALEL TIME: %.5f\n", _time2-_time1);
+        printf("PARALLEL TIME: %.8f\n", _time2-_time1);
         _time1 = MPI_Wtime();
-        not_parallel_integrate = integral3D(integral, count_processes, count_data_x, 
-                                        count_data_y, count_data_z, 0, dx, dy, dz);
-
+        not_parallel_integrate = integral3D(integral, 1, len_x, len_y, len_z, 0, dx, dy, dz);
+        not_parallel_integrate *= 15;
         _time2 = MPI_Wtime();
-        printf("NOT PARRALEL TIME %.5f\n", _time2-_time1);
+        printf("NOT PARALLEL TIME %.8f\n", _time2-_time1);
+        ASSERT_NEAR(not_parallel_integrate, parallel_integrate, EPSILON);
         ASSERT_NEAR(the_answer, parallel_integrate, EPSILON);
     }
 }
@@ -322,9 +318,9 @@ TEST(Trapezoid_Integral_Tests, test_integral_8) {
     int integral = 8;
 
     const double count_delta = 1000;
-    const double EPSILON = 0.25;
+    const double EPSILON = 1;
     const double the_answer = 3 * 4;
-    
+
     const double len_x = 3;
     const double len_y = 4;
     const double len_z = 1;
@@ -336,7 +332,7 @@ TEST(Trapezoid_Integral_Tests, test_integral_8) {
     const double count_data_x = dx * count_delta / count_processes;
     const double count_data_y = dy * count_delta / count_processes;
     const double count_data_z = dz * count_delta / count_processes;
-    
+
     double _time1 = MPI_Wtime();
     double parallel_integrate = parallelIntegral3D(integral, count_data_x, count_data_y,
                                                 count_data_z, dx, dy, dz);
@@ -344,12 +340,12 @@ TEST(Trapezoid_Integral_Tests, test_integral_8) {
 
     if (rank == 0) {
         double not_parallel_integrate = 0.0;
-        printf("PARRALEL TIME: %.5f\n", _time2-_time1);
+        printf("PARALLEL TIME: %.8f\n", _time2-_time1);
         _time1 = MPI_Wtime();
-        not_parallel_integrate = integral3D(integral, count_processes, count_data_x, 
-                                        count_data_y, count_data_z, 0, dx, dy, dz);
+        not_parallel_integrate = integral3D(integral, 1, len_x, len_y, len_z, 0, dx, dy, dz);
         _time2 = MPI_Wtime();
-        printf("NOT PARRALEL TIME %.5f\n", _time2-_time1);
+        printf("NOT PARALLEL TIME %.8f\n", _time2-_time1);
+        ASSERT_NEAR(not_parallel_integrate, parallel_integrate, EPSILON);
         ASSERT_NEAR(the_answer, parallel_integrate, EPSILON);
     }
 }
