@@ -10,7 +10,7 @@ TEST(Seq_Sort, sort_vector_positive) {
 
   if (0 == rank) {
     int size = 9;
-    double *vector = new double[size] { 4.0, 9.66057, 1.69, 99.147, 57.3579, 34.23, 44.43, 432.5435, 96, 005 };
+    double *vector = new double[size] { 4.0, 9.66057, 1.69, 99.147, 57.3579, 34.23, 44.43, 432.5435, 9.6 };
     bool result = false;
     double start = MPI_Wtime();
     seq_sorting(vector, size);
