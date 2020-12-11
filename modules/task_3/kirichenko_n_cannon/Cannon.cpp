@@ -1,13 +1,11 @@
 // Copyright 2020 Kirichenko Nikita
-
 #include <mpi.h>
 #include <vector>
 #include <random>
 #include <ctime>
 #include <cmath>
 #include <exception>
-#include "../../../modules/task_3/kirichenko_n_cannon/cannon.h"
-
+#include "../../../modules/task_3/kirichenko_n_cannon/Cannon.h"
 #define EPS 1e-5
 
 static unsigned int offset = 0;

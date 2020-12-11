@@ -4,7 +4,7 @@
 #include <gtest/gtest.h>
 #include <vector>
 #include <cmath>
-#include "./cannon.h"
+#include "./Cannon.h"
 
 #define EPS 1e-5
 
