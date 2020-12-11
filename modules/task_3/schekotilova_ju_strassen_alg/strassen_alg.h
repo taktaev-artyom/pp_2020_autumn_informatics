@@ -33,4 +33,4 @@ const std::vector<double> getSequentialOperations(const std::vector<double>& mat
 const std::vector<double> getParallelOperations(const std::vector<double>& matr_A,
   const std::vector<double>& matr_B, int n);
 
-#endif  // MODULES_TASK_3_SCHEKOTILOVA_JU_STRASSEN_ALG_STRASSEN_ALG_H_\
+#endif  // MODULES_TASK_3_SCHEKOTILOVA_JU_STRASSEN_ALG_STRASSEN_ALG_H_
