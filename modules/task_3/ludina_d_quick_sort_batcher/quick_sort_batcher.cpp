@@ -55,11 +55,12 @@ void merge(std::vector<int> vec_up, std::vector<int> vec_down) {
   std::vector<int> vec_up_odd, vec_up_even;
   std::vector<int> vec_down_odd, vec_down_even;
   std::vector<int> vec_result(vec_size);
-
-  for (int i = 0; i < vec_up.size(); i++) {
+  int vec_up_size = vec_up.size();
+  for (int i = 0; i < vec_up_size; i++) {
     i % 2 ? vec_up_even.push_back(vec_up[i]) : vec_up_odd.push_back(vec_up[i]);
   }
-  for (int i = 0; i < vec_down.size(); i++) {
+  int vec_down_size = vec_down.size();
+  for (int i = 0; i < vec_down_size; i++) {
     i % 2 ? vec_down_even.push_back(vec_down[i]) : vec_down_odd.push_back(vec_down[i]);
   }
 
@@ -68,8 +69,8 @@ void merge(std::vector<int> vec_up, std::vector<int> vec_down) {
 
   std::copy(vec_up.begin(), vec_up.end(), vec_result.begin());
   std::copy(vec_down.begin(), vec_down.end(), vec_result.begin() + vec_up.size());
-
-  for (int i = 1; i < vec_result.size() - 1; i += 2) {
+  int res_size = vec_result.size();
+  for (int i = 1; i < res_size - 1; i += 2) {
     comparators.push_back(std::pair<int, int>(vec_result[i], vec_result[i + 1]));
   }
 }
@@ -111,11 +112,13 @@ void quickSortBatcher(std::vector<int>* vec) {
   std::sort(result.begin(), result.end());
 
   std::vector<int> procs(size);
-  for (int i = 0; i < procs.size(); i++)
+  int s_procs = procs.size();
+  for (int i = 0; i < s_procs; i++)
     procs[i] = i;
   network(procs);
 
-  for (int i = 0; i < comparators.size(); i++) {
+  int comp_size = comparators.size();
+  for (int i = 0; i < comp_size; i++) {
     std::pair<int, int> comparator = comparators[i];
     if (rank == comparator.first) {
       MPI_Send(result.data(), delta, MPI_INT, comparator.second, 0, MPI_COMM_WORLD);
