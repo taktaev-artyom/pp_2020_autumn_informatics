@@ -16,4 +16,4 @@ void merge(std::vector<int> vec_up, std::vector<int> vec_down);
 void network(std::vector<int> procs);
 void quickSortBatcher(std::vector<int>* vec);
 
-#endif // MODULES_TASK_3_HASSAN_QUICK_SORT_EVEN_ODD_QUICK_SORT_EVEN_ODD_H_
+#endif  // MODULES_TASK_3_HASSAN_QUICK_SORT_EVEN_ODD_QUICK_SORT_EVEN_ODD_H_
