@@ -10,14 +10,18 @@ TEST(Parallel_MPI, TEST_3x3) {
     int rank;
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
     int str = 3;
-    std::vector<std::vector<int>> matrix = { {1, 2, 3}, {0, 0, 0}, {5, 6, 9} };
-    std::vector<int> RRes = { 0, 0, 0 };
+    std::vector<std::vector<int>> matrix = { {1, 2, 3},
+                                             {7, 4, 4},
+                                              {5, 6, 9} };
+    std::vector<int> RRes = { 1, 2, 3 };
     std::vector<int> linm = VVconvertV(matrix, 3, 3);
     std::vector<int> res(3);
     res = Min(linm, 3, 3);
+    std::vector<int>RRRes(3);
+    RRRes = min_posled(linm, 3, 3);
     if (rank == 0) {
         for (int i = 0; i < str; ++i)
-            EXPECT_EQ(RRes[i], res[i]);
+            EXPECT_EQ(RRRes[i], res[i]);
     }
 }
 
@@ -25,7 +29,8 @@ TEST(Parallel_MPI, TEST_2x3) {
     int rank;
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
     int stlb = 3;
-    std::vector<std::vector<int>> matrix = { {0, 5, 9}, {2, 3, 9} };
+    std::vector<std::vector<int>> matrix = { {0, 5, 9},
+                                             {2, 3, 9} };
     std::vector<int> RRes = { 0, 3, 9 };
     std::vector<int> linm = VVconvertV(matrix, 2, 3);
     std::vector<int> res(3);
@@ -63,16 +68,16 @@ TEST(Parallel_MPI, TEST_RANDOM_7x4) {
     std::vector<int> res = Min(linm, 7, 4);
 }
 
-TEST(Parallel_MPI, TEST_RANDOM_14x10) {
+TEST(Parallel_MPI, TEST_RANDOM_100x101) {
     int rank;
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
-    int str = 14;
-    int stlb = 10;
+    int str = 100;
+    int stlb = 101;
     int size = str * stlb;
     std::vector<std::vector<int>> matrix(size);
-    matrix = RandomMatrix(14, 10);
-    std::vector<int> linm = VVconvertV(matrix, 14, 10);
-    std::vector<int> res = Min(linm, 14, 10);
+    matrix = RandomMatrix(str, stlb);
+    std::vector<int> linm = VVconvertV(matrix, str, stlb);
+    std::vector<int> res = Min(linm, str, stlb);
 }
 
 TEST(Parallel_MPI, TEST_RANDOM_4x7) {
