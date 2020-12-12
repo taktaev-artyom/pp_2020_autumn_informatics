@@ -47,7 +47,7 @@ std::vector<int> Min(std::vector<int> linm, int str, int stlb) {
     int size, rank;
     std::vector<int> res(stlb);
     MPI_Comm_size(MPI_COMM_WORLD, &size);
-    if (size > stlb-1) {
+    if (size > stlb - 1) {
         MPI_Comm comm_world;
         MPI_Group group_world;
         comm_world = MPI_COMM_WORLD;
@@ -86,7 +86,8 @@ std::vector<int> Min(std::vector<int> linm, int str, int stlb) {
                     MPI_Recv(res.data() + i, 1, MPI_INT, i, 0, comm_newworld, &status);
                 }
             }
-        } else {
+        }
+    } else {
             MPI_Comm_rank(MPI_COMM_WORLD, &rank);
             int delta = stlb / size;
             int ost = stlb % size;
@@ -124,7 +125,7 @@ std::vector<int> Min(std::vector<int> linm, int str, int stlb) {
                     MPI_Recv(res.data() + ost + delta * i, delta, MPI_INT, i, 0, MPI_COMM_WORLD, &status);
                 }
             }
-        }
-        return res;
+    }
+    return res;
 }
 
