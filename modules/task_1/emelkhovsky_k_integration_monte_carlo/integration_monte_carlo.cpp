@@ -25,7 +25,7 @@ double EasyFunc(int N, int a, int b, int fl) {
     gen.seed(static_cast<unsigned int>(time(0)));
     for (int i = 1; i < N; i++) {
         int dot = a + gen() % (b - a);
-        if(fl == 0)
+        if (fl == 0)
             y += funcF(dot);
         else
             y += funcSin(dot);
