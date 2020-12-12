@@ -162,4 +162,5 @@ void quickSortBatcher(std::vector<int>* vec) {
     vec->erase(vec->begin() + vec_size - fict, vec->end());
   }
   return;
+
 }
