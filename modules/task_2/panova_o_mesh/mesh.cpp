@@ -5,13 +5,8 @@
 #include <random>
 #include "../../../modules/task_2/panova_o_mesh/mesh.h"
 int GetNum(int size) {
-    /*std::mt19937 gen(time(0));
-    gen.seed(static_cast<unsigned int>(time(0)));
     int num;
-    num = gen() % size;
-    return num;*/
-    int num;
-    num = rand() % size;
+    num = rand_r() % size;
     return num;
 }
 MPI_Comm CreateMesh(int ndims) {
@@ -31,7 +26,6 @@ MPI_Comm CreateMesh(int ndims) {
 }
 int SendData(void* buf, int count, MPI_Datatype type, int *dest, MPI_Comm test_comm) {
     int res = 0, rank = 0;
-    //MPI_Request request;
     MPI_Cart_rank(test_comm, dest, &rank);
     res = MPI_Send(buf, count, type, rank, 0, test_comm);
     return res;

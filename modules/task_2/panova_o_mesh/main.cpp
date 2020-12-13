@@ -45,8 +45,7 @@ TEST(Transmission, SendDataInt_FromLastTo1_Dims2) {
     MPI_Comm_size(test_comm, &size);
     if (size == 1) {
         ASSERT_EQ(1, 1);
-    }
-    else {
+    } else {
         int f_rank = 0;
         int s_rank = size - 1;
         SendRecvIntData(s_buf, ndims, s_rank, f_rank, f_buf);
