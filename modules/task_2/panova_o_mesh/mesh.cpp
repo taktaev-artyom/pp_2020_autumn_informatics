@@ -5,8 +5,10 @@
 #include <random>
 #include "../../../modules/task_2/panova_o_mesh/mesh.h"
 int GetNum(int size) {
+    std::mt19937 gen(time(0));
+    gen.seed(static_cast<unsigned int>(time(0)));
     int num;
-    num = rand_r() % size;
+    num = gen() % size;
     return num;
 }
 MPI_Comm CreateMesh(int ndims) {
