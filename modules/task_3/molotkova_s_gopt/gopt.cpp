@@ -21,18 +21,18 @@ double StronginMethod::Value(double x) {
   return Given_Function(arg);
 }
 
-double Sign(double x) { //ABS
-  //return (x >= 0) ? x : -x;
+double Sign(double x) {
   if (x >= 0)
     return x;
-else return -x;
+  else 
+    return -x;
 }
 
 double StronginMethod::Lipsh_Const1(int index, const std::vector<double>& array) {
   return Sign(Value(array[index]) - Value(array[index - 1])) / (array[index] - array[index - 1]);
 }
 
-double StronginMethod::Lipsh_Const2(double Lconst1, double r) { //маленькая
+double StronginMethod::Lipsh_Const2(double Lconst1, double r) {
   if (Lconst1 == 0)
     return 1;
 else return r * Lconst1;
@@ -44,7 +44,8 @@ double StronginMethod::Interval_characteristic(int index, double Lconst1, const 
     return 2 * x_diff - 4 * Value(array[index]) / Lconst1;
   } else {
     double y_diff_in_pow = pow((Value(array[index]) - Value(array[index - 1])), 2);
-    double interval_characteristic = x_diff + y_diff_in_pow / (Lconst1 * Lconst1 * x_diff) - 2 * (Value(array[index]) + Value(array[index - 1])) / Lconst1;
+    double interval_characteristic = x_diff + y_diff_in_pow / (Lconst1 * Lconst1 * x_diff) - 
+    2 * (Value(array[index]) + Value(array[index - 1])) / Lconst1;
     return  interval_characteristic;
   }
 }
@@ -61,14 +62,12 @@ double StronginMethod::Find_Sequential(int count_It) {
   int t = 1;
   double r = 2;
   double R, tmp;
-
   x[0] = left_border;
   x[1] = right_border;
   double Lconst1 = Lipsh_Const1(1, x);
   double Lconst2 = Lipsh_Const2(Lconst1, r);
   x[2] = Point(1, Lconst2, x);
   ++nIteration;
-
   while (nIteration < count_It) {
     sort(x.begin(), x.begin() + nIteration + 1);
     Lconst1 = Lipsh_Const1(1, x);
@@ -78,7 +77,6 @@ double StronginMethod::Find_Sequential(int count_It) {
     Lconst2 = Lipsh_Const2(Lconst1, r);
     R = Interval_characteristic(1, Lconst1, x);
     t = 1;
-
     for (int i = 2; i < nIteration; ++i) {
       tmp = Interval_characteristic(i, Lconst1, x);
       if (R < tmp) {
@@ -166,7 +164,6 @@ double StronginMethod::Find_Sequential(int count_It) {
   }
   StronginMethod opt(locA, locB, Given_Function, precision);
   localRes = opt.Find_Sequential(count_It);
-  
   MPI_Gather(&localRes, 1, MPI_DOUBLE, &result[0], 1, MPI_DOUBLE, 0, MPI_COMM_WORLD);
   if (procRank == 0) {
     for (size_t i = 1; i < procNum; ++i) {

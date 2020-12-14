@@ -45,7 +45,7 @@ TEST(global_optimization, ts2) {
   StronginMethod ts(0.6, 2.2, testF, 1e-5);
   double result = ts.Find_Parallel(count_It);
   if (myrank == 0) {
-    double sresult = ts.Find_Sequential(count_It); 
+    double sresult = ts.Find_Sequential(count_It);
     ASSERT_NEAR(result, sresult, 1e-2);
   }
 }
@@ -57,7 +57,7 @@ TEST(global_optimization, ts3) {
   StronginMethod ts(-6, 10, f, 1e-5);
   double result = ts.Find_Parallel(count_It);
   if (myrank == 0) {
-    double sresult = ts.Find_Sequential(count_It); 
+    double sresult = ts.Find_Sequential(count_It);
     ASSERT_NEAR(result, sresult, 1e-2);
   }
 }
@@ -69,7 +69,7 @@ TEST(global_optimization, ts4) {
   StronginMethod ts(5, 10, f2, 1e-5);
   double result = ts.Find_Parallel(count_It);
   if (myrank == 0) {
-    double sresult = ts.Find_Sequential(count_It); 
+    double sresult = ts.Find_Sequential(count_It);
     ASSERT_NEAR(result, sresult, 1e-2);
   }
 }
@@ -81,7 +81,7 @@ TEST(global_optimization, ts5) {
   StronginMethod ts(5, 10, f3, 1e-5);
   double result = ts.Find_Parallel(count_It);
   if (myrank == 0) {
-    double sresult = ts.Find_Sequential(count_It); 
+    double sresult = ts.Find_Sequential(count_It);
     ASSERT_NEAR(result, sresult, 1e-2);
   }
 }
