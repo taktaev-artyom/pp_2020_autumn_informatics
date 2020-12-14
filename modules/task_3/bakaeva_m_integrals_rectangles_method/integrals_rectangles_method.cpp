@@ -56,8 +56,9 @@ double getParallelIntegrals(const int n, vector<pair<double, double> > a_b, doub
     int countIntegrals = a_b.size();
     vector<double> h(n);
     vector<pair<double, double>> ab(countIntegrals);
-    int countElements;
+    int countElements; // Количество всех одночленов
 
+    // Находим шаги разбиения для каждого отрезка [a,b]
     if (rank == 0) {
         countElements = 1;
         for (int i = 0; i < countIntegrals; i++) {
@@ -71,7 +72,8 @@ double getParallelIntegrals(const int n, vector<pair<double, double> > a_b, doub
         }
     }
 
-    int length = n;
+    // Рассылаем данные всем процессам
+    int length = n; // Количество отрезков интегрирования
     MPI_Bcast(&countElements, 1, MPI_INT, 0, MPI_COMM_WORLD);
     MPI_Bcast(&length, countIntegrals, MPI_INT, 0, MPI_COMM_WORLD);
     MPI_Bcast(&h[0], countIntegrals, MPI_DOUBLE, 0, MPI_COMM_WORLD);
@@ -90,6 +92,7 @@ double getParallelIntegrals(const int n, vector<pair<double, double> > a_b, doub
         tmp = remainder + rank * delta;
     }
 
+    // Каждый процесс вычисляет свое количество sum(f(x..))
     vector<vector<double>> forCalculateF(delta);
     for (int i = 0; i < delta; i++) {
         int number = tmp + i;
@@ -107,8 +110,10 @@ double getParallelIntegrals(const int n, vector<pair<double, double> > a_b, doub
         }
     }
 
+    // Суммирование всех полученых результатов
     double Integral = 0.0;
     MPI_Reduce(&result, &Integral, 1, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
+    // Умножение на h по формуле
     for (int i = 0; i < countIntegrals; i++) {
         Integral *= h[i];
     }

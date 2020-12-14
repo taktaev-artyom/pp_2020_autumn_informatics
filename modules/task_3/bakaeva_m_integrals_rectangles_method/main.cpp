@@ -4,8 +4,9 @@
 #include <math.h>
 #include <utility>
 #include <vector>
+#include <ctime>
+#include <iostream>
 #include "./integrals_rectangles_method.h"
-
 
 
     double f1(vector<double> vec) {
@@ -39,6 +40,31 @@
         int z = vec[2];
         return x * x * z * sin(x * y * z);
     }
+    
+TEST(IntegralsRectanglesMethod, DISABLED_timeTest) {
+    int rank;
+    MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+
+    double t1, t2;
+
+    vector<pair<double, double>> a_b(2);
+    a_b = {{1, 5}, {0, 3}};
+
+    t1 = MPI_Wtime();
+    double resParallel = getParallelIntegrals(100, a_b, f1);
+    t2 = MPI_Wtime();
+    
+    if (rank == 0)
+    std::cout << "Parallel time: " <<t2 - t1 << std::endl;
+
+    if (rank == 0) {
+        t1 = MPI_Wtime();
+        double resLinear = getSequentialIntegrals(100, a_b, f1);
+        t2 = MPI_Wtime();
+        std::cout << "Linear time: " << t2 - t1 << std::endl;
+        ASSERT_NEAR(resLinear, resParallel, 0.001);
+    }
+}    
 
 TEST(IntegralsRectanglesMethod, testCalculate_f1) {
     int rank;
