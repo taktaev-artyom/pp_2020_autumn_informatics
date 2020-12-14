@@ -126,7 +126,7 @@ double StronginMethod::Find_Sequential(int count_It) {
     sort(x.begin(), x.begin() + nIteration + 1);
 
     M = Lipsh_Const1(1, x);
-    for (size_t i = 2; i <= nIteration; ++i) {
+    for (int i = 2; i <= nIteration; ++i) {
       M = std::max(M, Lipsh_Const1(i, x));
     }
     m = Lipsh_Const2(M, r);
@@ -166,7 +166,7 @@ double StronginMethod::Find_Sequential(int count_It) {
   localRes = opt.Find_Sequential(count_It);
   MPI_Gather(&localRes, 1, MPI_DOUBLE, &result[0], 1, MPI_DOUBLE, 0, MPI_COMM_WORLD);
   if (procRank == 0) {
-    for (size_t i = 1; i < procNum; ++i) {
+    for (int i = 1; i < procNum; ++i) {
       if (Value(result[i]) < Value(result[0])) {
         std::swap(result[i], result[0]);
       }
