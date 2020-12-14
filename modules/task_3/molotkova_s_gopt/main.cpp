@@ -7,7 +7,7 @@
 
 
 double f(double* x) {
-  return  3 * *x * *x;
+  return  *x * *x;
 }
 double testF(double* _x) {
   double x = *_x;
@@ -18,7 +18,7 @@ double f1(double* x) {
 }
 double f2(double* _x) {
   double x = *_x;
-  return (x*x + 5) * (x*x + 5);
+  return (x + 5) * (x + 5);
 }
 
 double f3(double* _x) {
@@ -31,9 +31,18 @@ TEST(global_optimization, ts1) {
   int myrank;
   MPI_Comm_rank(MPI_COMM_WORLD, &myrank);
   StronginMethod ts(5, 10, f1, 1e-5);
+  double time1 = MPI_Wtime();
   double result = ts.Find_Parallel(count_It);
+  double time2 = MPI_Wtime();
   if (myrank == 0) {
+    double stime1 = MPI_Wtime();
     double sresult = ts.Find_Sequential(count_It);
+    double stime2 = MPI_Wtime();
+    double part = time2 - time1;
+    double st = stime2 - stime1;
+    if (part > st)
+      std::cout << "NOT OK" << std::endl;
+    else std::cout << " OK" << std::endl;
     ASSERT_NEAR(result, sresult, 1e-2);
   }
 }
@@ -43,9 +52,18 @@ TEST(global_optimization, ts2) {
   int myrank;
   MPI_Comm_rank(MPI_COMM_WORLD, &myrank);
   StronginMethod ts(0.6, 2.2, testF, 1e-5);
+  double time1 = MPI_Wtime();
   double result = ts.Find_Parallel(count_It);
+  double time2 = MPI_Wtime();
   if (myrank == 0) {
+    double stime1 = MPI_Wtime();
     double sresult = ts.Find_Sequential(count_It);
+    double stime2 = MPI_Wtime();
+    double part = time2 - time1;
+    double st = stime2 - stime1;
+    if (part > st)
+      std::cout << "NOT OK" << std::endl;
+    else std::cout << " OK" << std::endl;
     ASSERT_NEAR(result, sresult, 1e-2);
   }
 }
@@ -55,9 +73,18 @@ TEST(global_optimization, ts3) {
   int myrank;
   MPI_Comm_rank(MPI_COMM_WORLD, &myrank);
   StronginMethod ts(-6, 10, f, 1e-5);
+  double time1 = MPI_Wtime();
   double result = ts.Find_Parallel(count_It);
+  double time2 = MPI_Wtime();
   if (myrank == 0) {
+    double stime1 = MPI_Wtime();
     double sresult = ts.Find_Sequential(count_It);
+    double stime2 = MPI_Wtime();
+    double part = time2 - time1;
+    double st = stime2 - stime1;
+    if (part > st)
+      std::cout << "NOT OK" << std::endl;
+    else std::cout << " OK" << std::endl;
     ASSERT_NEAR(result, sresult, 1e-2);
   }
 }
@@ -67,9 +94,18 @@ TEST(global_optimization, ts4) {
   int myrank;
   MPI_Comm_rank(MPI_COMM_WORLD, &myrank);
   StronginMethod ts(5, 10, f2, 1e-5);
+  double time1 = MPI_Wtime();
   double result = ts.Find_Parallel(count_It);
+  double time2 = MPI_Wtime();
   if (myrank == 0) {
+    double stime1 = MPI_Wtime();
     double sresult = ts.Find_Sequential(count_It);
+    double stime2 = MPI_Wtime();
+    double part = time2 - time1;
+    double st = stime2 - stime1;
+    if (part > st)
+      std::cout << "NOT OK" << std::endl;
+    else std::cout << " OK" << std::endl;
     ASSERT_NEAR(result, sresult, 1e-2);
   }
 }
@@ -79,9 +115,18 @@ TEST(global_optimization, ts5) {
   int myrank;
   MPI_Comm_rank(MPI_COMM_WORLD, &myrank);
   StronginMethod ts(5, 10, f3, 1e-5);
+  double time1 = MPI_Wtime();
   double result = ts.Find_Parallel(count_It);
+  double time2 = MPI_Wtime();
   if (myrank == 0) {
+    double stime1 = MPI_Wtime();
     double sresult = ts.Find_Sequential(count_It);
+    double stime2 = MPI_Wtime();
+    double part = time2 - time1;
+    double st = stime2 - stime1;
+    if (part > st)
+      std::cout << "NOT OK" << std::endl;
+    else std::cout << " OK" << std::endl;
     ASSERT_NEAR(result, sresult, 1e-2);
   }
 }
