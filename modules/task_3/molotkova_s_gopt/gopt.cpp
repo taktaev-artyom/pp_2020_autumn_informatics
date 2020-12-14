@@ -24,7 +24,7 @@ double StronginMethod::Value(double x) {
 double Sign(double x) {
   if (x >= 0)
     return x;
-  else 
+  else
     return -x;
 }
 
@@ -35,7 +35,8 @@ double StronginMethod::Lipsh_Const1(int index, const std::vector<double>& array)
 double StronginMethod::Lipsh_Const2(double Lconst1, double r) {
   if (Lconst1 == 0)
     return 1;
-else return r * Lconst1;
+  else 
+    return r * Lconst1;
 }
 
 double StronginMethod::Interval_characteristic(int index, double Lconst1, const std::vector<double>& array) {
@@ -44,7 +45,7 @@ double StronginMethod::Interval_characteristic(int index, double Lconst1, const 
     return 2 * x_diff - 4 * Value(array[index]) / Lconst1;
   } else {
     double y_diff_in_pow = pow((Value(array[index]) - Value(array[index - 1])), 2);
-    double interval_characteristic = x_diff + y_diff_in_pow / (Lconst1 * Lconst1 * x_diff) - 
+    double interval_characteristic = x_diff + y_diff_in_pow / (Lconst1 * Lconst1 * x_diff) -
     2 * (Value(array[index]) + Value(array[index - 1])) / Lconst1;
     return  interval_characteristic;
   }
@@ -97,7 +98,6 @@ double StronginMethod::Find_Sequential(int count_It) {
   }
   return x[t];
 }
-
  double StronginMethod::Find_Parallel(int count_It) {
   int procNum;
   int porog = 64;
