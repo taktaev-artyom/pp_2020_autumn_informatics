@@ -56,7 +56,7 @@ double getParallelIntegrals(const int n, vector<pair<double, double> > a_b, doub
     int countIntegrals = a_b.size();
     vector<double> h(n);
     vector<pair<double, double>> ab(countIntegrals);
-    int countElements; // Количество всех одночленов
+    int countElements;  // Количество всех одночленов
 
     // Находим шаги разбиения для каждого отрезка [a,b]
     if (rank == 0) {
@@ -73,7 +73,7 @@ double getParallelIntegrals(const int n, vector<pair<double, double> > a_b, doub
     }
 
     // Рассылаем данные всем процессам
-    int length = n; // Количество отрезков интегрирования
+    int length = n;  // Количество отрезков интегрирования
     MPI_Bcast(&countElements, 1, MPI_INT, 0, MPI_COMM_WORLD);
     MPI_Bcast(&length, countIntegrals, MPI_INT, 0, MPI_COMM_WORLD);
     MPI_Bcast(&h[0], countIntegrals, MPI_DOUBLE, 0, MPI_COMM_WORLD);

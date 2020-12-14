@@ -40,7 +40,7 @@
         int z = vec[2];
         return x * x * z * sin(x * y * z);
     }
-    
+
 TEST(IntegralsRectanglesMethod, DISABLED_timeTest) {
     int rank;
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
@@ -53,7 +53,7 @@ TEST(IntegralsRectanglesMethod, DISABLED_timeTest) {
     t1 = MPI_Wtime();
     double resParallel = getParallelIntegrals(100, a_b, f1);
     t2 = MPI_Wtime();
-    
+
     if (rank == 0)
     std::cout << "Parallel time: " <<t2 - t1 << std::endl;
 
@@ -64,7 +64,7 @@ TEST(IntegralsRectanglesMethod, DISABLED_timeTest) {
         std::cout << "Linear time: " << t2 - t1 << std::endl;
         ASSERT_NEAR(resLinear, resParallel, 0.001);
     }
-}    
+}
 
 TEST(IntegralsRectanglesMethod, testCalculate_f1) {
     int rank;
