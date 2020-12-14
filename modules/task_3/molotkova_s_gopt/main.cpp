@@ -41,7 +41,7 @@ TEST(global_optimization, ts1) {
     double part = time2 - time1;
     double st = stime2 - stime1;
     if (part > st)
-      std::cout << "NOT OK " <<part - st<< std::endl;
+      std::cout << "NOT OK " << part - st << std::endl;
     else
       std::cout << " OK" << std::endl;
     ASSERT_NEAR(result, sresult, 1e-2);
@@ -107,7 +107,7 @@ TEST(global_optimization, ts4) {
     double part = time2 - time1;
     double st = stime2 - stime1;
     if (part > st)
-      std::cout << "NOT OK" << part - st<<std::endl;
+      std::cout << "NOT OK" << part - st << std::endl;
     else
       std::cout << " OK" << std::endl;
     ASSERT_NEAR(result, sresult, 1e-2);
@@ -129,7 +129,7 @@ TEST(global_optimization, ts5) {
     double part = time2 - time1;
     double st = stime2 - stime1;
     if (part > st)
-      std::cout << "NOT OK" <<part - st<<  std::endl;
+      std::cout << "NOT OK" << part - st << std::endl;
     else
       std::cout << " OK" << std::endl;
     ASSERT_NEAR(result, sresult, 1e-2);
