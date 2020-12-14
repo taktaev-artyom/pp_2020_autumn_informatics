@@ -47,7 +47,8 @@ std::vector<int> getSequentialSobel(std::vector<int> mat, int rows, int cols) {
         for (int j = 0; j < cols; j++) {
             if (j == 0 || j == cols - 1)
                 sobarr[i * cols + j] = 0;
-            else sobarr[i * cols + j] = SobelXY(mat, cols, i, j);
+            else
+                sobarr[i * cols + j] = SobelXY(mat, cols, i, j);
         }
     for (int i = 0; i < cols; i++)
         sobarr[(rows - 1) * cols + i] = 0;
@@ -68,10 +69,12 @@ std::vector<int> getParalSobel(std::vector<int> mat, int rows, int cols) {
             for (int j = 0; j < cols; j++) {
                 if (j == 0 || j == cols - 1)
                     sobmat[i * cols + j] = 0;
-                else sobmat[i * cols + j] = SobelXY(mat, cols, i, j);
+                else
+                    sobmat[i * cols + j] = SobelXY(mat, cols, i, j);
             }
         for (int i = 1; i < size; i++)
-            MPI_Send(mat.data() + rem * cols + count * cols * i - cols, (count + 2) * cols, MPI_INT, i, 0, MPI_COMM_WORLD);
+            MPI_Send(mat.data() + rem * cols + count * cols * i - cols,
+                     (count + 2) * cols, MPI_INT, i, 0, MPI_COMM_WORLD);
     } else {
         std::vector<int> tmpmat((count + 2) * cols);
         std::vector<int> tmpsob(count * cols);
@@ -81,7 +84,8 @@ std::vector<int> getParalSobel(std::vector<int> mat, int rows, int cols) {
             for (int j = 0; j < cols; j++) {
                 if (j == 0 || j == cols - 1)
                     tmpsob[i * cols + j] = 0;
-                else tmpsob[i * cols + j] = SobelXY(tmpmat, cols, i + 1, j);
+                else
+                    tmpsob[i * cols + j] = SobelXY(tmpmat, cols, i + 1, j);
             }
         }
         MPI_Send(tmpsob.data(), count * cols, MPI_INT, 0, 0, MPI_COMM_WORLD);
@@ -89,7 +93,8 @@ std::vector<int> getParalSobel(std::vector<int> mat, int rows, int cols) {
     if (rank == 0) {
         for (int i = 1; i < size; i++) {
             MPI_Status status;
-            MPI_Recv(sobmat.data() + rem * cols + count * cols * i, count * cols, MPI_INT, i, 0, MPI_COMM_WORLD, &status);
+            MPI_Recv(sobmat.data() + rem * cols + count * cols * i,
+                     count * cols, MPI_INT, i, 0, MPI_COMM_WORLD, &status);
         }
         for (int i = 0; i < cols; i++)
             sobmat[(rows - 1) * cols + i] = 0;
