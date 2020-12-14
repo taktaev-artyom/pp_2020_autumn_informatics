@@ -35,7 +35,7 @@ double StronginMethod::Lipsh_Const1(int index, const std::vector<double>& array)
 double StronginMethod::Lipsh_Const2(double Lconst1, double r) {
   if (Lconst1 == 0)
     return 1;
-  else 
+  else
     return r * Lconst1;
 }
 
@@ -98,7 +98,7 @@ double StronginMethod::Find_Sequential(int count_It) {
   }
   return x[t];
 }
- double StronginMethod::Find_Parallel(int count_It) {
+  double StronginMethod::Find_Parallel(int count_It) {
   int procNum;
   int porog = 64;
   MPI_Comm_size(MPI_COMM_WORLD, &procNum);
