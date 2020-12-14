@@ -14,16 +14,16 @@ double testF(double* _x) {
   return sin(9 * x + 4) * cos(15 * x - 2) + 1.4;
 }
 double f1(double* x) {
-  return exp(-0.5 * *x) * sin(6 * *x - 1.5);
+  return exp(-0.5 * *x) * sin(6 * *x - 1.5) + 0.1 * *x;
 }
 double f2(double* _x) {
   double x = *_x;
-  return (x + 5) * (x + 5);
+  return sin(x + 5) * (x + 5);
 }
 
 double f3(double* _x) {
   double x = *_x;
-  return exp(-0.5 * x);
+  return exp(-0.9 * x);
 }
 
 TEST(global_optimization, ts1) {
@@ -41,8 +41,9 @@ TEST(global_optimization, ts1) {
     double part = time2 - time1;
     double st = stime2 - stime1;
     if (part > st)
-      std::cout << "NOT OK" << std::endl;
-    else std::cout << " OK" << std::endl;
+      std::cout << "NOT OK " <<part - st<< std::endl;
+    else
+      std::cout << " OK" << std::endl;
     ASSERT_NEAR(result, sresult, 1e-2);
   }
 }
@@ -63,7 +64,8 @@ TEST(global_optimization, ts2) {
     double st = stime2 - stime1;
     if (part > st)
       std::cout << "NOT OK" << std::endl;
-    else std::cout << " OK" << std::endl;
+    else
+      std::cout << " OK" << std::endl;
     ASSERT_NEAR(result, sresult, 1e-2);
   }
 }
@@ -83,8 +85,9 @@ TEST(global_optimization, ts3) {
     double part = time2 - time1;
     double st = stime2 - stime1;
     if (part > st)
-      std::cout << "NOT OK" << std::endl;
-    else std::cout << " OK" << std::endl;
+      std::cout << "NOT OK" <<std::endl;
+    else
+      std::cout << " OK" << std::endl;
     ASSERT_NEAR(result, sresult, 1e-2);
   }
 }
@@ -104,8 +107,9 @@ TEST(global_optimization, ts4) {
     double part = time2 - time1;
     double st = stime2 - stime1;
     if (part > st)
-      std::cout << "NOT OK" << std::endl;
-    else std::cout << " OK" << std::endl;
+      std::cout << "NOT OK" << part - st<<std::endl;
+    else
+      std::cout << " OK" << std::endl;
     ASSERT_NEAR(result, sresult, 1e-2);
   }
 }
@@ -125,8 +129,9 @@ TEST(global_optimization, ts5) {
     double part = time2 - time1;
     double st = stime2 - stime1;
     if (part > st)
-      std::cout << "NOT OK" << std::endl;
-    else std::cout << " OK" << std::endl;
+      std::cout << "NOT OK" <<part - st<<  std::endl;
+    else
+      std::cout << " OK" << std::endl;
     ASSERT_NEAR(result, sresult, 1e-2);
   }
 }
