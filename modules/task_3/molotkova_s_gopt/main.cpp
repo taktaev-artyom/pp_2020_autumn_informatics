@@ -18,7 +18,7 @@ double f1(double* x) {
 }
 double f2(double* _x) {
   double x = *_x;
-  return pow(x*x + 5, 2);
+  return (x*x + 5) * (x*x + 5);
 }
 
 double f3(double* _x) {
