@@ -15,8 +15,7 @@ std::vector<double> randMat(const int cols, const int rows) {
     double val_rand = static_cast<double>(std::rand() % 50 + 1);
     if (val_rand < 4) {
       res[i] = val_rand;
-    }
-    else {
+    } else {
       res[i] = 0;
     }
   }
@@ -86,8 +85,7 @@ std::vector<double> matMultiply(sparseMatrix A, sparseMatrix B) {
   if (A.not_null == 0 || B.not_null == 0) {
     if (rank == 0) {
       return A * B;
-    }
-    else {
+    } else {
       return std::vector<double>();
     }
   }
@@ -97,8 +95,7 @@ std::vector<double> matMultiply(sparseMatrix A, sparseMatrix B) {
   if (A.cols < size) {
     if (rank == 0) {
       return A * B;
-    }
-    else {
+    } else {
       return std::vector<double>();
     }
   }
@@ -145,8 +142,7 @@ std::vector<double> matMultiply(sparseMatrix A, sparseMatrix B) {
   }
   if (rank == 0) {
     MPI_Reduce(&local_result[0], &overal_result[0], A.rows * B.cols, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
-  }
-  else {
+  } else {
     MPI_Reduce(&local_result[0], MPI_IN_PLACE, A.rows * B.cols, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
   }
   return overal_result;
