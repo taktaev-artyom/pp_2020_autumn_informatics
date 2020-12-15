@@ -44,4 +44,4 @@ Point searchFirstPointParallel(const std::vector<Point> &mas, int rank, int proc
 std::vector<Point> buildConvexHullParallel(const std::vector<Point> &mas);
 std::vector<Point> buildConvexHull(const std::vector<Point> &mas);
 bool pointCheck(const Point& back, const Point& current, const Point& challenger);
-#endif // MODULES_TASK_3_SOLOVEV_A_BUILDING_IMAGE_BUILDING_IMAGE_H_
+#endif //  MODULES_TASK_3_SOLOVEV_A_BUILDING_IMAGE_BUILDING_IMAGE_H_

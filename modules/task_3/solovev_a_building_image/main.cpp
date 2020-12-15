@@ -64,7 +64,7 @@ TEST(MyAlgos2, Test_Data_Set_100) {
             image[i][j] = rand() % 2;
         }
     }
-   
+
     std::vector<Point> points_parallel = interpriate_basic(image, height, width);
     std::vector<Point> points_sequence = points_parallel;
     std::vector<int> points_parallel_x;
@@ -109,7 +109,7 @@ TEST(MyAlgos3, Test_Data_Set_1000) {
             image[i][j] = rand() % 2;
         }
     }
-    
+
     std::vector<Point> points_parallel = interpriate_basic(image, height, width);
     std::vector<Point> points_sequence = points_parallel;
     std::vector<int> points_parallel_x;
@@ -153,10 +153,10 @@ TEST(MyAlgos4, Test_Data_Set_2000) {
         for (int j = 0; j < width; j++) {
             image[i][j] = rand() % 2;
         }
-	}
+    }
 
     std::vector<Point> points_parallel = interpriate_basic(image, height, width);
-    std::vector<Point> points_sequence= points_parallel;
+    std::vector<Point> points_sequence = points_parallel;
     std::vector<int> points_parallel_x;
     std::vector<int> points_parallel_y;
     std::vector<int> points_sequence_x;
@@ -199,7 +199,7 @@ TEST(MyAlgos5, Test_Data_Set_5000) {
             image[i][j] = rand() % 2;
         }
     }
-    
+
     std::vector<Point> points_parallel = interpriate_basic(image, height, width);
     std::vector<Point> points_sequence = points_parallel;
     std::vector<int> points_parallel_x;
