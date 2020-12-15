@@ -3,7 +3,6 @@
 #include <gtest-mpi-listener.hpp>
 #include <gtest/gtest.h>
 #include <vector>
-#include <chrono>
 #include <algorithm>
 #include "./radix_with_merge.h"
 
@@ -125,20 +124,18 @@ TEST(RadixSortWithMergeMPI, DISABLED_Size_100000_With_Time) {
         randomVector = generateRandomVector<int>(vectorSize);
     }
 
-    auto parallelStart = std::chrono::steady_clock::now();
+    auto parallelStart = MPI_Wtime();
     std::vector<int> parallelResult = parallelRadixSort(randomVector, vectorSize);
-    auto parallelEnd = std::chrono::steady_clock::now();
+    auto parallelEnd = MPI_Wtime();
 
     if (procRank == 0) {
-        std::chrono::duration<double> elapsedParallel = parallelEnd - parallelStart;
-        std::cout << "Parallel duration: " << elapsedParallel.count() << std::endl;
+        std::cout << "Parallel duration: " << parallelEnd - parallelStart << std::endl;
 
-        auto seqStart = std::chrono::steady_clock::now();
+        auto seqStart = MPI_Wtime();
         std::vector<int> sequentalResult = radixSortSigned(randomVector);
-        auto seqEnd = std::chrono::steady_clock::now();
+        auto seqEnd = MPI_Wtime();
 
-        std::chrono::duration<double> elapsedSeq = seqEnd - seqStart;
-        std::cout << "Seq duration: " << elapsedSeq.count() << std::endl;
+        std::cout << "Seq duration: " << seqEnd - seqStart << std::endl;
 
         std::sort(randomVector.begin(), randomVector.end());
 
