@@ -96,7 +96,7 @@ std::vector<T> radixLastPassSigned(const std::vector<T>& source, std::vector<int
 
 template<typename T>
 std::vector<T> radixSortSigned(const std::vector<T>& in) {
-    auto size = in.size();
+    int size = static_cast<int>(in.size());
     std::vector<T> out(in);
 
     auto counters = calculateCounters(in);
