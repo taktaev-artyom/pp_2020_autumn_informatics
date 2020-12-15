@@ -37,7 +37,7 @@ std::vector<int> parallelRadixSort(const std::vector<int>& source, const int sou
     localVector = radixSortSigned(localVector);
 
     std::vector<int> procs(size);
-    for (int i = 0; i < static_cast<size_t>(procs.size()); i++)
+    for (int i = 0; i < static_cast<int>(procs.size()); i++)
         procs[i] = i;
 
     int vecSize = 0;
