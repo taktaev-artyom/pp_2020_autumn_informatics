@@ -45,10 +45,10 @@ std::vector<int> parallelRadixSort(const std::vector<int>& source, const int sou
     int vecSize = 0;
 
     while (procs.size() > 1) {
-        vecSize = procs.size();
+        vecSize = static_cast<int>(procs.size());
         for (int i = vecSize - 1; i > (vecSize % 2); i -= 2) {
             if (rank == procs[i]) {
-                int mergedSize = localVector.size();
+                int mergedSize = static_cast<int>(localVector.size());
                 MPI_Send(&mergedSize, 1, MPI_INT, procs[static_cast<size_t>(i) - 1], 0, MPI_COMM_WORLD);
 
                 MPI_Send(localVector.data(), mergedSize, MPI_INT, procs[static_cast<size_t>(i) - 1], 0, MPI_COMM_WORLD);

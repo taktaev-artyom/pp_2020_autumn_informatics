@@ -45,7 +45,7 @@ std::vector<long> calculateCounters(const std::vector<T>& data) {
 
 template<typename T>
 std::vector<T> radixPass(const std::vector<T>& source, std::vector<long> counter, short byteOffset) {
-    long long partialSum = 0;
+    long partialSum = 0;
     long currentCount;
     for (short i = 0; i < 256; i++) {
         currentCount = counter[i];
@@ -69,7 +69,7 @@ std::vector<T> radixLastPassSigned(const std::vector<T>& source, std::vector<lon
     for (short i = 128; i < 256; i++)
         numNeg += counter[i];
 
-    long long partialSum = numNeg;
+    long partialSum = numNeg;
     long currentCount;
     for (short i = 0; i < 128; i++) {
         currentCount = counter[i];
