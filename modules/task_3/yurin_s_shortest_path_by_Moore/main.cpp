@@ -16,7 +16,7 @@ TEST(Shortest_Paths_By_Moore, Rows_20_Min_neg5_Max_5) {
 
 
     std::vector<int> weight_matrix(num_of_rows * num_of_rows);
-    weight_matrix = getRandomWeightMatrix(num_of_rows, min_val_of_weight, min_val_of_weight);
+    weight_matrix = getRandomWeightMatrix(num_of_rows, min_val_of_weight, max_val_of_weight);
 
     int start_vert_index = 0, end_vert_index = num_of_rows - 1;
 
@@ -59,7 +59,7 @@ TEST(Shortest_Paths_By_Moore, Rows_43_Min_neg14_Max_19) {
 
 
     std::vector<int> weight_matrix(num_of_rows * num_of_rows);
-    weight_matrix = getRandomWeightMatrix(num_of_rows, min_val_of_weight, min_val_of_weight);
+    weight_matrix = getRandomWeightMatrix(num_of_rows, min_val_of_weight, max_val_of_weight);
 
     int start_vert_index = 0, end_vert_index = num_of_rows - 1;
 
@@ -102,7 +102,7 @@ TEST(Shortest_Paths_By_Moore, Rows_67_Min_neg35_Max_52) {
 
 
     std::vector<int> weight_matrix(num_of_rows * num_of_rows);
-    weight_matrix = getRandomWeightMatrix(num_of_rows, min_val_of_weight, min_val_of_weight);
+    weight_matrix = getRandomWeightMatrix(num_of_rows, min_val_of_weight, max_val_of_weight);
 
     int start_vert_index = 0, end_vert_index = num_of_rows - 1;
 
@@ -145,7 +145,7 @@ TEST(Shortest_Paths_By_Moore, Rows_89_Min_neg74_Max_57) {
 
 
     std::vector<int> weight_matrix(num_of_rows * num_of_rows);
-    weight_matrix = getRandomWeightMatrix(num_of_rows, min_val_of_weight, min_val_of_weight);
+    weight_matrix = getRandomWeightMatrix(num_of_rows, min_val_of_weight, max_val_of_weight);
 
     int start_vert_index = 0, end_vert_index = num_of_rows - 1;
 
@@ -188,7 +188,7 @@ TEST(Shortest_Paths_By_Moore, Rows_100_Min_neg49_Max_31) {
 
 
     std::vector<int> weight_matrix(num_of_rows * num_of_rows);
-    weight_matrix = getRandomWeightMatrix(num_of_rows, min_val_of_weight, min_val_of_weight);
+    weight_matrix = getRandomWeightMatrix(num_of_rows, min_val_of_weight, max_val_of_weight);
 
     int start_vert_index = 0, end_vert_index = num_of_rows - 1;
 

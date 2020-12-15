@@ -74,7 +74,7 @@ std::vector<int> getSequentialShortestPath(std::vector<int> weight_matrix, int r
             int old_mark_val = marks[(cur_vert_index + 1) + i];  // Запоминаем старое значение метки
 
             // !!!Пересчитываем метку
-            marks[(cur_vert_index + 1) + i] = __min(old_mark_val,
+            marks[(cur_vert_index + 1) + i] = std::min(old_mark_val,
                                                     marks[cur_vert_index] +
                                                         weight_matrix[((cur_vert_index + 1) + i) +
                                                                         (cur_vert_index *
@@ -243,7 +243,7 @@ std::vector<int> getParallelShortestPath(std::vector<int> weight_matrix, int row
             int old_mark_val = this_proc_marks[i];  // Запоминаем старое значение метки
 
             // !!!Пересчитываем метку
-            this_proc_marks[i] = __min(old_mark_val, cur_vert_mark +
+            this_proc_marks[i] = std::min(old_mark_val, cur_vert_mark +
                                         weight_matrix[(cur_vert_index * rows_num) +
                                                         (this_proc_start_neighb_vert_index + i)]);
             // Пересчитываем метку!!!
