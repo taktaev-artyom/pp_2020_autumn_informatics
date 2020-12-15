@@ -100,7 +100,7 @@ std::vector<int> getSequentialShortestPath(std::vector<int> weight_matrix, int r
         // Пересчитываем метки для всех достижимых вершин!!!
 
         // !!!Проверка очереди на пустоту. Если очередь пуста - катчайшие пути до всех вершин найдены
-        if (queue.size() == 0)
+        if (queue.empty())
             break;
         // Проверка очереди на пустоту. Если очередь пуста - катчайшие пути до всех вершин найдены!!!
     }
@@ -165,7 +165,7 @@ std::vector<int> getParallelShortestPath(std::vector<int> weight_matrix, int row
         int cur_vert_index;
         int cur_vert_mark;
         if (rank == 0) {
-            if (overall_to_queue_start.size() != 0) {
+            if (!overall_to_queue_start.empty()) {
                 cur_vert_index = overall_to_queue_start[0];  // Устанавливаем текущую вершину - первую в очереди
                 overall_to_queue_start.erase(overall_to_queue_start.begin());  // Удаляем первую вершину из очереди
             } else {
@@ -334,7 +334,7 @@ std::vector<int> getParallelShortestPath(std::vector<int> weight_matrix, int row
         int break_flag = 0;
         if (rank == 0) {
             // !!!Проверка очереди на пустоту
-            if (overall_to_queue_end.size() == 0 && overall_to_queue_start.size() == 0)
+            if (overall_to_queue_end.empty() && overall_to_queue_start.empty())
                 break_flag = 1;
             // Проверка очереди на пустоту!!!
         }
