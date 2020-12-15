@@ -1,4 +1,4 @@
-//Copyright 2020 Solovev Aleksandr
+// Copyright 2020 Solovev Aleksandr
 #include <mpi.h>
 #include <gtest-mpi-listener.hpp>
 #include <gtest/gtest.h>
@@ -17,19 +17,19 @@ TEST(MyAlgos, Test_Data_Set_500) {
     }
     for (int i = 0; i < height; i++) {
         for (int j = 0; j < width; j++) {
-            image[i][j]=rand() % 2;
+            image[i][j] = rand() % 2;
         }
     }
-	
+
     std::vector<Point> points_parallel = interpriate_basic(image, height, width);
-    std::vector<Point> points_sequence= points_parallel;
+    std::vector<Point> points_sequence = points_parallel;
     std::vector<int> points_parallel_x;
     std::vector<int> points_parallel_y;
     std::vector<int> points_sequence_x;
     std::vector<int> points_sequence_y;
     double startMY = MPI_Wtime();
     points_parallel = buildConvexHullParallel(points_parallel);
-	double endMY = MPI_Wtime();
+    double endMY = MPI_Wtime();
 
     if (rank == 0) {
         for (size_t i = 0; i < points_parallel.size(); i++) {
@@ -51,9 +51,9 @@ TEST(MyAlgos, Test_Data_Set_500) {
 }
 
 TEST(MyAlgos2, Test_Data_Set_100) {
-	int rank;
+    int rank;
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
-	int height = 100;
+    int height = 100;
     int width = 100;
     int ** image = new int*[height];
     for (int i = 0; i < height; i++) {
@@ -61,19 +61,19 @@ TEST(MyAlgos2, Test_Data_Set_100) {
     }
     for (int i = 0; i < height; i++) {
         for (int j = 0; j < width; j++) {
-            image[i][j]=rand() % 2;
+            image[i][j] = rand() % 2;
         }
-	}
-    
-	std::vector<Point> points_parallel = interpriate_basic(image, height, width);
-    std::vector<Point> points_sequence= points_parallel;
+    }
+   
+    std::vector<Point> points_parallel = interpriate_basic(image, height, width);
+    std::vector<Point> points_sequence = points_parallel;
     std::vector<int> points_parallel_x;
     std::vector<int> points_parallel_y;
     std::vector<int> points_sequence_x;
     std::vector<int> points_sequence_y;
-	double startMY = MPI_Wtime();
+    double startMY = MPI_Wtime();
     points_parallel = buildConvexHullParallel(points_parallel);
-	double endMY = MPI_Wtime();
+    double endMY = MPI_Wtime();
 
     if (rank == 0) {
         for (size_t i = 0; i < points_parallel.size(); i++) {
@@ -87,7 +87,7 @@ TEST(MyAlgos2, Test_Data_Set_100) {
             points_sequence_x.push_back(points_parallel[i].x);
             points_sequence_y.push_back(points_parallel[i].y);
         }
-		std::cout << "Parallel_Time: " << endMY - startMY << std::endl;
+        std::cout << "Parallel_Time: " << endMY - startMY << std::endl;
         std::cout << "Sequence_Time: " << endT - startT << std::endl;
         ASSERT_EQ(points_parallel_x, points_sequence_x);
         ASSERT_EQ(points_parallel_y, points_sequence_y);
@@ -95,9 +95,9 @@ TEST(MyAlgos2, Test_Data_Set_100) {
 }
 
 TEST(MyAlgos3, Test_Data_Set_1000) {
-	int rank;
+    int rank;
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
-	int height = 1000;
+    int height = 1000;
     int width = 1000;
     int ** image = new int*[height];
     for (int i = 0; i < height; i++) {
@@ -106,19 +106,19 @@ TEST(MyAlgos3, Test_Data_Set_1000) {
 
     for (int i = 0; i < height; i++) {
         for (int j = 0; j < width; j++) {
-            image[i][j]=rand() % 2;
+            image[i][j] = rand() % 2;
         }
-	}
+    }
     
-	std::vector<Point> points_parallel = interpriate_basic(image, height, width);
-    std::vector<Point> points_sequence= points_parallel;
+    std::vector<Point> points_parallel = interpriate_basic(image, height, width);
+    std::vector<Point> points_sequence = points_parallel;
     std::vector<int> points_parallel_x;
     std::vector<int> points_parallel_y;
     std::vector<int> points_sequence_x;
     std::vector<int> points_sequence_y;
-	double startMY = MPI_Wtime();
+    double startMY = MPI_Wtime();
     points_parallel = buildConvexHullParallel(points_parallel);
-	double endMY = MPI_Wtime();
+    double endMY = MPI_Wtime();
 
     if (rank == 0) {
         for (size_t i = 0; i < points_parallel.size(); i++) {
@@ -132,7 +132,7 @@ TEST(MyAlgos3, Test_Data_Set_1000) {
             points_sequence_x.push_back(points_parallel[i].x);
             points_sequence_y.push_back(points_parallel[i].y);
         }
-		std::cout << "Parallel_Time: " << endMY - startMY << std::endl;
+        std::cout << "Parallel_Time: " << endMY - startMY << std::endl;
         std::cout << "Sequence_Time: " << endT - startT << std::endl;
         ASSERT_EQ(points_parallel_x, points_sequence_x);
         ASSERT_EQ(points_parallel_y, points_sequence_y);
@@ -140,9 +140,9 @@ TEST(MyAlgos3, Test_Data_Set_1000) {
 }
 
 TEST(MyAlgos4, Test_Data_Set_2000) {
-	int rank;
+    int rank;
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
-	int height = 2000;
+    int height = 2000;
     int width = 2000;
     int ** image = new int*[height];
     for (int i = 0; i < height; i++) {
@@ -151,19 +151,19 @@ TEST(MyAlgos4, Test_Data_Set_2000) {
 
     for (int i = 0; i < height; i++) {
         for (int j = 0; j < width; j++) {
-            image[i][j]=rand() % 2;
+            image[i][j] = rand() % 2;
         }
 	}
-    
-	std::vector<Point> points_parallel = interpriate_basic(image, height, width);
+
+    std::vector<Point> points_parallel = interpriate_basic(image, height, width);
     std::vector<Point> points_sequence= points_parallel;
     std::vector<int> points_parallel_x;
     std::vector<int> points_parallel_y;
     std::vector<int> points_sequence_x;
     std::vector<int> points_sequence_y;
-	double startMY = MPI_Wtime();
+    double startMY = MPI_Wtime();
     points_parallel = buildConvexHullParallel(points_parallel);
-	double endMY = MPI_Wtime();
+    double endMY = MPI_Wtime();
 
     if (rank == 0) {
         for (size_t i = 0; i < points_parallel.size(); i++) {
@@ -177,7 +177,7 @@ TEST(MyAlgos4, Test_Data_Set_2000) {
             points_sequence_x.push_back(points_parallel[i].x);
             points_sequence_y.push_back(points_parallel[i].y);
         }
-		std::cout << "Parallel_Time: " << endMY - startMY << std::endl;
+        std::cout << "Parallel_Time: " << endMY - startMY << std::endl;
         std::cout << "Sequence_Time: " << endT - startT << std::endl;
         ASSERT_EQ(points_parallel_x, points_sequence_x);
         ASSERT_EQ(points_parallel_y, points_sequence_y);
@@ -185,9 +185,9 @@ TEST(MyAlgos4, Test_Data_Set_2000) {
 }
 
 TEST(MyAlgos5, Test_Data_Set_5000) {
-	int rank;
+    int rank;
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
-	int height = 5000;
+    int height = 5000;
     int width = 5000;
     int ** image = new int*[height];
     for (int i = 0; i < height; i++) {
@@ -196,19 +196,19 @@ TEST(MyAlgos5, Test_Data_Set_5000) {
 
     for (int i = 0; i < height; i++) {
         for (int j = 0; j < width; j++) {
-            image[i][j]=rand() % 2;
+            image[i][j] = rand() % 2;
         }
-	}
+    }
     
-	std::vector<Point> points_parallel = interpriate_basic(image, height, width);
-    std::vector<Point> points_sequence= points_parallel;
+    std::vector<Point> points_parallel = interpriate_basic(image, height, width);
+    std::vector<Point> points_sequence = points_parallel;
     std::vector<int> points_parallel_x;
     std::vector<int> points_parallel_y;
     std::vector<int> points_sequence_x;
     std::vector<int> points_sequence_y;
-	double startMY = MPI_Wtime();
+    double startMY = MPI_Wtime();
     points_parallel = buildConvexHullParallel(points_parallel);
-	double endMY = MPI_Wtime();
+    double endMY = MPI_Wtime();
 
     if (rank == 0) {
         for (size_t i = 0; i < points_parallel.size(); i++) {
@@ -222,7 +222,7 @@ TEST(MyAlgos5, Test_Data_Set_5000) {
             points_sequence_x.push_back(points_parallel[i].x);
             points_sequence_y.push_back(points_parallel[i].y);
         }
-		std::cout << "Parallel_Time: " << endMY - startMY << std::endl;
+        std::cout << "Parallel_Time: " << endMY - startMY << std::endl;
         std::cout << "Sequence_Time: " << endT - startT << std::endl;
         ASSERT_EQ(points_parallel_x, points_sequence_x);
         ASSERT_EQ(points_parallel_y, points_sequence_y);

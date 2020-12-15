@@ -1,4 +1,4 @@
-//Copyright 2020 Solovev Aleksandr
+// Copyright 2020 Solovev Aleksandr
 #include <vector>
 #include "../../../modules/task_3/solovev_a_building_image/building_image.h"
 
@@ -6,15 +6,15 @@ std::vector<Point> interpriate_basic(int ** image, int height, int width) {
     int count = 0;
      for (int i = 0; i < height; i++) {
         for (int j = 0; j < width; j++) {
-            if (image[i][j]==1)
-			count++;
+            if (image[i][j] == 1)
+            count++;
         }
     }
     std::vector<Point> result(count);
     count = 0;
     for (int i = 0; i < height; i++) {
         for (int j = 0; j < width; j++) {
-            if (image[i][j] == 1) {		
+            if (image[i][j] == 1) {	
             result[count].x = i;
             result[count].y = j;
             count++;
