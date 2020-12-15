@@ -50,12 +50,12 @@ double Algorithm(double a, double b, double(*Q)(double)) {
                 lk = temp;
             }
         }
-  
+
         if (lk > 0)
             Lk = r * lk;
         if (lk == 0)
             Lk = 1;
- 
+
         Rt = 100;
         for (int i = 0; i < k - 1; i++) {
             deltaQi = Qx[i + 1] - Qx[i];
@@ -68,12 +68,12 @@ double Algorithm(double a, double b, double(*Q)(double)) {
                 t = i;
             }
         }
- 
+
 
         if (x[t + 1] - x[t] < eps) {
             flag = false;
         } else {
-      
+
             xt = 1.0 / 2.0 * (x[t] + x[t + 1] - deltaQi / Lk);
             ind = 0;
 
@@ -89,11 +89,11 @@ double Algorithm(double a, double b, double(*Q)(double)) {
                 QQ = Qx[ind];
                 xx = x[ind];
             }
-   
+
             k = k + 1;
         }
     }
- 
+
     return xx;
 }
 double goParallelAlgorithm(double a, double b, double(*Q)(double)) {
