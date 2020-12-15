@@ -73,7 +73,6 @@ double Algorithm(double a, double b, double(*Q)(double)) {
         if (x[t + 1] - x[t] < eps) {
             flag = false;
         } else {
-
             xt = 1.0 / 2.0 * (x[t] + x[t + 1] - deltaQi / Lk);
             ind = 0;
 
