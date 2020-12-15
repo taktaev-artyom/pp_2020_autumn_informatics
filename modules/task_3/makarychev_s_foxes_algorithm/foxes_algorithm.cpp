@@ -28,7 +28,7 @@ std::vector<double> getRandomMatrix(int orderM) {
 }
 
 bool compareMat(const std::vector<double>& matA, const std::vector<double>& matB) {
-    for (int i = 0; i < matA.size(); i++) {
+    for (size_t i = 0; i < matA.size(); i++) {
         if ((std::fabs(matA[i] - matB[i]) >= std::numeric_limits<double>::epsilon() * 1000000000.0))
             return false;
     }
