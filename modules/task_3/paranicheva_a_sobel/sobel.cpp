@@ -40,7 +40,6 @@ int SobelXY(std::vector<int> mat, int cols, int posr, int posc) {
 
 std::vector<int> getSequentialSobel(std::vector<int> mat, int rows, int cols) {
     std::vector<int> sobarr(rows * cols);
-    std::vector<int> tmp(cols);
     for (int i = 0; i < cols; i++)
         sobarr[i] = 0;
     for (int i = 1; i < rows - 1; i++)
