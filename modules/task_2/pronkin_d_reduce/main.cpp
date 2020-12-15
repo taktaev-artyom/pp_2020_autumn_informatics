@@ -331,13 +331,13 @@ TEST(Parallel_Operations_MPI, IntArrMax) {
     ASSERT_EQ(MPI_Reduce(sendbuf, example, count, MPI_INT, MPI_MAX, root, MPI_COMM_WORLD), MPI_SUCCESS);
     if (rank == root) {
         double end = MPI_Wtime();
-        std::cout << "MPI implementation: " << end - mpi_start << "\n";
+        std::cout << "MPI implementation: " << end - mpi_start << " s\n";
     }
     double my_start = MPI_Wtime();
     ASSERT_EQ(Reduce(sendbuf, recvbuf, count, MPI_INT, MPI_MAX, root, MPI_COMM_WORLD), MPI_SUCCESS);
     if (rank == root) {
         double end = MPI_Wtime();
-        std::cout << "My implementation: " << end - my_start << "\n";
+        std::cout << "My implementation: " << end - my_start << " s\n";
     }
     if (rank == root) {
         for (int i = 0; i < count; i++)
@@ -366,13 +366,13 @@ TEST(Parallel_Operations_MPI, IntArrMin) {
     ASSERT_EQ(MPI_Reduce(sendbuf, example, count, MPI_INT, MPI_MIN, root, MPI_COMM_WORLD), MPI_SUCCESS);
     if (rank == root) {
         double end = MPI_Wtime();
-        std::cout << "MPI implementation: " << end - mpi_start << "\n";
+        std::cout << "MPI implementation: " << end - mpi_start << " s\n";
     }
     double my_start = MPI_Wtime();
     ASSERT_EQ(Reduce(sendbuf, recvbuf, count, MPI_INT, MPI_MIN, root, MPI_COMM_WORLD), MPI_SUCCESS);
     if (rank == root) {
         double end = MPI_Wtime();
-        std::cout << "My implementation: " << end - my_start << "\n";
+        std::cout << "My implementation: " << end - my_start << " s\n";
     }
     if (rank == root) {
         for (int i = 0; i < count; i++)
@@ -401,13 +401,13 @@ TEST(Parallel_Operations_MPI, FloatArrSum) {
     ASSERT_EQ(MPI_Reduce(sendbuf, example, count, MPI_FLOAT, MPI_SUM, root, MPI_COMM_WORLD), MPI_SUCCESS);
     if (rank == root) {
         double end = MPI_Wtime();
-        std::cout << "MPI implementation: " << end - mpi_start << "\n";
+        std::cout << "MPI implementation: " << end - mpi_start << " s\n";
     }
     double my_start = MPI_Wtime();
     ASSERT_EQ(Reduce(sendbuf, recvbuf, count, MPI_FLOAT, MPI_SUM, root, MPI_COMM_WORLD), MPI_SUCCESS);
     if (rank == root) {
         double end = MPI_Wtime();
-        std::cout << "My implementation: " << end - my_start << "\n";
+        std::cout << "My implementation: " << end - my_start << " s\n";
     }
     if (rank == root) {
         for (int i = 0; i < count; i++)
@@ -436,13 +436,13 @@ TEST(Parallel_Operations_MPI, DoubleArrProd) {
     ASSERT_EQ(MPI_Reduce(sendbuf, example, count, MPI_DOUBLE, MPI_PROD, root, MPI_COMM_WORLD), MPI_SUCCESS);
     if (rank == root) {
         double end = MPI_Wtime();
-        std::cout << "MPI implementation: " << end - mpi_start << "\n";
+        std::cout << "MPI implementation: " << end - mpi_start << " s\n";
     }
     double my_start = MPI_Wtime();
     ASSERT_EQ(Reduce(sendbuf, recvbuf, count, MPI_DOUBLE, MPI_PROD, root, MPI_COMM_WORLD), MPI_SUCCESS);
     if (rank == root) {
         double end = MPI_Wtime();
-        std::cout << "My implementation: " << end - my_start << "\n";
+        std::cout << "My implementation: " << end - my_start << " s\n";
     }
     if (rank == root) {
         for (int i = 0; i < count; i++)
