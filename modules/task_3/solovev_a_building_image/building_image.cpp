@@ -119,9 +119,9 @@ bool pointCheck(const Point& previous, const Point& current, const Point& potent
     return false;
 }
 
-int searchFirstPoint(const std::vector<Point>& mas) {
-    int start = 0;
-    for (int i = 0; i < mas.size(); i++) {
+size_t searchFirstPoint(const std::vector<Point>& mas) {
+    size_t start = 0;
+    for (int i = 0; i < static_cast<int>(mas.size()); i++) {
         if (mas[start].x > mas[i].x) {
             start = i;
         } else {
@@ -190,7 +190,7 @@ std::vector<Point> buildConvexHullParallel(const std::vector<Point>& mas) {
         if (next == convex_hull.back()) {
             next = part_vector[1];
         }
-        for (int i = 0; i < part_vector.size(); i++) {
+        for (int i = 0; i < static_cast<int>(part_vector.size()); i++) {
             if ((part_vector[i] == convex_hull.back()) || (convex_hull.back() == next)) {
                 continue;
             }
@@ -200,7 +200,7 @@ std::vector<Point> buildConvexHullParallel(const std::vector<Point>& mas) {
         }
         MPI_Gather(&next, 2, MPI_INT, &local_points[0], 2, MPI_INT, 0, MPI_COMM_WORLD);
         if (rank == 0) {
-            for (int i = 0; i < local_points.size(); i++) {
+            for (int i = 0; i < static_cast<int>(local_points.size()); i++) {
                 if (pointCheck(convex_hull.back(), next, local_points[i])) {
                     next = local_points[i];
                 }
@@ -229,7 +229,7 @@ std::vector<Point> buildConvexHull(const std::vector<Point>& mas) {
         if (next == convex_hull.back()) {
             next = part_vector[1];
         }
-        for (int i = 0; i < part_vector.size(); i++) {
+        for (int i = 0; i < static_cast<int>(part_vector.size()); i++) {
             if ((part_vector[i] == convex_hull.back()) || (convex_hull.back() == next)) {
                 continue;
             }

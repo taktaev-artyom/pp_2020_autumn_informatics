@@ -38,7 +38,7 @@ struct Point {
 };
 
 std::vector<Point> interpriate_basic(int ** image, int height, int width);
-int searchFirstPoint(const std::vector<Point> &mas);
+size_t searchFirstPoint(const std::vector<Point> &mas);
 Point searchFirstPointParallel(const std::vector<Point> &mas, int rank, int procCount);
 std::vector<Point> buildConvexHullParallel(const std::vector<Point> &mas);
 std::vector<Point> buildConvexHull(const std::vector<Point> &mas);
