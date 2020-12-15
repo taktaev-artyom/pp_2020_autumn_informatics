@@ -1,6 +1,7 @@
 // Copyright 2020 Solovev Aleksandr
-#ifndef MODULES_TASK_3_SOLOVEV_A_BUILDING_IMAGE
-#define MODULES_TASK_3_SOLOVEV_A_BUILDING_IMAGE
+#ifndef MODULES_TASK_3_SOLOVEV_A_BUILDING_IMAGE_BUILDING_IMAGE_H_
+#define MODULES_TASK_3_SOLOVEV_A_BUILDING_IMAGE_BUILDING_IMAGE_H_
+
 #include <mpi.h>
 #include <vector>
 #include <iostream>
@@ -21,20 +22,17 @@ struct Point {
     }
 
     bool operator!=(const Point& point) {
-        if ((x != point.x)||(y != point.y)){
+        if ((x != point.x) || (y != point.y)) {
             return true;
-        }
-        else{
+        } else {
             return false;
-        }
-        
+        } 
     }
 
     bool operator==(const Point& point) {
-        if ((x == point.x)&&(y == point.y)){
+        if ((x == point.x)&&(y == point.y)) {
             return true;
-        }
-        else{
+        } else {
             return false;
         }
     }
@@ -46,4 +44,4 @@ Point searchFirstPointParallel(const std::vector<Point> &mas, int rank, int proc
 std::vector<Point> buildConvexHullParallel(const std::vector<Point> &mas);
 std::vector<Point> buildConvexHull(const std::vector<Point> &mas);
 bool pointCheck(const Point& back, const Point& current, const Point& challenger);
-#endif MODULES_TASK_3_SOLOVEV_A_BUILDING_IMAGE
+#endif //MODULES_TASK_3_SOLOVEV_A_BUILDING_IMAGE_BUILDING_IMAGE_H_

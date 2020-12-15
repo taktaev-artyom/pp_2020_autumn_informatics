@@ -1,3 +1,4 @@
+//Copyright 2020 Solovev Aleksandr
 #include <mpi.h>
 #include <gtest-mpi-listener.hpp>
 #include <gtest/gtest.h>
@@ -6,9 +7,9 @@
 #include "../../../modules/task_3/solovev_a_building_image/building_image.h"
 
 TEST(MyAlgos, Test_Data_Set_500) {
-	int rank;
+    int rank;
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
-	int height = 500;
+    int height = 500;
     int width = 500;
     int ** image = new int*[height];
     for (int i = 0; i < height; i++) {
@@ -18,10 +19,9 @@ TEST(MyAlgos, Test_Data_Set_500) {
         for (int j = 0; j < width; j++) {
             image[i][j]=rand() % 2;
         }
-	}
+    }
 	
-    
-	std::vector<Point> points_parallel = interpriate_basic(image, height, width);
+    std::vector<Point> points_parallel = interpriate_basic(image, height, width);
     std::vector<Point> points_sequence= points_parallel;
     std::vector<int> points_parallel_x;
     std::vector<int> points_parallel_y;
@@ -59,7 +59,6 @@ TEST(MyAlgos2, Test_Data_Set_100) {
     for (int i = 0; i < height; i++) {
         image[i] = new int[width];
     }
-
     for (int i = 0; i < height; i++) {
         for (int j = 0; j < width; j++) {
             image[i][j]=rand() % 2;
