@@ -113,7 +113,7 @@ TEST(RadixSortWithMergeMPI, Random_Size_991) {
     }
 }
 
-TEST(RadixSortWithMergeMPI, Size_100000_With_Time) {
+TEST(RadixSortWithMergeMPI, DISABLED_Size_100000_With_Time) {
     int procRank;
     MPI_Comm_rank(MPI_COMM_WORLD, &procRank);
     std::vector<int> randomVector;
