@@ -217,7 +217,7 @@ std::vector<int> getParallelShortestPath(std::vector<int> weight_matrix, int row
         int *start_marks_index;
 
         if (rank == 0) {
-            if ((cur_vert_index + 1) < (int)marks.size())
+            if ((cur_vert_index + 1) < static_cast<int>marks.size())
                 start_marks_index = &marks[cur_vert_index + 1];
             else
                 start_marks_index = nullptr;
@@ -313,7 +313,7 @@ std::vector<int> getParallelShortestPath(std::vector<int> weight_matrix, int row
                     tmp_overall_to_queue_end.data(), to_queue_end_sizes.data(), to_queue_end_displs.data(), MPI_INT,
                     0, MPI_COMM_WORLD);
 
-        for (int i = 0; i < (int)tmp_overall_to_queue_start.size(); i++) {
+        for (int i = 0; i < static_cast<int>tmp_overall_to_queue_start.size(); i++) {
             overall_to_queue_start.erase(std::remove(overall_to_queue_start.begin(),
                                                         overall_to_queue_start.end(),
                                                         tmp_overall_to_queue_start[i]),
