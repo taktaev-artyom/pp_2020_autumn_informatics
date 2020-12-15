@@ -5,8 +5,7 @@
 #include <mpi.h>
 #include <vector>
 #include <iostream>
-#include <ctime>
-#include <random>
+
 
 struct Point {
     int x, y;
