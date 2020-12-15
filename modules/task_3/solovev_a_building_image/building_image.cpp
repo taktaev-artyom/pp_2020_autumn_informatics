@@ -79,9 +79,8 @@ bool pointCheck(const Point& previous, const Point& current, const Point& potent
                         }
                     } else {
                         if (potential_y <= prev_y) {
-                           return false;
-                        } else
-                        {
+                            return false;
+                        } else {
                             return true;
                         }
                     }
@@ -179,7 +178,8 @@ std::vector<Point> buildConvexHullParallel(const std::vector<Point>& mas) {
     } else {
         part_vector.resize(elements_part_count);
     }
-    MPI_Scatterv(mas.data(), recvcount, delay, MPI_INT, part_vector.data(), recvcount[rank], MPI_INT, 0, MPI_COMM_WORLD);
+    MPI_Scatterv(mas.data(), recvcount, delay, MPI_INT, part_vector.data(),
+        recvcount[rank], MPI_INT, 0, MPI_COMM_WORLD);
     Point left_point = searchFirstPointParallel(part_vector, rank, procCount);
     std::vector<Point> convex_hull;
     convex_hull.emplace_back(left_point);
