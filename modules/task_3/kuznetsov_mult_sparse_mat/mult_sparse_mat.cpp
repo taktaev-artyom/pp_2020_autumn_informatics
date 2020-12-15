@@ -126,11 +126,12 @@ std::vector<double> matMultiply(sparseMatrix A, sparseMatrix B) {
   }
   std::vector<double> overal_res;
   if (rank == 0) {
-    overal_res.resize(A.rows * B.cols) {
-      MPI_Reduce(&local_res[0], &overal_res[0], A.rows * B.cols, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
-    } else {
-      MPI_Reduce(&local_res[0], MPI_IN_PLACE, A.rows* B.cols, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
-    }
+    overal_res.resize(A.rows * B.cols);
+  }
+  if (rank == 0) {
+    MPI_Reduce(&local_res[0], &overal_res[0], A.rows * B.cols, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
+  } else {
+    MPI_Reduce(&local_res[0], MPI_IN_PLACE, A.rows* B.cols, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
   }
   return overal_res;
 }
