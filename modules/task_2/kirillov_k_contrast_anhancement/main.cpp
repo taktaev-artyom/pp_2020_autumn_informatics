@@ -5,11 +5,11 @@
 #include <vector>
 #include<iostream>
 #include "./contrast_enhancement.h"
-TEST(Parallel_Operations_MPI, Test_Matrix_11x3) {
+TEST(Parallel_Operations_MPI, Test_Matrix_7x7) {
     int procRank;
     MPI_Comm_rank(MPI_COMM_WORLD, &procRank);
-    int rows = 11;
-    int cols = 3;
+    int rows = 7;
+    int cols = 7;
     double alpha = 1.5;
     int beta = 1;
     Matrix global_mat(rows, std::vector<int>(cols));
@@ -25,22 +25,18 @@ TEST(Parallel_Operations_MPI, Test_Matrix_11x3) {
     }
     global_mat = getParallelContrast(global_mat, rows, cols, alpha, beta);
     if (procRank == 0) {
-    int tmp = 0;
         for (int  i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
-                if (local_mat[i][j] == global_mat[i][j]) tmp++;
+                ASSERT_EQ(local_mat[i][j], global_mat[i][j]);
             }
         }
-    bool check = 0;
-    if (tmp == (rows*cols)) check = 1;
-    ASSERT_EQ(check, 1);
     }
 }
-TEST(Parallel_Operations_MPI, Test_Matrix_13x5) {
+TEST(Parallel_Operations_MPI, Test_Matrix_4x4) {
     int procRank;
     MPI_Comm_rank(MPI_COMM_WORLD, &procRank);
-    int rows = 13;
-    int cols = 5;
+    int rows = 4;
+    int cols = 4;
     double alpha = 1.5;
     int beta = 1;
     Matrix global_mat(rows, std::vector<int>(cols));
@@ -56,18 +52,14 @@ TEST(Parallel_Operations_MPI, Test_Matrix_13x5) {
     }
     global_mat = getParallelContrast(global_mat, rows, cols, alpha, beta);
     if (procRank == 0) {
-    int tmp = 0;
         for (int  i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
-                if (local_mat[i][j] == global_mat[i][j]) tmp++;
+                ASSERT_EQ(local_mat[i][j], global_mat[i][j]);
             }
         }
-    bool check = 0;
-    if (tmp == (rows*cols)) check = 1;
-    ASSERT_EQ(check, 1);
     }
 }
-TEST(Parallel_Operations_MPI, Test_Matrix_100x97) {
+TEST(Parallel_Operations_MPI, Test_Matrix_5x5) {
     int procRank;
     MPI_Comm_rank(MPI_COMM_WORLD, &procRank);
     int rows = 100;
@@ -87,22 +79,18 @@ TEST(Parallel_Operations_MPI, Test_Matrix_100x97) {
     }
     global_mat = getParallelContrast(global_mat, rows, cols, alpha, beta);
     if (procRank == 0) {
-    int tmp = 0;
         for (int  i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
-                if (local_mat[i][j] == global_mat[i][j]) tmp++;
+                ASSERT_EQ(local_mat[i][j], global_mat[i][j]);
             }
         }
-    bool check = 0;
-    if (tmp == (rows*cols)) check = 1;
-    ASSERT_EQ(check, 1);
     }
 }
-TEST(Parallel_Operations_MPI, Test_Matrix_20x20) {
+TEST(Parallel_Operations_MPI, Test_Matrix_9x9) {
     int procRank;
     MPI_Comm_rank(MPI_COMM_WORLD, &procRank);
-    int rows = 17;
-    int cols = 17;
+    int rows = 9;
+    int cols = 9;
     double alpha = 1.5;
     int beta = 1;
     Matrix global_mat(rows, std::vector<int>(cols));
@@ -118,22 +106,18 @@ TEST(Parallel_Operations_MPI, Test_Matrix_20x20) {
     }
     global_mat = getParallelContrast(global_mat, rows, cols, alpha, beta);
     if (procRank == 0) {
-    int tmp = 0;
         for (int  i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
-                if (local_mat[i][j] == global_mat[i][j]) tmp++;
+                ASSERT_EQ(local_mat[i][j], global_mat[i][j]);
             }
         }
-    bool check = 0;
-    if (tmp == (rows*cols)) check = 1;
-    ASSERT_EQ(check, 1);
     }
 }
-TEST(Parallel_Operations_MPI, Test_Matrix_23x45) {
+TEST(Parallel_Operations_MPI, Test_Matrix_6x6) {
     int procRank;
     MPI_Comm_rank(MPI_COMM_WORLD, &procRank);
-    int rows = 23;
-    int cols = 45;
+    int rows = 6;
+    int cols = 6;
     double alpha = 1.5;
     int beta = 1;
     Matrix global_mat(rows, std::vector<int>(cols));
@@ -149,18 +133,13 @@ TEST(Parallel_Operations_MPI, Test_Matrix_23x45) {
     }
     global_mat = getParallelContrast(global_mat, rows, cols, alpha, beta);
     if (procRank == 0) {
-    int tmp = 0;
         for (int  i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
-                if (local_mat[i][j] == global_mat[i][j]) tmp++;
+                ASSERT_EQ(local_mat[i][j], global_mat[i][j]);
             }
         }
-    bool check = 0;
-    if (tmp == (rows*cols)) check = 1;
-    ASSERT_EQ(check, 1);
     }
 }
-
 
 int main(int argc, char *argv[]) {
     ::testing::InitGoogleTest(&argc, argv);

@@ -31,10 +31,9 @@ void mergeOrderVec(int* vec1, int* vec2, bool flag, int size1, int size2) {
     while (j < size2)
         resVec[s++] = vec2[j++];
     i = j = s = 0;
-    while (flag && i < size1)
+    while (i < size1)
         vec1[i++] = resVec[s++];
-    s = size1;
-    while (!flag && j < size2)
+    while (j < size2)
         vec2[j++] = resVec[s++];
 }
 
@@ -87,11 +86,11 @@ void sortVecParallel(int* vec, int sizeVec, double* time) {
                 } else {
                     if (ProcRank > 0) {
                         flag = false;
-                        MPI_Send(&locSize, 1, MPI_INT, ProcRank - 1, 0, MPI_COMM_WORLD);
-                        MPI_Send(locVec.data(), locSize, MPI_INT, ProcRank - 1, 0, MPI_COMM_WORLD);
                         MPI_Recv(&secondSize, 1, MPI_INT, ProcRank - 1, 0, MPI_COMM_WORLD, &status);
                         secondVec.resize(secondSize);
                         MPI_Recv(secondVec.data(), secondSize, MPI_INT, ProcRank - 1, 0, MPI_COMM_WORLD, &status);
+                        MPI_Send(&locSize, 1, MPI_INT, ProcRank - 1, 0, MPI_COMM_WORLD);
+                        MPI_Send(locVec.data(), locSize, MPI_INT, ProcRank - 1, 0, MPI_COMM_WORLD);
                         mergeOrderVec(secondVec.data(), locVec.data(), flag, secondSize, locSize);
                     }
                 }
@@ -100,33 +99,34 @@ void sortVecParallel(int* vec, int sizeVec, double* time) {
                     if (ProcRank < ProcNum - 1) {
                         flag = true;
                         MPI_Send(&locSize, 1, MPI_INT, ProcRank + 1, 0, MPI_COMM_WORLD);
-                        MPI_Send(locVec.data(), locSize, MPI_INT, ProcRank + 1, 0, MPI_COMM_WORLD);
+                        MPI_Send(locVec.data(), locSize, MPI_INT, ProcRank + 1, 1, MPI_COMM_WORLD);
                         MPI_Recv(&secondSize, 1, MPI_INT, ProcRank + 1, 0, MPI_COMM_WORLD, &status);
                         secondVec.resize(secondSize);
-                        MPI_Recv(secondVec.data(), secondSize, MPI_INT, ProcRank + 1, 0, MPI_COMM_WORLD, &status);
+                        MPI_Recv(secondVec.data(), secondSize, MPI_INT, ProcRank + 1, 1, MPI_COMM_WORLD, &status);
                         mergeOrderVec(locVec.data(), secondVec.data(), flag, locSize, secondSize);
                     }
                 } else {
                     flag = false;
-                    MPI_Send(&locSize, 1, MPI_INT, ProcRank - 1, 0, MPI_COMM_WORLD);
-                    MPI_Send(locVec.data(), locSize, MPI_INT, ProcRank - 1, 0, MPI_COMM_WORLD);
                     MPI_Recv(&secondSize, 1, MPI_INT, ProcRank - 1, 0, MPI_COMM_WORLD, &status);
                     secondVec.resize(secondSize);
-                    MPI_Recv(secondVec.data(), secondSize, MPI_INT, ProcRank - 1, 0, MPI_COMM_WORLD, &status);
+                    MPI_Recv(secondVec.data(), secondSize, MPI_INT, ProcRank - 1, 1, MPI_COMM_WORLD, &status);
+                    MPI_Send(&locSize, 1, MPI_INT, ProcRank - 1, 0, MPI_COMM_WORLD);
+                    MPI_Send(locVec.data(), locSize, MPI_INT, ProcRank - 1, 1, MPI_COMM_WORLD);
                     mergeOrderVec(secondVec.data(), locVec.data(), flag, secondSize, locSize);
                 }
             }
         }
     }
-    int* revcount = new int[ProcNum];
-    int* disps = new int[ProcNum];
+    std::vector<int> revcount(ProcNum);
+    std::vector<int> disps(ProcNum);
     disps[0] = 0;
     revcount[0] = blockSize + rem;
     for (int i = 1; i < ProcNum; i++) {
         revcount[i] = blockSize;
         disps[i] = blockSize * i + rem;
     }
-    MPI_Gatherv(locVec.data(), revcount[ProcRank], MPI_INT, vec, revcount, disps, MPI_INT, 0, MPI_COMM_WORLD);
+    MPI_Gatherv(locVec.data(), revcount[ProcRank], MPI_INT, vec, revcount.data(),
+        disps.data(), MPI_INT, 0, MPI_COMM_WORLD);
     if (ProcRank == 0) {
         *time = MPI_Wtime() - beginT;
         std::cout << "MPI sort time:  " << MPI_Wtime() - beginT << std::endl;

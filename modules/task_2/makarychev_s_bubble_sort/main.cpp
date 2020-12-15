@@ -5,13 +5,13 @@
 #include <algorithm>
 #include "./bubble_sort.h"
 
-TEST(Parallel_Operations_MPI, Test_120) {
+TEST(Parallel_Operations_MPI, Test_5029) {
     int rank;
     double beginT, endT, timeMPI;
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
     std::vector<int> globalVec1;
     std::vector<int> globalVec2;
-    const int size = 120;
+    const int size = 5029;
     if (rank == 0) {
         globalVec1 = getRandomVector(size);
         globalVec2 = globalVec1;
@@ -28,13 +28,13 @@ TEST(Parallel_Operations_MPI, Test_120) {
         ASSERT_EQ(globalVec1, globalVec2);
     }
 }
-TEST(Parallel_Operations_MPI, Test_37) {
+TEST(Parallel_Operations_MPI, Test_10026) {
     int rank;
     double beginT, endT, timeMPI;
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
     std::vector<int> globalVec1;
     std::vector<int> globalVec2;
-    const int size = 37;
+    const int size = 10026;
     if (rank == 0) {
         globalVec1 = getRandomVector(size);
         globalVec2 = globalVec1;
@@ -51,13 +51,13 @@ TEST(Parallel_Operations_MPI, Test_37) {
         ASSERT_EQ(globalVec1, globalVec2);
     }
 }
-TEST(Parallel_Operations_MPI, Test_560) {
+TEST(Parallel_Operations_MPI, Test_100000) {
     int rank;
     double beginT, endT, timeMPI;
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
     std::vector<int> globalVec1;
     std::vector<int> globalVec2;
-    const int size = 560;
+    const int size = 100000;
     if (rank == 0) {
         globalVec1 = getRandomVector(size);
         globalVec2 = globalVec1;
@@ -74,13 +74,13 @@ TEST(Parallel_Operations_MPI, Test_560) {
         ASSERT_EQ(globalVec1, globalVec2);
     }
 }
-TEST(Parallel_Operations_MPI, Test_1397) {
+TEST(Parallel_Operations_MPI, Test_1000001) {
     int rank;
     double beginT, endT, timeMPI;
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
     std::vector<int> globalVec1;
     std::vector<int> globalVec2;
-    const int size = 1397;
+    const int size = 1000001;
     if (rank == 0) {
         globalVec1 = getRandomVector(size);
         globalVec2 = globalVec1;
@@ -120,7 +120,6 @@ TEST(Parallel_Operations_MPI, Test_1049) {
         ASSERT_EQ(globalVec1, globalVec2);
     }
 }
-
 int main(int argc, char** argv) {
     ::testing::InitGoogleTest(&argc, argv);
     MPI_Init(&argc, &argv);
