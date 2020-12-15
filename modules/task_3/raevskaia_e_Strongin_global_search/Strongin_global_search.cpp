@@ -15,11 +15,11 @@ double Algorithm(double a, double b, double(*Q)(double)) {
     std::vector<double> Qx;
 
 
-  
+
     x.push_back(a); Qx.push_back(Q(a));
     x.push_back(b); Qx.push_back(Q(b));
 
-   
+
     double QQ, xx;
     if (Qx[0] <= Qx[1]) {
         QQ = Qx[0];
@@ -50,17 +50,17 @@ double Algorithm(double a, double b, double(*Q)(double)) {
                 lk = temp;
             }
         }
-        
+  
         if (lk > 0)
             Lk = r * lk;
         if (lk == 0)
             Lk = 1;
-      
+ 
         Rt = 100;
         for (int i = 0; i < k - 1; i++) {
             deltaQi = Qx[i + 1] - Qx[i];
             deltaxi = x[i + 1] - x[i];
-          
+
             Ri = (Qx[i] + Qx[i + 1] - (1.0 + ((deltaQi / deltaxi) / Lk) * ((deltaQi / deltaxi) / Lk)) * Lk * deltaxi);
             Ri = Ri * 1.0 / 2.0;
             if (Ri < Rt) {
@@ -68,12 +68,12 @@ double Algorithm(double a, double b, double(*Q)(double)) {
                 t = i;
             }
         }
-       
+ 
 
         if (x[t + 1] - x[t] < eps) {
             flag = false;
         } else {
-            
+      
             xt = 1.0 / 2.0 * (x[t] + x[t + 1] - deltaQi / Lk);
             ind = 0;
 
@@ -84,16 +84,16 @@ double Algorithm(double a, double b, double(*Q)(double)) {
             auto iter2 = Qx.cbegin();
             x.emplace(iter1 + ind, xt);
             Qx.emplace(iter2 + ind, Q(xt));
-     
+
             if (Qx[ind] < QQ) {
                 QQ = Qx[ind];
                 xx = x[ind];
             }
-           
+   
             k = k + 1;
         }
     }
-   
+ 
     return xx;
 }
 double goParallelAlgorithm(double a, double b, double(*Q)(double)) {
