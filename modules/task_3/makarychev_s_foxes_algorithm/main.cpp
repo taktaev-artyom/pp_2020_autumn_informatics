@@ -37,8 +37,9 @@ TEST(Parallel_Operations_MPI, Test_9) {
             ASSERT_TRUE(compareMat(resultPar, resultSeq));
         }
     } else {
-        if (rank == 0)
+        if (rank == 0) {
             ASSERT_FALSE(0);
+        }
     }
 }
 
@@ -73,8 +74,9 @@ TEST(Parallel_Operations_MPI, Test_67) {
             ASSERT_TRUE(compareMat(resultPar, resultSeq));
         }
     } else {
-        if (rank == 0)
+        if (rank == 0) {
             ASSERT_FALSE(0);
+        }
     }
 }
 
@@ -109,8 +111,9 @@ TEST(Parallel_Operations_MPI, Test_90) {
             ASSERT_TRUE(compareMat(resultPar, resultSeq));
         }
     } else {
-        if (rank == 0)
+        if (rank == 0) {
             ASSERT_FALSE(0);
+        }
     }
 }
 
@@ -145,8 +148,9 @@ TEST(Parallel_Operations_MPI, Test_150) {
             ASSERT_TRUE(compareMat(resultPar, resultSeq));
         }
     } else {
-        if (rank == 0)
+        if (rank == 0) {
             ASSERT_FALSE(0);
+        }
     }
 }
 
@@ -181,8 +185,9 @@ TEST(Parallel_Operations_MPI, Test_229) {
             ASSERT_TRUE(compareMat(resultPar, resultSeq));
         }
     } else {
-        if (rank == 0)
+        if (rank == 0) {
             ASSERT_FALSE(0);
+        }
     }
 }
 
