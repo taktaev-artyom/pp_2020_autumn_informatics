@@ -3,8 +3,6 @@
 #include <random>
 #include <vector>
 #include <algorithm>
-#include <iostream>
-#include <thread>
 #include "../../../modules/task_3/gushchin_a_radix_with_merge/radix_with_merge.h"
 
 std::vector<int> parallelRadixSort(const std::vector<int>& source, const int sourceSize) {
@@ -25,7 +23,7 @@ std::vector<int> parallelRadixSort(const std::vector<int>& source, const int sou
         if (i < remainder)
             sendCounts[i] = delta + 1;
         else
-            sendCounts[i] = delta;        
+            sendCounts[i] = delta;
 
          displaces[i] = displacesCount;
          displacesCount += sendCounts[i];

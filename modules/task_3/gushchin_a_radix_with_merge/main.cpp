@@ -4,6 +4,7 @@
 #include <gtest/gtest.h>
 #include <vector>
 #include <chrono>
+#include <algorithm>
 #include "./radix_with_merge.h"
 
 TEST(RadixSortWithMergeMPI, Empty_Vector) {
@@ -22,7 +23,7 @@ TEST(RadixSortWithMergeMPI, Empty_Vector) {
         EXPECT_EQ(sequentalResult, randomVector);
     }
 }
- 
+
 TEST(RadixSortWithMergeMPI, Ref_Size_1) {
     int procRank;
     MPI_Comm_rank(MPI_COMM_WORLD, &procRank);
@@ -38,7 +39,7 @@ TEST(RadixSortWithMergeMPI, Ref_Size_1) {
 
     if (procRank == 0) {
         std::vector<int> sequentalResult = radixSortSigned(randomVector);
-        
+
         EXPECT_EQ(parallelResult, randomVector);
         EXPECT_EQ(sequentalResult, randomVector);
     }
@@ -131,7 +132,7 @@ TEST(RadixSortWithMergeMPI, DISABLED_Size_100000_With_Time) {
     if (procRank == 0) {
         std::chrono::duration<double> elapsedParallel = parallelEnd - parallelStart;
         std::cout << "Parallel duration: " << elapsedParallel.count() << std::endl;
-        
+
         auto seqStart = std::chrono::steady_clock::now();
         std::vector<int> sequentalResult = radixSortSigned(randomVector);
         auto seqEnd = std::chrono::steady_clock::now();
