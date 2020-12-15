@@ -34,7 +34,7 @@ std::vector<int> calculateCounters(const std::vector<T>& data) {
     const uchar* dataEnd = reinterpret_cast<const uchar*>(data.data() + dataSize);
 
     while (dataBytes != dataEnd) {
-        for (int i = 0; i < sizeof(T); i++) {
+        for (unsigned int i = 0; i < sizeof(T); i++) {
             counters[256 * static_cast<size_t>(i) + *dataBytes]++;
             dataBytes++;
         }
@@ -101,7 +101,7 @@ std::vector<T> radixSortSigned(const std::vector<T>& in) {
 
     auto counters = calculateCounters(in);
 
-    for (uchar i = 0; i < sizeof(T); i++) {
+    for (unsigned int i = 0; i < sizeof(T); i++) {
         std::vector<int> counter(counters.begin() + 256 * static_cast<size_t>(i),
                                   counters.begin() + 256 * static_cast<size_t>(i) + 256);
 
