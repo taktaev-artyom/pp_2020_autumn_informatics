@@ -8,6 +8,8 @@
 
 #include "../../modules/task_3/aleksandrychev_a_comp_lab/comp_lab.h"
 
+// Third commit
+
 std::vector<uint32_t> getRandomBinaryImage(int height, int width) {
     if (height < 1 || width < 1) {
         throw "height or width < 1 error";
