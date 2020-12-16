@@ -134,6 +134,7 @@ std::vector<double> Gauss_Parallel(std::vector<double> image, int width, int hei
         }
         start = start + height * (locbw - 1);
     }
+    block.clear();
     MPI_Reduce(&loc_sum[0], &res[0], width * height, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
     return res;
 }
