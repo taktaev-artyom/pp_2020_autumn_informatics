@@ -2,7 +2,6 @@
 #include <gtest-mpi-listener.hpp>
 #include <gtest/gtest.h>
 #include <mpi.h>
-#include <ctime>
 #include <vector>
 #include "../../../modules/task_3/bulychev_v_calculation_of_integrals/calculation.h"
 
@@ -48,7 +47,7 @@ TEST(Calculation_Integraion, Return_correct_answer_sequential_method) {
         a[1] = 3;
         b[1] = 21;
 
-        ASSERT_NO_THROW(SequentialCalculation(a, b, 10, f3));
+        ASSERT_NO_THROW(SequentialCalculation(a, b, 5, f3));
     }
 }
 
@@ -68,7 +67,7 @@ TEST(Calculation_Integraion, Return_correct_answer_parallel_method) {
         b[1] = 21;
     }
 
-    ASSERT_NO_THROW(ParallelCalculation(a, b, 10, f3));
+    ASSERT_NO_THROW(ParallelCalculation(a, b, 5, f3));
 }
 
 TEST(Calculation_Integraion, Test_1_for_two_dimensional) {
@@ -87,10 +86,10 @@ TEST(Calculation_Integraion, Test_1_for_two_dimensional) {
         b[1] = 10;
     }
 
-    double result_par = ParallelCalculation(a, b, 100, f3);
+    double result_par = ParallelCalculation(a, b, 10, f3);
 
     if (rank == 0) {
-        double result_seq = SequentialCalculation(a, b, 100, f3);
+        double result_seq = SequentialCalculation(a, b, 10, f3);
 
         ASSERT_NEAR(result_par, result_seq, 0.01);
     }
@@ -112,10 +111,10 @@ TEST(Calculation_Integraion, Test_2_for_two_dimensional) {
         b[1] = 10;
     }
 
-    double result_par = ParallelCalculation(a, b, 100, f1);
+    double result_par = ParallelCalculation(a, b, 10, f1);
 
     if (rank == 0) {
-        double result_seq = SequentialCalculation(a, b, 100, f1);
+        double result_seq = SequentialCalculation(a, b, 10, f1);
 
         ASSERT_NEAR(result_par, result_seq, 0.01);
     }
@@ -139,10 +138,10 @@ TEST(Calculation_Integraion, Test_for_three_dimensional) {
         b[2] = 100;
     }
 
-    double result_par = ParallelCalculation(a, b, 100, f2);
+    double result_par = ParallelCalculation(a, b, 10, f2);
 
     if (rank == 0) {
-        double result_seq = SequentialCalculation(a, b, 100, f2);
+        double result_seq = SequentialCalculation(a, b, 10, f2);
         ASSERT_NEAR(result_par, result_seq, 0.001);
     }
 }
