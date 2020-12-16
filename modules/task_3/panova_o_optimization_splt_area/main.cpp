@@ -52,8 +52,9 @@ TEST(GlobalOptimization, SeqAndParEquality) {
 TEST(GlobalOptimization, MultiExtraFunction_Trig) {
     int rank;
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+    double res_seq;
     double start_seq = MPI_Wtime();
-    double res_seq = SequentialOptimization(-1, 5, func2, 1e-5);
+    res_seq = SequentialOptimization(-1, 5, func2, 1e-5);
     double end_seq = MPI_Wtime();
     double start_par = MPI_Wtime();
     double res_par = ParallelOptimization(-1, 5, func2, 1e-5);
@@ -72,8 +73,9 @@ TEST(GlobalOptimization, MultiExtraFunction_Trig) {
 TEST(GlobalOptimization, TwoExtraFunction_Exp) {
     int rank;
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+    double res_seq;
     double start_seq = MPI_Wtime();
-    double res_seq = SequentialOptimization(-3, 1, func3, 1e-5);
+    res_seq = SequentialOptimization(-3, 1, func3, 1e-5);
     double end_seq = MPI_Wtime();
     double start_par = MPI_Wtime();
     double res_par = ParallelOptimization(-3, 1, func3, 1e-5);
@@ -92,8 +94,9 @@ TEST(GlobalOptimization, TwoExtraFunction_Exp) {
 TEST(GlobalOptimization, MultiExtraFunction_Polinom) {
     int rank;
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
+    double res_seq;
     double start_seq = MPI_Wtime();
-    double res_seq = SequentialOptimization(0, 7, func4, 1e-5);
+    res_seq = SequentialOptimization(0, 7, func4, 1e-5);
     double end_seq = MPI_Wtime();
     double start_par = MPI_Wtime();
     double res_par = ParallelOptimization(0, 7, func4, 1e-5);

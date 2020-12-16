@@ -9,7 +9,7 @@
 #include "../../../modules/task_3/panova_o_optimization_splt_area/optimization_split_area.h"
 double GetMForLipschitz(int num, const std::vector<double>& vec, std::function<double(double*)> my_function) {
     double difference = GetValue(vec[num], my_function) - GetValue(vec[num - 1], my_function);
-    double res = abs(difference / (vec[num] - vec[num - 1]));
+    double res = std::abs(difference / (vec[num] - vec[num - 1]));
     return res;
 }
 double GetmForLipschitz(double M, double reliability) {
