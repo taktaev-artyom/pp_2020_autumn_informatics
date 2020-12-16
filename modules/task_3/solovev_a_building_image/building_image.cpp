@@ -170,6 +170,8 @@ std::vector<Point> buildConvexHullParallel(const std::vector<Point>& mas) {
     delay[0] = 0;
     for (int i = 1; i < procCount; i++) {
         recvcount[i] = elements_part_count * 2;
+    }
+    for (int i = 1; i < procCount; i++) {
         delay[i] = (elements_part_count * i + remainder) * 2;
     }
     std::vector<Point> part_vector(0);

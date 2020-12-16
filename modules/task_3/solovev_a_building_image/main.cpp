@@ -27,24 +27,24 @@ TEST(MyAlgos, Test_Data_Set_250) {
     std::vector<int> points_parallel_y;
     std::vector<int> points_sequence_x;
     std::vector<int> points_sequence_y;
-    double startMY = MPI_Wtime();
+
     points_parallel = buildConvexHullParallel(points_parallel);
-    double endMY = MPI_Wtime();
+
 
     if (rank == 0) {
         for (size_t i = 0; i < points_parallel.size(); i++) {
             points_parallel_x.emplace_back(points_parallel[i].x);
             points_parallel_y.emplace_back(points_parallel[i].y);
         }
-        double startT = MPI_Wtime();
+
         points_sequence = buildConvexHull(points_sequence);
-        double endT = MPI_Wtime();
+
         for (size_t i = 0; i < points_parallel.size(); i++) {
             points_sequence_x.emplace_back(points_parallel[i].x);
             points_sequence_y.emplace_back(points_parallel[i].y);
         }
-        std::cout << "Parallel_Time: " << endMY - startMY << std::endl;
-        std::cout << "Sequence_Time: " << endT - startT << std::endl;
+
+
         ASSERT_EQ(points_parallel_x, points_sequence_x);
         ASSERT_EQ(points_parallel_y, points_sequence_y);
     }
@@ -71,24 +71,24 @@ TEST(MyAlgos2, Test_Data_Set_500) {
     std::vector<int> points_parallel_y;
     std::vector<int> points_sequence_x;
     std::vector<int> points_sequence_y;
-    double startMY = MPI_Wtime();
+
     points_parallel = buildConvexHullParallel(points_parallel);
-    double endMY = MPI_Wtime();
+
 
     if (rank == 0) {
         for (size_t i = 0; i < points_parallel.size(); i++) {
             points_parallel_x.emplace_back(points_parallel[i].x);
             points_parallel_y.emplace_back(points_parallel[i].y);
         }
-        double startT = MPI_Wtime();
+
         points_sequence = buildConvexHull(points_sequence);
-        double endT = MPI_Wtime();
+
         for (size_t i = 0; i < points_parallel.size(); i++) {
             points_sequence_x.emplace_back(points_parallel[i].x);
             points_sequence_y.emplace_back(points_parallel[i].y);
         }
-        std::cout << "Parallel_Time: " << endMY - startMY << std::endl;
-        std::cout << "Sequence_Time: " << endT - startT << std::endl;
+
+
         ASSERT_EQ(points_parallel_x, points_sequence_x);
         ASSERT_EQ(points_parallel_y, points_sequence_y);
     }
@@ -116,24 +116,24 @@ TEST(MyAlgos3, Test_Data_Set_1000) {
     std::vector<int> points_parallel_y;
     std::vector<int> points_sequence_x;
     std::vector<int> points_sequence_y;
-    double startMY = MPI_Wtime();
+
     points_parallel = buildConvexHullParallel(points_parallel);
-    double endMY = MPI_Wtime();
+
 
     if (rank == 0) {
         for (size_t i = 0; i < points_parallel.size(); i++) {
             points_parallel_x.emplace_back(points_parallel[i].x);
             points_parallel_y.emplace_back(points_parallel[i].y);
         }
-        double startT = MPI_Wtime();
+
         points_sequence = buildConvexHull(points_sequence);
-        double endT = MPI_Wtime();
+
         for (size_t i = 0; i < points_parallel.size(); i++) {
             points_sequence_x.emplace_back(points_parallel[i].x);
             points_sequence_y.emplace_back(points_parallel[i].y);
         }
-        std::cout << "Parallel_Time: " << endMY - startMY << std::endl;
-        std::cout << "Sequence_Time: " << endT - startT << std::endl;
+
+
         ASSERT_EQ(points_parallel_x, points_sequence_x);
         ASSERT_EQ(points_parallel_y, points_sequence_y);
     }
@@ -161,24 +161,24 @@ TEST(MyAlgos4, Test_Data_Set_2000) {
     std::vector<int> points_parallel_y;
     std::vector<int> points_sequence_x;
     std::vector<int> points_sequence_y;
-    double startMY = MPI_Wtime();
+
     points_parallel = buildConvexHullParallel(points_parallel);
-    double endMY = MPI_Wtime();
+
 
     if (rank == 0) {
         for (size_t i = 0; i < points_parallel.size(); i++) {
             points_parallel_x.emplace_back(points_parallel[i].x);
             points_parallel_y.emplace_back(points_parallel[i].y);
         }
-        double startT = MPI_Wtime();
+
         points_sequence = buildConvexHull(points_sequence);
-        double endT = MPI_Wtime();
+
         for (size_t i = 0; i < points_parallel.size(); i++) {
             points_sequence_x.emplace_back(points_parallel[i].x);
             points_sequence_y.emplace_back(points_parallel[i].y);
         }
-        std::cout << "Parallel_Time: " << endMY - startMY << std::endl;
-        std::cout << "Sequence_Time: " << endT - startT << std::endl;
+
+
         ASSERT_EQ(points_parallel_x, points_sequence_x);
         ASSERT_EQ(points_parallel_y, points_sequence_y);
     }
@@ -206,24 +206,24 @@ TEST(MyAlgos5, Test_Data_Set_2500) {
     std::vector<int> points_parallel_y;
     std::vector<int> points_sequence_x;
     std::vector<int> points_sequence_y;
-    double startMY = MPI_Wtime();
+
     points_parallel = buildConvexHullParallel(points_parallel);
-    double endMY = MPI_Wtime();
+
 
     if (rank == 0) {
         for (size_t i = 0; i < points_parallel.size(); i++) {
             points_parallel_x.emplace_back(points_parallel[i].x);
             points_parallel_y.emplace_back(points_parallel[i].y);
         }
-        double startT = MPI_Wtime();
+
         points_sequence = buildConvexHull(points_sequence);
-        double endT = MPI_Wtime();
+
         for (size_t i = 0; i < points_parallel.size(); i++) {
             points_sequence_x.emplace_back(points_parallel[i].x);
             points_sequence_y.emplace_back(points_parallel[i].y);
         }
-        std::cout << "Parallel_Time: " << endMY - startMY << std::endl;
-        std::cout << "Sequence_Time: " << endT - startT << std::endl;
+
+
         ASSERT_EQ(points_parallel_x, points_sequence_x);
         ASSERT_EQ(points_parallel_y, points_sequence_y);
     }
