@@ -79,7 +79,6 @@ std::vector<double> Gauss_Parallel(std::vector<double> image, int width, int hei
     MPI_Comm_size(MPI_COMM_WORLD, &ProcNum);
     MPI_Comm_rank(MPI_COMM_WORLD, &ProcRank);
     int sidenum = ceil(static_cast<double>(sqrt(ProcNum)));
-    int blocknum = pow(sidenum, 2);
     int blockwidth = width / sidenum;
     int blockwidthrem = width % sidenum;
     int blockheight = height / sidenum;
