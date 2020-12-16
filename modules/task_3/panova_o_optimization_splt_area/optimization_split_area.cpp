@@ -41,7 +41,7 @@ double SequentialOptimization(double start, double end, std::function<double(dou
     res[1] = end;
     double difference = GetValue(res[1], my_function) - GetValue(res[0], my_function);
     res[2] = (res[1] + res[0]) / 2 - difference / (2 * m);
-    count = 2;
+    ++count;
     while (count < 1000) {
         sort(res.begin(), res.begin() + count + 1);
         double M = GetMForLipschitz(1, res, my_function);
@@ -67,6 +67,11 @@ double SequentialOptimization(double start, double end, std::function<double(dou
     return res[index];
 }
 double ParallelOptimization(double start, double end, std::function<double(double*)> my_function, double eps) {
+    int count = 1;
+    int index = 1;
+    double reliability = 2;
+    double probability;
+    double tmp;
     int size, rank;
     MPI_Comm_size(MPI_COMM_WORLD, &size);
     if (size == 1) {
@@ -74,18 +79,14 @@ double ParallelOptimization(double start, double end, std::function<double(doubl
     }
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
     double local_res;
+    std::vector<double> total_res(size);
     std::vector<double> x(65, -1e+300);
-    int count = 1;
-    int index = 1;
-    double reliability = 2;
-    double probability;
-    double tmp;
     x[0] = start;
     x[1] = end;
     double m = GetmForLipschitz(GetMForLipschitz(1, x, my_function), reliability);
     double difference = GetValue(x[1], my_function) - GetValue(x[0], my_function);
     x[2] = (x[1] + x[0]) / 2 - difference / (2 * m);
-    count = 2;
+    ++count;
     while (count < 64) {
         sort(x.begin(), x.begin() + count + 1);
         double M = GetMForLipschitz(1, x, my_function);
@@ -127,10 +128,9 @@ double ParallelOptimization(double start, double end, std::function<double(doubl
         local_end = x[63];
     }
     local_res = SequentialOptimization(local_start, local_end, my_function, eps);
-    std::vector<double> total_res(size);
     MPI_Gather(&local_res, 1, MPI_DOUBLE, &total_res[0], 1, MPI_DOUBLE, 0, MPI_COMM_WORLD);
     if (rank == 0) {
-        for (int i = 0; i <= size; i++) {
+        for (int i = 0; i < size; i++) {
             if (GetValue(total_res[i], my_function) < GetValue(total_res[0], my_function)) {
                 std::swap(total_res[i], total_res[0]);
             }
