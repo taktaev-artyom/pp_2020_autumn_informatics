@@ -7,8 +7,7 @@
 #include <iostream>
 #include"../../../modules/task_3/gurylev_n_integral_monte_carlo/integral_monte_carlo.h"
 
-double getSequentialIntegralMCarlo(double(*function)(std::vector<double>),
-    const std::vector<double>& llim,
+double getSequentialIntegralMCarlo(double(*function)(std::vector<double>), const std::vector<double>& llim,
     const std::vector<double>& ulim, int n) {
     std::mt19937 gen;
     gen.seed(static_cast<unsigned int>(time(0)));
@@ -31,8 +30,7 @@ double getSequentialIntegralMCarlo(double(*function)(std::vector<double>),
     return result;
 }
 
-double getParallelIntegralMCarlo(double(*function)(std::vector<double>),
-    const std::vector<double>& llim,
+double getParallelIntegralMCarlo(double(*function)(std::vector<double>), const std::vector<double>& llim,
     const std::vector<double>& ulim, int n) {
     int rank, size;
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
@@ -53,7 +51,7 @@ double getParallelIntegralMCarlo(double(*function)(std::vector<double>),
         }
         result += function(tmp);
     }
-    double g_result = 0;
+    double g_result = 0.0;
     MPI_Reduce(&result, &g_result, 1, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
     if (rank == 0) {
         for (int i = 0; i < set_points; i++) {

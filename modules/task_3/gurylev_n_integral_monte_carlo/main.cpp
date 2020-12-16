@@ -1,8 +1,11 @@
 // Copyright 2020 Gurylev Nikita
 #include <gtest-mpi-listener.hpp>
 #include <gtest/gtest.h>
+#include <mpi.h>
 #include <vector>
 #include <iostream>
+#include <ctime>
+#include <cmath>
 #include "./integral_monte_carlo.h"
 
 double pol_f(std::vector<double> args) {
@@ -26,7 +29,7 @@ TEST(Parallel_Operations_MPI, test1_pol_operation) {
     double result = getParallelIntegralMCarlo(pol_f, llim, ulim, n);
     double end = MPI_Wtime();
     if (rank == 0) {
-        std::cout << "TimeParallelMethod: " <<end - start << std::endl;
+        std::cout << "TimeParallelMethod: " << end - start << std::endl;
         start = MPI_Wtime();
         double result_1 = getSequentialIntegralMCarlo(pol_f, llim, ulim, n);
         double end = MPI_Wtime();
