@@ -101,7 +101,8 @@ std::vector<double> Gauss_Parallel(std::vector<double> image, int width, int hei
     } else {
         heightcalc = 0;
     }
-    std::vector<double> block((blockwidth + widthcalc) * (blockheight + heightcalc));
+    int vesblocksize = (blockwidth + widthcalc) * (blockheight + heightcalc);
+    std::vector<double> block(vesblocksize);
     wrem = blockwidthrem;
     for (int i = 0; i < sidenum; i++) {
         hrem = blockheightrem;
