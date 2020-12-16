@@ -1,7 +1,7 @@
 // Copyright 2020 Bulychev Vladislav
+#include <mpi.h>
 #include <gtest-mpi-listener.hpp>
 #include <gtest/gtest.h>
-#include <mpi.h>
 #include <vector>
 #include "../../../modules/task_3/bulychev_v_calculation_of_integrals/calculation.h"
 
@@ -80,7 +80,7 @@ TEST(Calculation_Integraion, Test_1_for_two_dimensional) {
 
     if (rank == 0) {
         a[0] = 0;
-        b[0] = 1000;
+        b[0] = 100;
 
         a[1] = 0;
         b[1] = 10;
@@ -164,7 +164,7 @@ TEST(Calculation_Integraion, Test_for_four_dimensional) {
         b[2] = 100;
 
         a[3] = 4;
-        b[3] = 10;
+        b[3] = 15;
     }
 
     double result_par = ParallelCalculation(a, b, 5, f4);
