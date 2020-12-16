@@ -101,8 +101,6 @@ std::vector<double> Gauss_Parallel(std::vector<double> image, int width, int hei
     } else {
         heightcalc = 0;
     }
-    int vesblocksize = (blockwidth + widthcalc) * (blockheight + heightcalc);
-    std::vector<double> block(vesblocksize);
     wrem = blockwidthrem;
     for (int i = 0; i < sidenum; i++) {
         hrem = blockheightrem;
@@ -122,19 +120,17 @@ std::vector<double> Gauss_Parallel(std::vector<double> image, int width, int hei
             }
             locbh = blockheight + heightcalc;
             if (ProcRank == ProcCalc) {
-                block = Block_Construct(image, start, locbw, locbh, height);
+                auto block = Block_Construct(image, start, locbw, locbh, height);
                 loc_sum = Block_Destruct(loc_sum, block, start, locbw, locbh, height);
             }
             start = start + locbh;
             ProcCalc++;
             if (ProcCalc > ProcNum - 1) {
                 ProcCalc = 0;
-                block.clear();
             }
         }
         start = start + height * (locbw - 1);
     }
-    block.clear();
     MPI_Reduce(&loc_sum[0], &res[0], width * height, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
     return res;
 }
