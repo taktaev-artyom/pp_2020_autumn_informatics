@@ -66,7 +66,6 @@ TEST(GlobalOptimization, MultiExtraFunction_Trig) {
             std::cout << "Parallel more effective" << std::endl;
             std::cout << "Time difference: " << (end_seq - start_seq) - (end_par - start_par) << std::endl;
         }
-        //ASSERT_NEAR(res_par, 4.72, 1e-2);
         ASSERT_NEAR(res_par, res_seq, 1e-2);
     }
 }
@@ -87,7 +86,6 @@ TEST(GlobalOptimization, TwoExtraFunction_Exp) {
             std::cout << "Parallel more effective" << std::endl;
             std::cout << "Time difference: " << (end_seq - start_seq) - (end_par - start_par) << std::endl;
         }
-        //ASSERT_NEAR(res_par, -2.12, 1e-2);
         ASSERT_NEAR(res_par, res_seq, 1e-2);
     }
 }
@@ -108,7 +106,6 @@ TEST(GlobalOptimization, MultiExtraFunction_Polinom) {
             std::cout << "Parallel more effective" << std::endl;
             std::cout << "Time difference: " << (end_seq - start_seq) - (end_par - start_par) << std::endl;
         }
-        //ASSERT_NEAR(res_par, 1, 1e-1);
         ASSERT_NEAR(res_par, res_seq, 1e-1);
     }
 }
