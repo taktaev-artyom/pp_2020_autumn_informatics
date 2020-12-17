@@ -3,6 +3,7 @@
 #include <gtest/gtest.h>
 #include <mpi.h>
 #include <vector>
+#include <cmath>
 #include "./trapeze.h"
 
 double function1(std::vector<double> node) {
