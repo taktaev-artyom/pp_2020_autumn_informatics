@@ -1,6 +1,7 @@
 // Copyright 2020 Pronin Igor
 #include <mpi.h>
 #include <vector>
+#include <cmath>
 #include "../../../modules/task_3/pronin_i_integral_trapeze/trapeze.h"
 double SequentialOperations(double(*function)(std::vector<double>),
     std::vector<double> a, std::vector<double> b, int n) {
