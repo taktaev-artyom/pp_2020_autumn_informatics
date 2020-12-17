@@ -53,7 +53,6 @@ double ParllelOperations(double(*function)(std::vector<double>),
     int ostatok = count % size;
     int step = count / size;
     int rankstep = 0;
-    double f = 0.0;
     double result = 0.0;
 
     if (rank == 0) {
