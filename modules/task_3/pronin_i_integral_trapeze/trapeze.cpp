@@ -9,16 +9,16 @@ double SequentialOperations(double(*function)(std::vector<double>),
     double result = 0;
     std::vector<double> h(mer);
     std::vector<double> points(mer);
-    for (int i = 0; i < mer; i++)
+    for (size_t i = 0; i < mer; i++)
         h[i] = (b[i] - a[i]) / n;
     int count = pow(n, mer);
     for (int i = 0; i < count; i++) {
-        for (int j = 0; j < mer; j++)
+        for (size_t j = 0; j < mer; j++)
             points[j] = a[j] + h[j] * (i % n + 0.5);
         double f = function(points);
         result = result + f;
     }
-    for (int i = 0; i < mer; i++)
+    for (size_t i = 0; i < mer; i++)
         result = result * h[i];
     return result;
 }
@@ -38,7 +38,7 @@ double ParllelOperations(double(*function)(std::vector<double>),
 
     int count = 0;
     if (rank == 0) {
-        for (int i = 0; i < mer; i++) {
+        for (size_t i = 0; i < mer; i++) {
             h[i] = (b[i] - a[i]) / n;
             acopy[i] = a[i];
             bcopy[i] = b[i];
@@ -59,7 +59,7 @@ double ParllelOperations(double(*function)(std::vector<double>),
     if (rank == 0) {
         rankstep = step + ostatok;
         for (int i = 0; i < rankstep; i++) {
-            for (int j = 0; j < mer; j++)
+            for (size_t j = 0; j < mer; j++)
                 points[j] = a[j] + h[j] * (i % n + 0.5);
             double f = function(points);
             result = result + f;
@@ -67,7 +67,7 @@ double ParllelOperations(double(*function)(std::vector<double>),
     } else {
         rankstep = rank * step + ostatok;
         for (int i = 0; i < step; i++) {
-            for (int j = 0; j < mer; j++)
+            for (size_t j = 0; j < mer; j++)
                 points[j] = a[j] + h[j] * (rankstep % n + 0.5);
             double f = function(points);
             result = result + f;
@@ -76,7 +76,7 @@ double ParllelOperations(double(*function)(std::vector<double>),
     }
     double itog = 0.0;
     MPI_Reduce(&result, &itog, 1, MPI_DOUBLE, MPI_SUM, 0, MPI_COMM_WORLD);
-    for (int i = 0; i < mer; i++)
+    for (size_t i = 0; i < mer; i++)
         itog = itog * h[i];
     return itog;
 }
