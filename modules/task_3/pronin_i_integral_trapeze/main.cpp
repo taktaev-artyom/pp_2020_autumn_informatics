@@ -1,8 +1,8 @@
 // Copyright 2020 Pronin Igor
-#include <mpi.h>
-#include <vector>
 #include <gtest-mpi-listener.hpp>
 #include <gtest/gtest.h>
+#include <mpi.h>
+#include <vector>
 #include "./trapeze.h"
 
 double function1(std::vector<double> node) {

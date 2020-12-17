@@ -64,8 +64,7 @@ double ParllelOperations(double(*function)(std::vector<double>),
             double f = function(points);
             result = result + f;
         }
-    }
-    else {
+    } else {
         rankstep = rank * step + ostatok;
         for (int i = 0; i < step; i++) {
             for (int j = 0; j < mer; j++)
