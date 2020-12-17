@@ -5,6 +5,7 @@
 #include <ctime>
 #include <random>
 #include <algorithm>
+#include <climits>
 #include "../../modules/task_3/lyutova_t_quick_sort/quick_sort.h"
 
 std::vector<int> getRandomVector(int size) {
