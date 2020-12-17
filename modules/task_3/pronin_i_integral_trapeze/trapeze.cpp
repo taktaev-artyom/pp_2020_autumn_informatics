@@ -1,8 +1,8 @@
 // Copyright 2020 Pronin Igor
 #include <mpi.h>
+#include <vector>
 #include "../../../modules/task_3/pronin_i_integral_trapeze/trapeze.h"
-double SequentialOperations(double(*function)(std::vector<double>), std::vector<double> a, std::vector<double> b, int n)
-{
+double SequentialOperations(double(*function)(std::vector<double>), std::vector<double> a, std::vector<double> b, int n) {
 	size_t mer = a.size();
 	double result = 0;
 	std::vector<double> h(mer);
@@ -21,8 +21,7 @@ double SequentialOperations(double(*function)(std::vector<double>), std::vector<
 	return result;
 }
 
-double ParllelOperations(double(*function)(std::vector<double>), std::vector<double> a, std::vector<double> b, int n)
-{
+double ParllelOperations(double(*function)(std::vector<double>), std::vector<double> a, std::vector<double> b, int n) {
 	int size, rank;
 	MPI_Comm_size(MPI_COMM_WORLD, &size);
 	MPI_Comm_rank(MPI_COMM_WORLD, &rank);
@@ -63,8 +62,7 @@ double ParllelOperations(double(*function)(std::vector<double>), std::vector<dou
 			double f = function(points);
 			result = result + f;
 		}
-	}
-	else {
+	} else {
 		rankstep = rank * step + ostatok;
 		for (int i = 0; i < step; i++) {
 			for (int j = 0; j < mer; j++)

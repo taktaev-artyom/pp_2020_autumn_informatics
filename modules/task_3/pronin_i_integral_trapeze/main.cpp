@@ -40,8 +40,8 @@ TEST(Parallel_Operations_MPI, function1) {
 	int n = 100;
 	std::vector<double> a(mer);
 	std::vector<double> b(mer);
-	a = {1, 2};
-	b = {5, 6};
+	a = { 1, 2 };
+	b = { 5, 6 };
 	double presult = ParllelOperations(function1, a, b, n);
 	if (rank == 0) {
 		double sresult = SequentialOperations(function1, a, b, n);
