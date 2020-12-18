@@ -21,7 +21,7 @@ Matrix::Matrix(int _rows, int _cols, std::mt19937 _gen) {
     rows = _rows;
     cols = _cols;
     m = std::vector<double>(_rows * _cols);
-    for (int i = 0; i < m.size(); i++) {
+    for (size_t i = 0; i < m.size(); i++) {
         std::uniform_real_distribution<> urd(0, 100);
             m[i] = urd(_gen);
     }
@@ -29,7 +29,7 @@ Matrix::Matrix(int _rows, int _cols, std::mt19937 _gen) {
 Matrix::~Matrix() {}
 Matrix Matrix::operator-() const {
     Matrix tmp(rows, cols);
-    for (int i = 0; i < m.size(); i++)
+    for (size_t i = 0; i < m.size(); i++)
             tmp.m[i] = -m[i];
     return tmp;
 }
@@ -104,7 +104,7 @@ Matrix* get_one_matrix(const Matrix& _a11, const Matrix& _a12, const Matrix& _a2
 
 Matrix* sequential_sum(const Matrix& _a, const Matrix& _b) {
     Matrix* result = new Matrix(_a.rows, _a.cols);
-    for (int i = 0; i < _a.m.size(); i++)
+    for (size_t i = 0; i < _a.m.size(); i++)
         result->m[i] = _a.m[i] + _b.m[i];
     return result;
 }
