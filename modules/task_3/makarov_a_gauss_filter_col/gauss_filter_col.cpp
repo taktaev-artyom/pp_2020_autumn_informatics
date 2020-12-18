@@ -6,16 +6,16 @@
 #include "../../../modules/task_3/makarov_a_gauss_filter_col/gauss_filter_col.h"
 
 
-std::vector<unsigned __int16> generate_image(unsigned int w, unsigned int h) {
+std::vector<unsigned short> generate_image(unsigned int w, unsigned int h) {
     unsigned int size = w * h;
-    if (size == 0) return std::vector<unsigned __int16>();
+    if (size == 0) return std::vector<unsigned short>();
     std::random_device rd;
     std::mt19937 gen(rd());
     size = w * h;
-    std::vector<unsigned __int16> image(size);
+    std::vector<unsigned short> image(size);
     for (unsigned int i = 0; i < h; i++) {
         for (unsigned int j = 0; j < w; j++)
-            image[i * w + j] = static_cast<unsigned __int16>(gen() % 256);
+            image[i * w + j] = static_cast<unsigned short>(gen() % 256);
     }
     return image;
 }
@@ -41,8 +41,8 @@ std::vector<double> createGaussianKernel(double sigma, unsigned int radius) {
     return result;
 }
 
-std::vector<unsigned __int16> gaussFilter(
-                               const std::vector<unsigned __int16>& exp_image,
+std::vector<unsigned short> gaussFilter(
+                               const std::vector<unsigned short>& exp_image,
                                unsigned int w, unsigned int h, double sigma,
                                unsigned int radius) {
     std::vector<double> gauss_kernel = createGaussianKernel(sigma, radius);
@@ -51,7 +51,7 @@ std::vector<unsigned __int16> gaussFilter(
     int kern_size = kern_radius * 2 + 1;
     int result_h = static_cast<int>(h);
     int result_w = static_cast<int>(w);
-    std::vector<unsigned __int16> result(result_h * result_w);
+    std::vector<unsigned short> result(result_h * result_w);
     for (int i = 0; i < result_h; i++)
         for (int j = 0; j < result_w; j++) {
             double conv = 0.;
@@ -63,27 +63,27 @@ std::vector<unsigned __int16> gaussFilter(
                                    gauss_kernel[
                                    (k + kern_radius) * kern_size + t +
                                    kern_radius]);
-            result[i * result_w + j] = static_cast<unsigned __int16>(conv);
+            result[i * result_w + j] = static_cast<unsigned short>(conv);
         }
     return result;
 }
 
-std::vector<unsigned __int16> transpose(
-                                   const std::vector<unsigned __int16>& image,
+std::vector<unsigned short> transpose(
+                                   const std::vector<unsigned short>& image,
                                    unsigned int w, unsigned int h) {
-    std::vector<unsigned __int16> result(w * h);
+    std::vector<unsigned short> result(w * h);
     for (unsigned int i = 0; i < h; i++)
         for (unsigned int j = 0; j < w; j++)
             result[j * h + i] = image[i * w + j];
     return result;
 }
 
-std::vector<unsigned __int16> expand(
-                                   const std::vector<unsigned __int16>& image,
+std::vector<unsigned short> expand(
+                                   const std::vector<unsigned short>& image,
                                    unsigned int w, unsigned int h,
                                    unsigned int radius) {
     unsigned int diam = radius * 2;
-    std::vector<unsigned __int16> result((w + diam) * (h + diam));
+    std::vector<unsigned short> result((w + diam) * (h + diam));
     // transpose
     for (unsigned int i = 0; i < h; i++)
         for (unsigned int j = 0; j < w; j++)
@@ -108,21 +108,21 @@ std::vector<unsigned __int16> expand(
     return result;
 }
 
-std::vector<unsigned __int16> gaussFilterSequential(
-                                   const std::vector<unsigned __int16>& image,
+std::vector<unsigned short> gaussFilterSequential(
+                                   const std::vector<unsigned short>& image,
                                    unsigned int w, unsigned int h,
                                    double sigma, unsigned int radius) {
-    std::vector<unsigned __int16> expanded_img = expand(
+    std::vector<unsigned short> expanded_img = expand(
                                                     transpose(image, w, h), h,
                                                     w, radius);
-    std::vector<unsigned __int16> result = transpose(
+    std::vector<unsigned short> result = transpose(
                                gaussFilter(expanded_img, h, w, sigma, radius),
                                h, w);
     return result;
 }
 
-std::vector<unsigned __int16> gaussFilterParallel(
-                                   const std::vector<unsigned __int16>& image,
+std::vector<unsigned short> gaussFilterParallel(
+                                   const std::vector<unsigned short>& image,
                                    unsigned int w, unsigned int h,
                                    double sigma, unsigned int radius) {
     int rank;
@@ -143,7 +143,7 @@ std::vector<unsigned __int16> gaussFilterParallel(
     int kern_size = kern_radius * 2 + 1;
 
     if (rank == 0) {
-        std::vector<unsigned __int16> t_image = expand(transpose(image, w, h),
+        std::vector<unsigned short> t_image = expand(transpose(image, w, h),
                                                        h, w, radius);
         MPI_Send(t_image.data(), first_count, MPI_SHORT, 1, 0,
                  MPI_COMM_WORLD);
@@ -154,8 +154,8 @@ std::vector<unsigned __int16> gaussFilterParallel(
                      MPI_COMM_WORLD);
         }
         MPI_Status status;
-        std::vector<unsigned __int16> result(h * w);
-        std::vector<unsigned __int16> tmp((remain + delta) * h);
+        std::vector<unsigned short> result(h * w);
+        std::vector<unsigned short> tmp((remain + delta) * h);
         MPI_Recv(tmp.data(), (remain + delta) * h, MPI_SHORT, 1, MPI_ANY_TAG,
                  MPI_COMM_WORLD, &status);
         for (unsigned int i = 0; i < h; i++) {
@@ -174,8 +174,8 @@ std::vector<unsigned __int16> gaussFilterParallel(
         }
         return result;
     } else {
-        std::vector<unsigned __int16> local_image;
-        std::vector<unsigned __int16> local_result;
+        std::vector<unsigned short> local_image;
+        std::vector<unsigned short> local_result;
         MPI_Status status;
         if (rank == 1) {
             local_image.resize(first_count);

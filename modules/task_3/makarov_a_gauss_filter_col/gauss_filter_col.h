@@ -4,30 +4,30 @@
 
 #include <vector>
 
-std::vector<unsigned __int16> generate_image(unsigned int w, unsigned int h);
+std::vector<unsigned short> generate_image(unsigned int w, unsigned int h);
 
 std::vector<double> createGaussianKernel(double sigma, unsigned int radius);
 
-std::vector<unsigned __int16> gaussFilter(
-                               const std::vector<unsigned __int16>& exp_image,
+std::vector<unsigned short> gaussFilter(
+                               const std::vector<unsigned short>& exp_image,
                                unsigned int w, unsigned int h, double sigma,
                                unsigned int radius);
 
-std::vector<unsigned __int16> transpose(
-                                   const std::vector<unsigned __int16>& image,
+std::vector<unsigned short> transpose(
+                                   const std::vector<unsigned short>& image,
                                    unsigned int w, unsigned int h);
 
-std::vector<unsigned __int16> expand(
-                                   const std::vector<unsigned __int16>& image,
+std::vector<unsigned short> expand(
+                                   const std::vector<unsigned short>& image,
                                    unsigned int w, unsigned int h,
                                    unsigned int radius);
 
-std::vector<unsigned __int16> gaussFilterSequential(
-                                   const std::vector<unsigned __int16>& image,
+std::vector<unsigned short> gaussFilterSequential(
+                                   const std::vector<unsigned short>& image,
                                    unsigned int w, unsigned int h,
                                    double sigma, unsigned int radius);
-std::vector<unsigned __int16> gaussFilterParallel(
-                                   const std::vector<unsigned __int16>& image,
+std::vector<unsigned short> gaussFilterParallel(
+                                   const std::vector<unsigned short>& image,
                                    unsigned int w, unsigned int h,
                                    double sigma, unsigned int radius);
 
