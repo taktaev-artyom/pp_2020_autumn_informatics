@@ -110,9 +110,9 @@ std::vector<int> genRandVector(int n) {
     std::vector<int> vec(n);
     std::vector<int> vec1(n);
     for (int i = 0; i < n; i++)
-        vec[i] = gen() % 100000;
+        vec[i] = gen() % 10000;
     for (int i = 0; i < n; i++)
-        vec1[i] = gen() % 1000;
+        vec1[i] = gen() % 100;
     return vec;
 }
 
