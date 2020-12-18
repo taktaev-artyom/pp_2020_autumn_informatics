@@ -4,7 +4,7 @@
 #include <cmath>
 #include "./Strongin_global_search.h"
 
-#define PI 3.14159265
+#define PI 3.141592653
 
 double Q1(double x) {
     return ((x + 1) * (x + 1) - 2);
