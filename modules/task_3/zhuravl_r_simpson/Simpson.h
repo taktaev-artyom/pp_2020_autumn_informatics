@@ -4,10 +4,10 @@
 
 #include <mpi.h>
 
-double Sequential_Simpson_double(double (*f)(double x, double y), double a1, double b1,
+double Sequential_Simpson_Double(double (*f)(double x, double y), double a1, double b1,
   double a2, double b2, int n1, int n2);
 
-double Parallel_Simpson_double(double (*f)(double x, double y), double a1, double b1,
+double Parallel_Simpson_Double(double (*f)(double x, double y), double a1, double b1,
   double a2, double b2, int n1, int n2);
 
 double func(double x, double y);

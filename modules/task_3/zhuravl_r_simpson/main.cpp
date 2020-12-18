@@ -1,9 +1,6 @@
 // Copyright 2020 Zhuravlev Roman
 #include <gtest-mpi-listener.hpp>
 #include <gtest/gtest.h>
-#include <mpi.h>
-#include <vector>
-#include <random>
 #include "./Simpson.h"
 
 TEST(Parallel_MPI, Test_Sequantial) {
@@ -11,14 +8,14 @@ TEST(Parallel_MPI, Test_Sequantial) {
   MPI_Comm_rank(MPI_COMM_WORLD, &rank);
 
   if (rank == 0) {
-    EXPECT_DOUBLE_EQ(Sequential_Simpson_double(func, 0, 3, -2, 4, 10, 8), 10.8) << "Wrong res";
+    EXPECT_DOUBLE_EQ(Sequential_Simpson_Double(func, 0, 3, -2, 4, 10, 8), 10.8) << "Wrong res";
   }
 }
 
 TEST(Parallel_MPI, Test_Parallel) {
   int rank;
   MPI_Comm_rank(MPI_COMM_WORLD, &rank);
-  double res = Parallel_Simpson_double(func, 1, 14, 2, 5, 10, 10);
+  double res = Parallel_Simpson_Double(func, 1, 14, 2, 5, 10, 10);
 
   if (rank == 0) {
     EXPECT_DOUBLE_EQ(res, 409.5) << "Wrong res";
@@ -30,7 +27,7 @@ TEST(Parallel_MPI, Test_Exception) {
   MPI_Comm_rank(MPI_COMM_WORLD, &rank);
 
   if (rank == 0) {
-    EXPECT_ANY_THROW(Sequential_Simpson_double(func, 0, 3, 5, 4, 10, 8));
+    EXPECT_ANY_THROW(Sequential_Simpson_Double(func, 0, 3, 5, 4, 10, 8));
   }
 }
 
@@ -40,10 +37,10 @@ TEST(Parallel_MPI, Test_Parallel_equals_Sequential_small) {
   MPI_Comm_rank(MPI_COMM_WORLD, &rank);
 
   t1 = MPI_Wtime();
-  double parRes = Parallel_Simpson_double(func, 0, 3, -2, 4, 30, 20);
+  double parRes = Parallel_Simpson_Double(func, 0, 3, -2, 4, 30, 20);
   t2 = MPI_Wtime();
   t3 = MPI_Wtime();
-  double seqRes = Sequential_Simpson_double(func, 0, 3, -2, 4, 30, 20);
+  double seqRes = Sequential_Simpson_Double(func, 0, 3, -2, 4, 30, 20);
   t4 = MPI_Wtime();
   if (rank == 0) {
     std::cout << "parallel: " << (t2 - t1) << ", seqential: " << (t4 - t3) << std::endl;
@@ -57,10 +54,10 @@ TEST(Parallel_MPI, Test_Parallel_equals_Sequential_big) {
   MPI_Comm_rank(MPI_COMM_WORLD, &rank);
 
   t1 = MPI_Wtime();
-  double parRes = Parallel_Simpson_double(func, -10, 31, 1, 15, 100, 80);
+  double parRes = Parallel_Simpson_Double(func, -10, 31, 1, 15, 100, 80);
   t2 = MPI_Wtime();
   t3 = MPI_Wtime();
-  double seqRes = Sequential_Simpson_double(func, -10, 31, 1, 15, 100, 80);
+  double seqRes = Sequential_Simpson_Double(func, -10, 31, 1, 15, 100, 80);
   t4 = MPI_Wtime();
   if (rank == 0) {
     std::cout << "parallel: " << (t2 - t1) << ", seqential: " << (t4 - t3) << std::endl;

@@ -6,7 +6,7 @@
 #include <cmath>
 #include "../../../modules/task_3/zhuravl_r_simpson/Simpson.h"
 
-double Sequential_Simpson_double(double (*f)(double x, double y), double a1, double b1,
+double Sequential_Simpson_Double(double (*f)(double x, double y), double a1, double b1,
   double a2, double b2, int n1, int n2) {
   if (a1 > b1 || a2 > b2 || n1 < 1 || n2 < 1) throw "Invalid argument";
 
@@ -30,7 +30,7 @@ double Sequential_Simpson_double(double (*f)(double x, double y), double a1, dou
   return res * (step1 * step2 / 9);
 }
 
-double Parallel_Simpson_double(double (*f)(double x, double y), double a1, double b1,
+double Parallel_Simpson_Double(double (*f)(double x, double y), double a1, double b1,
   double a2, double b2, int n1, int n2) {
   int rank, num;
   double local_res = 0;
