@@ -5,7 +5,7 @@
 #include <random>
 #include <ctime>
 #include "../../../modules/task_3/novozhilova_e_cannon_s_algorithm/cannon_s_algorithm.h"
- 
+
 std::vector<double> GenMatrix(int size) {
     std::mt19937 gen;
     gen.seed(static_cast<double>(time(0)));
@@ -44,8 +44,7 @@ std::vector<double> CannonAlgorithm(std::vector<double> A, std::vector<double> B
     if (World_size == 1) {
         C = SeqMultiply(A, B, size);
         return C;
-    }
-    else {
+    } else {
         if (World_size > 4) {
             MPI_Group MPI_NEW_GROUP;
             MPI_Comm MPI_NEW_COMM;
@@ -83,8 +82,8 @@ std::vector<double> CannonAlgorithm(std::vector<double> A, std::vector<double> B
                             A_counter = 0;
                             B_counter = 0;
                             int tmp[2];
-                            tmp[0] = i;//row
-                            tmp[1] = j;//column
+                            tmp[0] = i;
+                            tmp[1] = j;
                             int rank;
                             MPI_Cart_rank(MPI_CART_COMM, tmp, &rank);
 
@@ -105,8 +104,7 @@ std::vector<double> CannonAlgorithm(std::vector<double> A, std::vector<double> B
                                     tmpBlockA[i] = blockA[i];
                                     tmpBlockB[i] = blockB[i];
                                 }
-                            }
-                            else {
+                            } else {
                                 MPI_Send(&blockA[0], square, MPI_DOUBLE, rank, blockA_tag, MPI_CART_COMM);
                                 MPI_Send(&blockB[0], square, MPI_DOUBLE, rank, blockB_tag, MPI_CART_COMM);
                             }
@@ -130,17 +128,21 @@ std::vector<double> CannonAlgorithm(std::vector<double> A, std::vector<double> B
                     local_C[i] = 0;
                 }
                 if (coords[0] == 1) {
-                    MPI_Sendrecv_replace(&blockA[0], square, MPI_DOUBLE, left_neigh, blockA_tag, right_neigh, blockA_tag, MPI_CART_COMM, MPI_STATUS_IGNORE);
+                    MPI_Sendrecv_replace(&blockA[0], square, MPI_DOUBLE, left_neigh, blockA_tag,
+                        right_neigh, blockA_tag, MPI_CART_COMM, MPI_STATUS_IGNORE);
                 }
                 if (coords[1] == 1) {
-                    MPI_Sendrecv_replace(&blockB[0], square, MPI_DOUBLE, upper_neigh, blockB_tag, lower_neigh, blockB_tag, MPI_CART_COMM, MPI_STATUS_IGNORE);
+                    MPI_Sendrecv_replace(&blockB[0], square, MPI_DOUBLE, upper_neigh, blockB_tag,
+                        lower_neigh, blockB_tag, MPI_CART_COMM, MPI_STATUS_IGNORE);
                 }
                 blockC = SeqMultiply(blockA, blockB, block_dim);
                 for (int i = 0; i < square; i++) {
                     local_C[i] += blockC[i];
                 }
-                MPI_Sendrecv_replace(&blockA[0], square, MPI_DOUBLE, left_neigh, blockA_tag, right_neigh, blockA_tag, MPI_CART_COMM, MPI_STATUS_IGNORE);
-                MPI_Sendrecv_replace(&blockB[0], square, MPI_DOUBLE, upper_neigh, blockB_tag, lower_neigh, blockB_tag, MPI_CART_COMM, MPI_STATUS_IGNORE);
+                MPI_Sendrecv_replace(&blockA[0], square, MPI_DOUBLE, left_neigh, blockA_tag, 
+                    right_neigh, blockA_tag, MPI_CART_COMM, MPI_STATUS_IGNORE);
+                MPI_Sendrecv_replace(&blockB[0], square, MPI_DOUBLE, upper_neigh, blockB_tag,
+                    lower_neigh, blockB_tag, MPI_CART_COMM, MPI_STATUS_IGNORE);
                 blockC = SeqMultiply(blockA, blockB, block_dim);
                 for (int i = 0; i < square; i++) {
                     local_C[i] += blockC[i];
@@ -167,9 +169,7 @@ std::vector<double> CannonAlgorithm(std::vector<double> A, std::vector<double> B
                             C_counter += block_dim;
                         }
                     }
-
-                }
-                else {
+                } else {
                     MPI_Send(&local_C[0], square, MPI_DOUBLE, 0, localC_tag, MPI_CART_COMM);
                 }
             }
