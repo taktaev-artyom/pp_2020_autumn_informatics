@@ -13,7 +13,6 @@ TEST(Parallel_Operations_MPI, Test1) {
     std::vector<pixel> input_image, p_out_points, s_out_points;
     int side = 10;
     int points_in_image = 0;
-    double time;
 
     if (proc == 0) {
         input_image = get_random_image(side, side, &points_in_image);
@@ -36,7 +35,6 @@ TEST(Parallel_Operations_MPI, Test2) {
     std::vector<pixel> input_image, p_out_points, s_out_points;
     int side = 50;
     int points_in_image = 0;
-    double time;
 
     if (proc == 0) {
         input_image = get_random_image(side, side, &points_in_image);
@@ -59,7 +57,6 @@ TEST(Parallel_Operations_MPI, Test3) {
     std::vector<pixel> input_image, p_out_points, s_out_points;
     int side = 100;
     int points_in_image = 0;
-    double time;
 
     if (proc == 0) {
         input_image = get_random_image(side, side, &points_in_image);
@@ -82,7 +79,6 @@ TEST(Parallel_Operations_MPI, Test4) {
     std::vector<pixel> input_image, p_out_points, s_out_points;
     int side = 1000;
     int points_in_image = 0;
-    double time;
 
     if (proc == 0) {
         input_image = get_random_image(side, side, &points_in_image);
@@ -105,7 +101,6 @@ TEST(Parallel_Operations_MPI, Test5) {
     std::vector<pixel> input_image, p_out_points, s_out_points;
     int side = 2000;
     int points_in_image = 0;
-    double time;
 
     if (proc == 0) {
         input_image = get_random_image(side, side, &points_in_image);
