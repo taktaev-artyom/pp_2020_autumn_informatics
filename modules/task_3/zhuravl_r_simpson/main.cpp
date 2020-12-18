@@ -1,9 +1,9 @@
 // Copyright 2020 Zhuravlev Roman
 #include <gtest-mpi-listener.hpp>
 #include <gtest/gtest.h>
-#include "./Simpson.h"
+#include "../../../modules/task_3/zhuravlev_r_simpson/Simpson.h"
 
-TEST(Parallel_MPI, Test_Sequantial) {
+TEST(Parallel_MPI, Test_Sequantial_Res) {
   int rank;
   MPI_Comm_rank(MPI_COMM_WORLD, &rank);
 
@@ -12,7 +12,7 @@ TEST(Parallel_MPI, Test_Sequantial) {
   }
 }
 
-TEST(Parallel_MPI, Test_Parallel) {
+TEST(Parallel_MPI, Test_Parallel_Res) {
   int rank;
   MPI_Comm_rank(MPI_COMM_WORLD, &rank);
   double res = Parallel_Simpson_Double(func, 1, 14, 2, 5, 10, 10);
@@ -31,7 +31,7 @@ TEST(Parallel_MPI, Test_Exception) {
   }
 }
 
-TEST(Parallel_MPI, Test_Parallel_equals_Sequential_small) {
+TEST(Parallel_MPI, Test_Parallel_Res_equals_Sequential_Res_small) {
   int rank;
   double t1, t2, t3, t4;
   MPI_Comm_rank(MPI_COMM_WORLD, &rank);
@@ -48,7 +48,7 @@ TEST(Parallel_MPI, Test_Parallel_equals_Sequential_small) {
   }
 }
 
-TEST(Parallel_MPI, Test_Parallel_equals_Sequential_big) {
+TEST(Parallel_MPI, Test_Parallel_Res_equals_Sequential_Res_big) {
   int rank;
   double t1, t2, t3, t4;
   MPI_Comm_rank(MPI_COMM_WORLD, &rank);
