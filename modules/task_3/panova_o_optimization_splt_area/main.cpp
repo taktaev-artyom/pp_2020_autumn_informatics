@@ -7,7 +7,7 @@
 #include "../../../modules/task_3/panova_o_optimization_splt_area/optimization_split_area.h"
 double func1(double* _x) {
     double x = *_x;
-    return cos(2 * x) * sin(5 * x);  // global minimum 1.568
+    return cos(2 * x) * sin(5 * x);  // global minmum 1.568
 }
 double func2(double* _x) {
     double x = *_x;
