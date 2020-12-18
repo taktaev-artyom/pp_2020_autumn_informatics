@@ -88,7 +88,6 @@ first_pass(const std::vector<int>& image, int width, int height, int begin_label
             }
         }
     }
-
     return {tmp_image, {disjoint_sets, labels_count}};
 }
 
