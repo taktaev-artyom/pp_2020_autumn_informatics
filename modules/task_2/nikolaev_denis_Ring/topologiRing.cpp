@@ -7,7 +7,7 @@ int* randomizeArray(int size) {
     gen.seed(static_cast<unsigned int>(time(0)));
     int* array = new int[size];
     for (int i = 0; i < size; i++) {
-        array[i] = gen() % 2000;
+        array[i] = gen() % 2002;
     }
     return array;
 }
