@@ -84,7 +84,7 @@ std::vector<unsigned int> expand(
                                    unsigned int radius) {
     unsigned int diam = radius * 2;
     std::vector<unsigned int> result((w + diam) * (h + diam));
-    // transpose
+    // transpose image
     for (unsigned int i = 0; i < h; i++)
         for (unsigned int j = 0; j < w; j++)
             result[(i + radius) * (w + diam) + (j + radius)] =
