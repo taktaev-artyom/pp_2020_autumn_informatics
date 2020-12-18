@@ -150,13 +150,13 @@ TEST(GaussFilter, 3000x2000_generation_test) {
     }
 }
 
-TEST(GaussFilter, 10000x10000_generation_test) {
+TEST(GaussFilter, 5000x5000_generation_test) {
     int rank;
     MPI_Comm_rank(MPI_COMM_WORLD, &rank);
     double sigma = 1.;
     unsigned int radius = 1;
-    unsigned int w = 10000;
-    unsigned int h = 10000;
+    unsigned int w = 5000;
+    unsigned int h = 5000;
     double start_time, end_time;
     std::vector<unsigned int> image;
     if (rank == 0) {

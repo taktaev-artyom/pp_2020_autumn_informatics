@@ -140,7 +140,6 @@ std::vector<unsigned int> gaussFilterParallel(
 
     std::vector<double> gauss_kernel = createGaussianKernel(sigma, radius);
     int kern_radius = static_cast<int>(radius);
-    int kern_size = kern_radius * 2 + 1;
 
     if (rank == 0) {
         std::vector<unsigned int> t_image = expand(transpose(image, w, h),
