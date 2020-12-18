@@ -7,9 +7,9 @@
 double SequentialCalculation(std::vector<double> a, std::vector<double> b,
     int n, double(*f)(std::vector<double>)) {
     int size_a = a.size();
-    std::vector <double> p(size_a);
     std::vector<double> h;
     double result = 0.0;
+	std::vector <double> p(size_a);
     int num = pow(n, size_a);
 
     for (int i = 0; i < size_a; i++) {
