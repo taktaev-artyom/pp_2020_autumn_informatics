@@ -11,9 +11,9 @@ double getSequentialIntegralMCarlo(double(*function)(std::vector<double>), const
     const std::vector<double>& ulim, int n) {
     std::mt19937 gen;
     gen.seed(static_cast<unsigned int>(time(0)));
-    int set_points = llim.size();
     std::vector<std::uniform_real_distribution<double>> points(set_points);
     std::vector<double> tmp(set_points);
+    int set_points = llim.size();
     double result = 0.0;
     for (int i = 0; i < set_points; i++) {
         points[i] = std::uniform_real_distribution<double>(llim[i], ulim[i]);
