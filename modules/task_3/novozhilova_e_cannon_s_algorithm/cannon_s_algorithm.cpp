@@ -40,12 +40,7 @@ std::vector<double> CannonAlgorithm(std::vector<double> A, std::vector<double> B
     int blockA_tag = 0;
     int blockB_tag = 1;
     int localC_tag = 2;
-
-    if (World_size == 1) {
-        C = SeqMultiply(A, B, size);
-        return C;
-    } else {
-        if (World_size > 4) {
+        if (World_size >= 4) {
             MPI_Group MPI_NEW_GROUP;
             MPI_Comm MPI_NEW_COMM;
             MPI_Group MPI_GROUP_WORLD;
@@ -139,7 +134,7 @@ std::vector<double> CannonAlgorithm(std::vector<double> A, std::vector<double> B
                 for (int i = 0; i < square; i++) {
                     local_C[i] += blockC[i];
                 }
-                MPI_Sendrecv_replace(&blockA[0], square, MPI_DOUBLE, left_neigh, blockA_tag, 
+                MPI_Sendrecv_replace(&blockA[0], square, MPI_DOUBLE, left_neigh, blockA_tag,
                     right_neigh, blockA_tag, MPI_CART_COMM, MPI_STATUS_IGNORE);
                 MPI_Sendrecv_replace(&blockB[0], square, MPI_DOUBLE, upper_neigh, blockB_tag,
                     lower_neigh, blockB_tag, MPI_CART_COMM, MPI_STATUS_IGNORE);
@@ -176,4 +171,3 @@ std::vector<double> CannonAlgorithm(std::vector<double> A, std::vector<double> B
         }
         return C;
     }
-}
