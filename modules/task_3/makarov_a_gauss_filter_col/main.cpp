@@ -13,18 +13,18 @@ TEST(GaussFilter, 5x10_generation_test) {
     unsigned int w = 5;
     unsigned int h = 10;
     double start_time, end_time;
-    std::vector<unsigned short> image;
+    std::vector<unsigned int> image;
     if (rank == 0) {
         image = generate_image(w, h);
     }
     if (rank == 0) start_time = MPI_Wtime();
-    std::vector<unsigned short> result_par = gaussFilterParallel(image, w, h,
+    std::vector<unsigned int> result_par = gaussFilterParallel(image, w, h,
                                                                 sigma, radius);
     if (rank == 0) end_time = MPI_Wtime();
     if (rank == 0) {
         double parr_time = end_time - start_time;
         start_time = MPI_Wtime();
-        std::vector<unsigned short> result_seq = gaussFilterSequential(image,
+        std::vector<unsigned int> result_seq = gaussFilterSequential(image,
                                                         w, h, sigma, radius);
         end_time = MPI_Wtime();
         double seq_time = end_time - start_time;
@@ -42,18 +42,18 @@ TEST(GaussFilter, 100x200_generation_test) {
     unsigned int w = 100;
     unsigned int h = 200;
     double start_time, end_time;
-    std::vector<unsigned short> image;
+    std::vector<unsigned int> image;
     if (rank == 0) {
         image = generate_image(w, h);
     }
     if (rank == 0) start_time = MPI_Wtime();
-    std::vector<unsigned short> result_par = gaussFilterParallel(image, w, h,
+    std::vector<unsigned int> result_par = gaussFilterParallel(image, w, h,
                                                                 sigma, radius);
     if (rank == 0) end_time = MPI_Wtime();
     if (rank == 0) {
         double parr_time = end_time - start_time;
         start_time = MPI_Wtime();
-        std::vector<unsigned short> result_seq = gaussFilterSequential(image,
+        std::vector<unsigned int> result_seq = gaussFilterSequential(image,
                                                         w, h, sigma, radius);
         end_time = MPI_Wtime();
         double seq_time = end_time - start_time;
@@ -71,18 +71,18 @@ TEST(GaussFilter, 300x200_generation_test) {
     unsigned int w = 300;
     unsigned int h = 200;
     double start_time, end_time;
-    std::vector<unsigned short> image;
+    std::vector<unsigned int> image;
     if (rank == 0) {
         image = generate_image(w, h);
     }
     if (rank == 0) start_time = MPI_Wtime();
-    std::vector<unsigned short> result_par = gaussFilterParallel(image, w, h,
+    std::vector<unsigned int> result_par = gaussFilterParallel(image, w, h,
                                                                 sigma, radius);
     if (rank == 0) end_time = MPI_Wtime();
     if (rank == 0) {
         double parr_time = end_time - start_time;
         start_time = MPI_Wtime();
-        std::vector<unsigned short> result_seq = gaussFilterSequential(image,
+        std::vector<unsigned int> result_seq = gaussFilterSequential(image,
                                                         w, h, sigma, radius);
         end_time = MPI_Wtime();
         double seq_time = end_time - start_time;
@@ -100,18 +100,18 @@ TEST(GaussFilter, 1000x2000_generation_test) {
     unsigned int w = 1000;
     unsigned int h = 2000;
     double start_time, end_time;
-    std::vector<unsigned short> image;
+    std::vector<unsigned int> image;
     if (rank == 0) {
         image = generate_image(w, h);
     }
     if (rank == 0) start_time = MPI_Wtime();
-    std::vector<unsigned short> result_par = gaussFilterParallel(image, w, h,
+    std::vector<unsigned int> result_par = gaussFilterParallel(image, w, h,
                                                                 sigma, radius);
     if (rank == 0) end_time = MPI_Wtime();
     if (rank == 0) {
         double parr_time = end_time - start_time;
         start_time = MPI_Wtime();
-        std::vector<unsigned short> result_seq = gaussFilterSequential(image,
+        std::vector<unsigned int> result_seq = gaussFilterSequential(image,
                                                         w, h, sigma, radius);
         end_time = MPI_Wtime();
         double seq_time = end_time - start_time;
@@ -129,18 +129,18 @@ TEST(GaussFilter, 3000x2000_generation_test) {
     unsigned int w = 3000;
     unsigned int h = 2000;
     double start_time, end_time;
-    std::vector<unsigned short> image;
+    std::vector<unsigned int> image;
     if (rank == 0) {
         image = generate_image(w, h);
     }
     if (rank == 0) start_time = MPI_Wtime();
-    std::vector<unsigned short> result_par = gaussFilterParallel(image, w, h,
+    std::vector<unsigned int> result_par = gaussFilterParallel(image, w, h,
                                                                 sigma, radius);
     if (rank == 0) end_time = MPI_Wtime();
     if (rank == 0) {
         double parr_time = end_time - start_time;
         start_time = MPI_Wtime();
-        std::vector<unsigned short> result_seq = gaussFilterSequential(image,
+        std::vector<unsigned int> result_seq = gaussFilterSequential(image,
                                                         w, h, sigma, radius);
         end_time = MPI_Wtime();
         double seq_time = end_time - start_time;
@@ -158,18 +158,18 @@ TEST(GaussFilter, 10000x10000_generation_test) {
     unsigned int w = 10000;
     unsigned int h = 10000;
     double start_time, end_time;
-    std::vector<unsigned short> image;
+    std::vector<unsigned int> image;
     if (rank == 0) {
         image = generate_image(w, h);
     }
     if (rank == 0) start_time = MPI_Wtime();
-    std::vector<unsigned short> result_par = gaussFilterParallel(image, w, h,
+    std::vector<unsigned int> result_par = gaussFilterParallel(image, w, h,
                                                                 sigma, radius);
     if (rank == 0) end_time = MPI_Wtime();
     if (rank == 0) {
         double parr_time = end_time - start_time;
         start_time = MPI_Wtime();
-        std::vector<unsigned short> result_seq = gaussFilterSequential(image,
+        std::vector<unsigned int> result_seq = gaussFilterSequential(image,
                                                         w, h, sigma, radius);
         end_time = MPI_Wtime();
         double seq_time = end_time - start_time;
