@@ -59,8 +59,8 @@ TEST(MyAlgos2, Test_Data_Set_500) {
     for (int i = 0; i < height; i++) {
         image[i] = new int[width];
     }
-    for (int i = 0; i < height; i++) {
-        for (int j = 0; j < width; j++) {
+    for (int i = 0; i < width; i++) {
+        for (int j = 0; j < height; j++) {
             image[i][j] = 1;
         }
     }
