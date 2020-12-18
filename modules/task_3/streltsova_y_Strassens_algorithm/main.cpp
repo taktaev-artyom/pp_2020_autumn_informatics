@@ -2,7 +2,7 @@
 #include <gtest-mpi-listener.hpp>
 #include <gtest/gtest.h>
 #include <vector>
-#include <random> 
+#include <random>
 #include <ctime>
 #include "./Strassens_algorithm.h"
 
