@@ -6,7 +6,7 @@
 #include <vector>
 #include <iostream>
 #include "../../../modules/task_3/chistov_v_gauss_block/gauss_block.h"
-//fix6
+// fix7
 TEST(Parallel_Count_Sentences_MPI, Image50x50) {
     int ProcRank, ProcNum;
     MPI_Comm_rank(MPI_COMM_WORLD, &ProcRank);
