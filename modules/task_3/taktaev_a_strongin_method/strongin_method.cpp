@@ -90,7 +90,7 @@ struct Arteboss {
 
     Arteboss() {
         R = 0;
-        T = 0;
+        T = 1;
     }
 };
 
@@ -101,12 +101,12 @@ double Strongin::parStronginSearch() {
     int t = 0;
     double delta = b - a;
     double eps = pow(10, prec);
-    double m = 0;
-    double _m = 0;
+    double m;
+    double _m;
     double xx;
 
     while (delta > eps) {
-        if (n <= proc_num) {
+        if (n < proc_num) {
             for (int i = 1; i < n; i++) {
                 if (proc_rank == i - 1) {
                     _m = (std::abs(z[i] - z[i - 1])) / (x[i] - x[i - 1]);
@@ -127,11 +127,11 @@ double Strongin::parStronginSearch() {
             }
         }
         MPI_Reduce(&_m, &m, 1, MPI_DOUBLE, MPI_MAX, 0, MPI_COMM_WORLD);
-        m = (m == 0 ? 1 : r * m);
         MPI_Bcast(&m, 1, MPI_DOUBLE, 0, MPI_COMM_WORLD);
+        m = (m == 0 ? 1 : r * m);
         Arteboss r_max;
         Arteboss r1;
-        if (n <= proc_num) {
+        if (n < proc_num) {
             for (int i = 1; i < n; i++) {
                 if (proc_rank == i - 1) {
                     r1.R = m * (x[i] - x[i - 1]) + (z[i] - z[i - 1]) * (z[i] - z[i - 1]) / (m * (x[i] - x[i - 1]))
